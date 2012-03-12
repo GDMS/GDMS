@@ -31,7 +31,7 @@
 	</appender>
 	<!-- Logger -->
 	<logger name="im.lich.gdms" level="DEBUG" />
-	<root level="INFO">
+	<root level="WARN">
 		<appender-ref ref="console" />
 		<!-- <appender-ref ref="logfile"/> -->
 	</root>
