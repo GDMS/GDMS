@@ -11,8 +11,13 @@
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
 
-<link href="${ctx}/static/bootstrap/bootstrap.css" rel="stylesheet">
+<link href="${ctx}/static/bootstrap/css/bootstrap.css" rel="stylesheet">
 <link href="${ctx}/static/bootstrap/docs.css" rel="stylesheet">
+
+<script type="text/javascript"
+	src="${ctx}/static/jquery/jquery-1.7.1.js"></script>
+<script type="text/javascript"
+	src="${ctx}/static/bootstrap/js/bootstrap.js"></script>
 
 <sitemesh:write property='head' />
 </head>
