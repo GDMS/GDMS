@@ -1,4 +1,4 @@
-package im.lich.gdms.core.model;
+package im.lich.gdms.core.model.teacher;
 
 import javax.persistence.Entity;
 
