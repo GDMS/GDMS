@@ -55,10 +55,7 @@
 			</div>
 			<!--/span2-->
 			<div class="span9">
-				<div class="row-fluid">
-					<sitemesh:write property='body' />
-				</div>
-				<!--/row-->
+				<sitemesh:write property='body' />
 			</div>
 			<!--/span9-->
 
