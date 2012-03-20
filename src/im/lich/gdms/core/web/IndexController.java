@@ -1,5 +1,9 @@
 package im.lich.gdms.core.web;
 
+import im.lich.gdms.base.web.BaseController;
+import im.lich.gdms.core.model.admin.Paper;
+import im.lich.gdms.core.service.IndexService;
+
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -7,10 +11,6 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import im.lich.gdms.base.web.BaseController;
-import im.lich.gdms.core.model.admin.Paper;
-import im.lich.gdms.core.service.IndexService;
 
 /**
  * LoginController负责打开登录页面(GET请求)和登录出错页面(POST请求)，
@@ -20,17 +20,15 @@ import im.lich.gdms.core.service.IndexService;
  * @author calvin
  */
 @Controller
-@RequestMapping("/index")
 public class IndexController extends BaseController {
 
 	@Resource
 	private IndexService indexService;
 
-	@RequestMapping(value = "")
+	@RequestMapping("/index")
 	public String index(ModelMap modelMap) {
 		List<Paper> papers = indexService.getPapers();
 		modelMap.put("papers", papers);
 		return "index";
 	}
-
 }

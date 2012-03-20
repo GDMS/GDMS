@@ -7,14 +7,15 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import im.lich.gdms.base.model.IdEntity;
+import im.lich.gdms.core.model.generic.User;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Student extends IdEntity {
+public class Student extends IdEntity implements User {
 	private static final long serialVersionUID = -1349146988009388680L;
 
 	@Column(length = 20, nullable = false, unique = true)
-	private String studentno;//学号
+	private String loginName;//学号
 
 	@Column(length = 20, nullable = false)
 	private String name;//姓名
@@ -133,12 +134,12 @@ public class Student extends IdEntity {
 	@Column(length = 250, nullable = false)
 	private String dbpingyu;
 
-	public String getStudentno() {
-		return studentno;
+	public String getLoginName() {
+		return loginName;
 	}
 
-	public void setStudentno(String studentno) {
-		this.studentno = studentno;
+	public void setLoginName(String loginName) {
+		this.loginName = loginName;
 	}
 
 	public String getName() {

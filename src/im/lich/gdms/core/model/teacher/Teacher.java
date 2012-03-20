@@ -1,5 +1,8 @@
 package im.lich.gdms.core.model.teacher;
 
+import im.lich.gdms.base.model.IdEntity;
+import im.lich.gdms.core.model.generic.User;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,15 +14,13 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import im.lich.gdms.base.model.IdEntity;
-
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Teacher extends IdEntity {
+public class Teacher extends IdEntity implements User {
 	private static final long serialVersionUID = 5919308243195296451L;
 
 	@Column(length = 20, nullable = false, unique = true)
-	private String no;//教工号
+	private String loginName;//教工号
 
 	@Column(length = 20, nullable = false)
 	private String name;//姓名
@@ -41,12 +42,12 @@ public class Teacher extends IdEntity {
 
 	private Set<Thesis> thesises = new HashSet<Thesis>();
 
-	public String getNo() {
-		return no;
+	public String getLoginName() {
+		return loginName;
 	}
 
-	public void setNo(String no) {
-		this.no = no;
+	public void setLoginName(String loginName) {
+		this.loginName = loginName;
 	}
 
 	public String getName() {

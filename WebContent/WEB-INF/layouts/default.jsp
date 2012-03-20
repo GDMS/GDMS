@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -23,44 +24,75 @@
 </head>
 
 <body>
-
 	<div class="container">
 		<div id="header" class="jumbotron masthead"
 			style="margin-top: 20px; margin-bottom: 10px;">
 			<h1>毕业设计管理系统</h1>
 			<p>Graduate Design Manage System</p>
+
+			<ul id="menu" class="nav nav-pills">
+				<li><a href="${ctx}/" class="active">首页</a></li>
+				<!-- 登录链接 -->
+				<shiro:guest>
+					<li><a href="${ctx}/student/">学生登录</a></li>
+					<li><a href="${ctx}/teacher/">教师登录</a></li>
+					<li><a href="${ctx}/admin/">管理员登录</a></li>
+				</shiro:guest>
+				<!-- /登录链接 -->
+
+				<shiro:hasAnyRoles name="ROLE_STUDENT">
+					<li class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown" href="#">课程资料 <b class="caret"></b></a>
+						<ul id="course" class="dropdown-menu">
+							<li><a href="${basePath}public/CourseInfo.jsp#fun-nav">课程介绍</a></li>
+							<li><a href="${basePath}public/Course.jsp?loc=0#fun-nav">课程课件</a></li>
+							<li><a href="${basePath}public/Course.jsp?loc=1#fun-nav">历年试题</a></li>
+							<li><a href="${basePath}public/Course.jsp?loc=2#fun-nav">相关文献</a></li>
+						</ul></li>
+				</shiro:hasAnyRoles>
+
+				<shiro:hasAnyRoles name="ROLE_TEACHER">
+					<li class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown" href="#">教师资料<b class="caret"></b>
+					</a>
+						<ul id="teacher" class="dropdown-menu">
+							<li><a href="${basePath}public/ManagerInfo.jsp#fun-nav">课程负责人</a></li>
+							<li><a href="${basePath}public/TeacherInfo.jsp#fun-nav">教师队伍</a></li>
+							<li class="divider"></li>
+							<li><a href="${basePath}teacher/index.jsp#fun-nav">登录</a></li>
+						</ul></li>
+				</shiro:hasAnyRoles>
+
+				<shiro:hasAnyRoles name="ROLE_ADMIN">
+					<li class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown" href="#">学习资料<b class="caret"></b>
+					</a>
+						<ul id="study" class="dropdown-menu">
+							<li><a href="${basePath}student/Homework.jsp#fun-nav">作业公告</a></li>
+							<li class="divider"></li>
+						</ul></li>
+					<li><a href="${basePath}public/About.jsp#fun-nav">关于</a></li>
+				</shiro:hasAnyRoles>
+
+				<!-- 当前登录用户信息 -->
+				<shiro:guest>
+					<li style="float: right;"><a>用户未登录!</a></li>
+				</shiro:guest>
+				<shiro:user>
+					<li style="float: right;"><a href="${ctx}/logout">注销</a></li>
+					<li style="float: right;"><a>当前用户: <shiro:principal /></a></li>
+				</shiro:user>
+				<!-- /当前登录用户信息 -->
+			</ul>
 		</div>
 
-		<hr class="soften" style="margin-top: 10px; margin-bottom: 10px;" />
+
+		<hr class="soften" style="margin-top: 0px; margin-bottom: 0px;" />
 
 		<div class="row">
-			<div class="span2">
-				<div class="well sidebar-nav">
-					<ul class="nav nav-list">
-						<li class="nav-header">菜单</li>
-						<li class="active"><a href="#">Link</a></li>
-						<li><a href="#">Link</a></li>
-						<li><a href="#">Link</a></li>
-						<li><a href="#">Link</a></li>
-						<li class="nav-header">Sidebar</li>
-						<li><a href="#">Link</a></li>
-						<li><a href="#">Link</a></li>
-						<li class="nav-header">Sidebar</li>
-						<li><a href="#">Link</a></li>
-						<li><a href="#">Link</a></li>
-						<li><a href="#">Link</a></li>
-					</ul>
-				</div>
-				<!--/.well -->
-			</div>
-			<!--/span2-->
-			<div class="span9">
+			<div class="span12">
 				<sitemesh:write property='body' />
 			</div>
-			<!--/span9-->
-
-			<!-- span1-->
-			<!--/span1-->
 		</div>
 		<!--/row-->
 
