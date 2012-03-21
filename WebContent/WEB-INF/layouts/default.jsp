@@ -31,14 +31,19 @@
 			<p>Graduate Design Manage System</p>
 
 			<ul id="menu" class="nav nav-pills">
-				<li><a href="${ctx}/" class="active">首页</a></li>
-				<!-- 登录链接 -->
-				<shiro:guest>
-					<li><a href="${ctx}/student/">学生登录</a></li>
-					<li><a href="${ctx}/teacher/">教师登录</a></li>
-					<li><a href="${ctx}/admin/">管理员登录</a></li>
-				</shiro:guest>
-				<!-- /登录链接 -->
+				<li class="active"><a href="${ctx}/">首页</a></li>
+
+				<!-- 主页链接 -->
+				<shiro:hasRole name="ROLE_STUDENT">
+					<li><a href="${ctx}/student/index">学生主页</a></li>
+				</shiro:hasRole>
+				<shiro:hasRole name="ROLE_TEACHER">
+					<li><a href="${ctx}/teacher/index">教师主页</a></li>
+				</shiro:hasRole>
+				<shiro:hasRole name="ROLE_ADMIN">
+					<li><a href="${ctx}/admin/index">管理员主页</a></li>
+				</shiro:hasRole>
+				<!-- /主页链接 -->
 
 				<shiro:hasAnyRoles name="ROLE_STUDENT">
 					<li class="dropdown"><a class="dropdown-toggle"
@@ -74,20 +79,23 @@
 					<li><a href="${basePath}public/About.jsp#fun-nav">关于</a></li>
 				</shiro:hasAnyRoles>
 
-				<!-- 当前登录用户信息 -->
+				<!-- 用户信息、登录注销 -->
 				<shiro:guest>
+					<li style="float: right;"><a href="${ctx}/login"
+						class="btn" style="background-color: #E6E6E6;">登录</a></li>
 					<li style="float: right;"><a>用户未登录!</a></li>
 				</shiro:guest>
 				<shiro:user>
-					<li style="float: right;"><a href="${ctx}/logout">注销</a></li>
+					<li style="float: right;"><a href="${ctx}/logout"
+						class="btn" style="background-color: #E6E6E6;">注销</a></li>
 					<li style="float: right;"><a>当前用户: <shiro:principal /></a></li>
 				</shiro:user>
-				<!-- /当前登录用户信息 -->
+				<!-- /用户信息、登录注销 -->
 			</ul>
 		</div>
 
 
-		<hr class="soften" style="margin-top: 0px; margin-bottom: 0px;" />
+		<hr class="soften" style="margin-top: -10px; margin-bottom: 0px;" />
 
 		<div class="row">
 			<div class="span12">

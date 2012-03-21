@@ -23,8 +23,20 @@
 						test="${pageContext.request.getAttribute('shiroLoginFailure')!=null}">
 						<div class="alert alert-block alert-error">
 							<a class="close" data-dismiss="alert" href="#">×</a>
-							<h4 class="alert-heading">错误!</h4>
-							<p>登录失败，请重试.</p>
+							<c:choose>
+								<c:when
+									test="${pageContext.request.getAttribute('shiroLoginFailure').toString()=='org.apache.shiro.authc.UnknownAccountException'}">
+									<h4 class="alert-heading">用户不存在!</h4>
+								</c:when>
+								<c:when
+									test="${pageContext.request.getAttribute('shiroLoginFailure').toString()=='org.apache.shiro.authc.IncorrectCredentialsException'}">
+									<h4 class="alert-heading">用户名、密码错误!</h4>
+								</c:when>
+								<c:otherwise>
+									<h4 class="alert-heading">其他错误!</h4>
+								</c:otherwise>
+							</c:choose>
+							<p class="alert-heading">登录失败，请重试!</p>
 						</div>
 					</c:if>
 
@@ -58,7 +70,7 @@
 						<div class="control-group">
 							<label class="control-label">类型:</label>
 							<div class="controls">
-								<select id="role" name="role">
+								<select id="roleType" name="roleType">
 									<option value="student">学生</option>
 									<option value="teacher">教师</option>
 									<option value="admin">管理员</option>
