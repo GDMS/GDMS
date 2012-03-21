@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 /**
  * 安全相关实体的管理类,包括用户和权限组.
@@ -31,38 +32,51 @@ public class AccountManager extends BaseServiceImpl {
 	@Resource
 	private StudentDao studentDao;
 
-	public User findUserByLoginName(String loginName) {
+	public User findUserByLoginName(String loginName, String roleType) {
+		Assert.notNull(roleType);
+
+		User user = null;
+
 		//Admin中查询
-		User user = administratorDao.findByLoginName(loginName);
+		if (roleType.equals("admin"))
+			user = administratorDao.findByLoginName(loginName);
 
 		//Teacher中查询
-		if (user == null)
+		if (roleType.equals("teacher"))
 			user = teacherDao.findByLoginName(loginName);
 
 		//Student中查询
-		if (user == null)
+		if (roleType.equals("student"))
 			user = studentDao.findByLoginName(loginName);
 
 		return user;
 	}
 
-	public String findRoleByUser(String loginName) {
+	public String findRoleByUser(String loginName, String roleType) {
+		Assert.notNull(roleType);
+
 		User user = null;
 
 		//Admin中查询
-		user = administratorDao.findByLoginName(loginName);
-		if (user != null)
-			return "ROLE_ADMIN";
+		if (roleType.equals("admin")) {
+			user = administratorDao.findByLoginName(loginName);
+			if (user != null)
+				return "ROLE_ADMIN";
+		}
 
 		//Teacher中查询
-		user = teacherDao.findByLoginName(loginName);
-		if (user != null)
-			return "ROLE_TEACHER";
+		if (roleType.equals("teacher")) {
+			user = teacherDao.findByLoginName(loginName);
+			if (user != null)
+				return "ROLE_TEACHER";
+		}
 
 		//Student中查询
-		user = teacherDao.findByLoginName(loginName);
-		if (user != null)
-			return "ROLE_STUDENT";
+		if (roleType.equals("student")) {
+			user = teacherDao.findByLoginName(loginName);
+			if (user != null)
+				return "ROLE_STUDENT";
+		}
 
 		return null;
 	}

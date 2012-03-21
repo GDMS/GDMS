@@ -1,45 +1,46 @@
 package im.lich.gdms.core.security;
 
-import im.lich.gdms.core.model.generic.User;
-
 import java.io.Serializable;
 
 import javax.annotation.Resource;
+
+import im.lich.gdms.core.model.generic.User;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
-import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 自实现用户与权限查询.
  * 演示关系，密码用明文存储，因此使用默认 的SimpleCredentialsMatcher.
  */
 public class ShiroDbRealm extends AuthorizingRealm {
-
-	private AccountManager accountManager;
+	protected Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Resource
-	public void setAccountManager(AccountManager accountManager) {
-		this.accountManager = accountManager;
-	}
+	private AccountManager accountManager;
 
 	/**
 	 * 认证回调函数, 登录时调用.
 	 */
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
-		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
-		User user = accountManager.findUserByLoginName(token.getUsername());
+		UsernamePasswordRoleTypeToken token = (UsernamePasswordRoleTypeToken) authcToken;
+		String roleType = token.getRoleType();
+		logger.debug("登录用户RoleType: {}", roleType);
+
+		User user = accountManager.findUserByLoginName(token.getUsername(), roleType);
 		if (user != null) {
-			return new SimpleAuthenticationInfo(new ShiroUser(user.getLoginName(), user.getName()), user.getPassword(),
-					getName());
+			ShiroUser u = new ShiroUser(user.getLoginName(), user.getName(), roleType);
+			return new SimpleAuthenticationInfo(u, user.getPassword(), getName());
 		} else {
 			return null;
 		}
@@ -49,11 +50,16 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	 * 授权查询回调函数, 进行鉴权但缓存中无用户的授权信息时调用.
 	 */
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+		if (principals.fromRealm(getName()).isEmpty()) {
+			logger.warn("用户认证后无法获取该用户");
+			return null;
+		}
 		ShiroUser shiroUser = (ShiroUser) principals.fromRealm(getName()).iterator().next();
-		User user = accountManager.findUserByLoginName(shiroUser.getLoginName());
+		String roleType = shiroUser.getRoleType();
+		User user = accountManager.findUserByLoginName(shiroUser.getLoginName(), roleType);
 		if (user != null) {
 			SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-			String role = accountManager.findRoleByUser(user.getLoginName());
+			String role = accountManager.findRoleByUser(user.getLoginName(), roleType);
 			//基于Role的权限信息
 			info.addRole(role);
 			return info;
@@ -87,12 +93,14 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	public static class ShiroUser implements Serializable {
 
 		private static final long serialVersionUID = -1748602382963711884L;
-		private String loginName;
-		private String name;
+		private final String loginName;
+		private final String name;
+		private final String roleType;
 
-		public ShiroUser(String loginName, String name) {
+		public ShiroUser(String loginName, String name, String roleType) {
 			this.loginName = loginName;
 			this.name = name;
+			this.roleType = roleType;
 		}
 
 		public String getLoginName() {
@@ -103,12 +111,18 @@ public class ShiroDbRealm extends AuthorizingRealm {
 			return name;
 		}
 
+		public String getRoleType() {
+			return roleType;
+		}
+
 		/**
 		 * 本函数输出将作为默认的<shiro:principal/>输出.
 		 */
 		@Override
 		public String toString() {
-			return name + " (" + loginName + ")";
+			return loginName;
 		}
+
 	}
+
 }
