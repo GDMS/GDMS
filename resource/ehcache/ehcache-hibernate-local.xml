@@ -5,9 +5,49 @@
 
 	<diskStore path="java.io.tmpdir/im.lich.gdms/cache" />
 
-	<defaultCache maxElementsInMemory="10000" eternal="false"
-		timeToIdleSeconds="7200" timeToLiveSeconds="7200" overflowToDisk="true"
-		diskSpoolBufferSizeMB="30" maxElementsOnDisk="10000000"
-		diskPersistent="false" diskExpiryThreadIntervalSeconds="120"
-		memoryStoreEvictionPolicy="LRU" statistics="false" />
+	<!-- DefaultCache setting. -->
+	<defaultCache maxElementsInMemory="10000"
+		memoryStoreEvictionPolicy="LRU" eternal="false" timeToIdleSeconds="300"
+		timeToLiveSeconds="300" overflowToDisk="false" diskPersistent="false" />
+
+	<!-- Special objects setting. -->
+	<cache name="im.lich.gdms.core.model.admin.Administrator"
+		maxElementsInMemory="10000" memoryStoreEvictionPolicy="LRU" eternal="true"
+		diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
+	<cache name="im.lich.gdms.core.model.admin.News"
+		maxElementsInMemory="10000" memoryStoreEvictionPolicy="LRU" eternal="true"
+		diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
+	<cache name="im.lich.gdms.core.model.admin.Paper"
+		maxElementsInMemory="10000" memoryStoreEvictionPolicy="LRU" eternal="true"
+		diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
+	<cache name="im.lich.gdms.core.model.admin.SysProperty"
+		maxElementsInMemory="10000" memoryStoreEvictionPolicy="LRU" eternal="true"
+		diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
+
+	<cache name="im.lich.gdms.core.model.student.Preview"
+		maxElementsInMemory="10000" memoryStoreEvictionPolicy="LRU" eternal="true"
+		diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
+	<cache name="im.lich.gdms.core.model.student.Student"
+		maxElementsInMemory="10000" memoryStoreEvictionPolicy="LRU" eternal="true"
+		diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
+	<cache name="im.lich.gdms.core.model.student.StudentMajor"
+		maxElementsInMemory="10000" memoryStoreEvictionPolicy="LRU" eternal="true"
+		diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
+
+	<cache name="im.lich.gdms.core.model.teacher.CommentTemple"
+		maxElementsInMemory="10000" memoryStoreEvictionPolicy="LRU" eternal="true"
+		diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
+	<cache name="im.lich.gdms.core.model.teacher.DabianTeacher"
+		maxElementsInMemory="10000" memoryStoreEvictionPolicy="LRU" eternal="true"
+		diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
+	<cache name="im.lich.gdms.core.model.teacher.Teacher"
+		maxElementsInMemory="10000" memoryStoreEvictionPolicy="LRU" eternal="true"
+		diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
+	<cache name="im.lich.gdms.core.model.teacher.TeacherDept"
+		maxElementsInMemory="10000" memoryStoreEvictionPolicy="LRU" eternal="true"
+		diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
+	<cache name="im.lich.gdms.core.model.teacher.Thesis"
+		maxElementsInMemory="10000" memoryStoreEvictionPolicy="LRU" eternal="true"
+		diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
+
 </ehcache>

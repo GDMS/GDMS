@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
+<%@ taglib prefix="sitemesh"
+	uri="http://www.opensymphony.com/sitemesh/decorator"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
@@ -6,7 +8,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>GDMS: <sitemesh:write property='title' /></title>
+<title>GDMS: <sitemesh:title /></title>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta http-equiv="Cache-Control" content="no-store" />
 <meta http-equiv="Pragma" content="no-cache" />
@@ -20,7 +22,7 @@
 <script type="text/javascript"
 	src="${ctx}/static/bootstrap/js/bootstrap.js"></script>
 
-<sitemesh:write property='head' />
+<sitemesh:head />
 </head>
 
 <body>
@@ -81,13 +83,13 @@
 
 				<!-- 用户信息、登录注销 -->
 				<shiro:guest>
-					<li style="float: right;"><a href="${ctx}/login"
-						class="btn" style="background-color: #E6E6E6;">登录</a></li>
+					<li style="float: right;"><a href="${ctx}/login" class="btn"
+						style="background-color: #E6E6E6;">登录</a></li>
 					<li style="float: right;"><a>用户未登录!</a></li>
 				</shiro:guest>
 				<shiro:user>
-					<li style="float: right;"><a href="${ctx}/logout"
-						class="btn" style="background-color: #E6E6E6;">注销</a></li>
+					<li style="float: right;"><a href="${ctx}/logout" class="btn"
+						style="background-color: #E6E6E6;">注销</a></li>
 					<li style="float: right;"><a>当前用户: <shiro:principal /></a></li>
 				</shiro:user>
 				<!-- /用户信息、登录注销 -->
@@ -99,7 +101,7 @@
 
 		<div class="row">
 			<div class="span12">
-				<sitemesh:write property='body' />
+				<sitemesh:body />
 			</div>
 		</div>
 		<!--/row-->
