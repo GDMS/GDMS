@@ -35,11 +35,10 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
 		UsernamePasswordRoleTypeToken token = (UsernamePasswordRoleTypeToken) authcToken;
 		String roleType = token.getRoleType();
-		logger.debug("登录用户RoleType: {}", roleType);
-
 		User user = accountManager.findUserByLoginName(token.getUsername(), roleType);
 		if (user != null) {
 			ShiroUser u = new ShiroUser(user.getLoginName(), user.getName(), roleType);
+			logger.debug("登录用户：{}，RoleType：{}", user.getLoginName(), roleType);
 			return new SimpleAuthenticationInfo(u, user.getPassword(), getName());
 		} else {
 			return null;
@@ -62,6 +61,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 			String role = accountManager.findRoleByUser(user.getLoginName(), roleType);
 			//基于Role的权限信息
 			info.addRole(role);
+			logger.debug("登录用户：{}，拥有角色：{}", user.getLoginName(), role);
 			return info;
 		}
 		return null;

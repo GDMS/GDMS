@@ -56,28 +56,30 @@ public class AccountManager extends BaseServiceImpl {
 		Assert.notNull(roleType);
 
 		User user = null;
+		String role = null;
 
 		//Admin中查询
 		if (roleType.equals("admin")) {
 			user = administratorDao.findByLoginName(loginName);
 			if (user != null)
-				return "ROLE_ADMIN";
+				role = "ROLE_ADMIN";
 		}
 
 		//Teacher中查询
 		if (roleType.equals("teacher")) {
 			user = teacherDao.findByLoginName(loginName);
 			if (user != null)
-				return "ROLE_TEACHER";
+				role = "ROLE_TEACHER";
 		}
 
 		//Student中查询
 		if (roleType.equals("student")) {
-			user = teacherDao.findByLoginName(loginName);
+			user = studentDao.findByLoginName(loginName);
 			if (user != null)
-				return "ROLE_STUDENT";
+				role = "ROLE_STUDENT";
 		}
 
-		return null;
+		Assert.notNull(role);
+		return role;
 	}
 }
