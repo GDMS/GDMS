@@ -8,5 +8,12 @@
 </head>
 <body>
 	<h1>TEACHER</h1>
+
+	<!-- Javascript -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#li-teacher_index').addClass('active');
+		});
+	</script>
 </body>
 </html>

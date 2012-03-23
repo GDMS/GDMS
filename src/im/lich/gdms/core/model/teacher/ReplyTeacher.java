@@ -9,7 +9,7 @@ import im.lich.gdms.base.model.IdEntity;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class DabianTeacher extends IdEntity {
+public class ReplyTeacher extends IdEntity {
 	private static final long serialVersionUID = -6626250567951247734L;
 
 	private String teacher_id;//答辩老师id

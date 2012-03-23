@@ -8,5 +8,12 @@
 </head>
 <body>
 	<h1>ADMIN</h1>
+
+	<!-- Javascript -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#li-admin_index').addClass('active');
+		});
+	</script>
 </body>
 </html>

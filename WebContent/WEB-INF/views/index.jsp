@@ -44,5 +44,12 @@
 		<li><p>计算机学院计算机学院计算机学院计算机学院计算机学院计算机学院计算机学院</p>
 			<p>aaaaaa</p></li>
 	</ul>
+
+	<!-- Javascript -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#li-index').addClass('active');
+		});
+	</script>
 </body>
 </html>
