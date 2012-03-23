@@ -18,6 +18,7 @@
 	<mvc:view-controller path="/" view-name="redirect:/index" />
 
 	<mvc:resources mapping="/static/**" location="/static/" />
+	<mvc:resources mapping="/file/**" location="/file/" />
 
 	<mvc:default-servlet-handler />
 
