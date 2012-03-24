@@ -1,9 +1,9 @@
-package im.lich.gdms.core.service.impl;
+package im.lich.gdms.core.service.root.impl;
 
 import im.lich.gdms.base.service.BaseServiceImpl;
 import im.lich.gdms.core.dao.admin.PaperDao;
 import im.lich.gdms.core.model.admin.Paper;
-import im.lich.gdms.core.service.IndexService;
+import im.lich.gdms.core.service.root.IndexService;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package im.lich.gdms.core.web;
+package im.lich.gdms.core.web.root;
 
 import im.lich.gdms.base.web.BaseController;
 

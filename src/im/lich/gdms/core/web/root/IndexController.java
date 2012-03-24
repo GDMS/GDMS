@@ -1,8 +1,8 @@
-package im.lich.gdms.core.web;
+package im.lich.gdms.core.web.root;
 
 import im.lich.gdms.base.web.BaseController;
 import im.lich.gdms.core.model.admin.Paper;
-import im.lich.gdms.core.service.IndexService;
+import im.lich.gdms.core.service.root.IndexService;
 
 import java.util.List;
 

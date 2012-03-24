@@ -1,4 +1,4 @@
-package im.lich.gdms.core.service;
+package im.lich.gdms.core.service.root;
 
 import im.lich.gdms.core.model.admin.Paper;
 
