@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import im.lich.gdms.base.web.BaseController;
 
 @Controller
-@RequestMapping("/student/")
+@RequestMapping("/student")
 public class StudentIndexController extends BaseController {
 
-	@RequestMapping(value = { "", "index" })
+	@RequestMapping(value = { "/", "/index" })
 	public String index(ModelMap modelMap) {
 		return "student/index";
 	}
