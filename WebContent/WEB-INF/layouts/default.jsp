@@ -102,7 +102,7 @@
 							<li><a href="${ctx}/teacher/printManage">打印管理</a></li>
 						</ul></li>
 
-					<li id="li-student_score" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">成绩管理<b
+					<li id="li-teacher_score" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">成绩管理<b
 							class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="${ctx}/teacher/midternCheck">中期检查</a></li>
