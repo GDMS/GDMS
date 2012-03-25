@@ -35,12 +35,6 @@
 				/admin/** = roles["ROLE_ADMIN"]
 				/teacher/** = roles["ROLE_TEACHER"]
 				/student/** = roles["ROLE_STUDENT"]
-				/account/user/save/** = perms["user:edit"]
-				/account/user/delete/** = perms["user:edit"]
-				/account/user/** = perms["user:view"]
-				/account/group/save/** = perms["group:edit"]
-				/account/group/delete/** = perms["group:edit"]
-				/account/group/** = perms["group:view"]
 			</value>
 		</property>
 	</bean>
@@ -53,15 +47,5 @@
 
 	<!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
-
-	<!-- AOP式方法级权限检查 -->
-	<bean
-		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
-		depends-on="lifecycleBeanPostProcessor" />
-
-	<bean
-		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
-		<property name="securityManager" ref="securityManager" />
-	</bean>
 
 </beans>
