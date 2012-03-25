@@ -39,7 +39,7 @@ public class Student extends IdEntity implements User {
 	private String major;//专业班级
 
 	@Column(length = 20, nullable = false, unique = true)
-	private String thesis_id;//选中课题id
+	private Long thesisId;//选中课题id
 
 	@Column(length = 20, nullable = false)
 	private String assign;//分配状态
@@ -198,12 +198,12 @@ public class Student extends IdEntity implements User {
 		this.major = major;
 	}
 
-	public String getThesis_id() {
-		return thesis_id;
+	public Long getThesisId() {
+		return thesisId;
 	}
 
-	public void setThesis_id(String thesis_id) {
-		this.thesis_id = thesis_id;
+	public void setThesisId(Long thesisId) {
+		this.thesisId = thesisId;
 	}
 
 	public String getAssign() {

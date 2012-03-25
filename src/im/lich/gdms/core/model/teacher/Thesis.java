@@ -16,7 +16,7 @@ public class Thesis extends IdEntity {
 	private static final long serialVersionUID = 2084180035575935501L;
 
 	@Column(length = 50, nullable = false)
-	private String name;//专业、班级名称
+	private String name;//课题名称
 
 	@Column(length = 20, nullable = false)
 	private String type;//类型
