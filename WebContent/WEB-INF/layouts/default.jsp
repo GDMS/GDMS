@@ -149,7 +149,7 @@
 			</ul>
 		</div>
 
-		<hr class="soften" style="margin-top: -10px; margin-bottom: 0px;" />
+		<hr class="soften" style="margin-top: -15px; margin-bottom: 10px;" />
 
 		<div class="row">
 			<div class="span12">
