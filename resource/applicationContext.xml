@@ -43,7 +43,7 @@
 		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
 
 	<!-- Spring Data Jpa配置 -->
-	<jpa:repositories base-package="im.lich.gdms"
+	<jpa:repositories base-package="im.lich.gdms.core.dao"
 		transaction-manager-ref="transactionManager"
 		entity-manager-factory-ref="entityManagerFactory" />
 
