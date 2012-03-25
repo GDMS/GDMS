@@ -29,48 +29,71 @@
 			</c:if>
 
 			<form:form id="info" modelAttribute="student" method="post" cssClass="form-horizontal">
+				<!-- ID -->
+				<form:hidden path="id" />
+
 				<div class="control-group">
 					<label class="control-label">学号:</label>
 					<div class="controls">
 						<span type="text" id="loginName" name="loginName" class="input-xlarge uneditable-input">${student.loginName}</span>
 					</div>
 				</div>
+
 				<div class="control-group">
 					<label class="control-label">密码:</label>
 					<div class="controls">
-						<input type="password" id="password" name="password" class="input-xlarge" />
+						<form:password path="password" cssClass="input-xlarge" />
 						<p class="help-block">不修改，请留空</p>
 					</div>
 				</div>
+				<div class="control-group">
+					<label class="control-label">确认密码:</label>
+					<div class="controls">
+						<input type="password" id="rePassword" name="rePassword" class="input-xlarge">
+						<p class="help-block">不修改，请留空</p>
+						<div id="password_error" class="alert alert-block alert-error" style="display: none;">
+							<p>密码输入不一致，请重新输入</p>
+						</div>
+					</div>
+				</div>
+
 
 				<div class="control-group">
 					<label class="control-label">姓名:</label>
 					<div class="controls">
-						<input type="text" id="name" name="name" value="${student.name}" class="input-xlarge" />
+						<form:input path="name" cssClass="input-xlarge" />
 					</div>
 				</div>
+
 				<div class="control-group">
 					<label class="control-label">性别:</label>
 					<div class="controls">
-						<input type="text" id="gender" name="gender" value="${student.gender}" class="input-xlarge" />
+						<form:select path="gender" cssClass="input-xlarge">
+							<form:option value="男">男</form:option>
+							<form:option value="女">女</form:option>
+						</form:select>
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label">电话:</label>
 					<div class="controls">
-						<input type="text" id="phone" name="phone" value="${student.phone}" class="input-xlarge" />
+						<form:input path="phone" cssClass="input-xlarge" />
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label">邮箱:</label>
 					<div class="controls">
-						<input type="text" id="email" name="email" value="${student.email}" class="input-xlarge" />
+						<form:input path="email" cssClass="input-xlarge" />
 					</div>
 				</div>
 
 				<div class="control-group">
 					<label class="control-label">专业班级:</label>
-					<div class="controls"></div>
+					<div class="controls">
+						<form:select path="major" cssClass="input-xlarge">
+							<form:options items="${majors}" itemLabel="name" itemValue="name" />
+						</form:select>
+					</div>
 				</div>
 
 				<div class="form-actions">
@@ -85,6 +108,14 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('#li-student_info').addClass('active');
+			//校验两次密码
+			$('#rePassword').keyup(function() {
+				if ($('#rePassword').val() != $('#password').val())
+					$('#password_error').show();
+				else
+					$('#password_error').hide();
+			});
+
 		});
 	</script>
 </body>
