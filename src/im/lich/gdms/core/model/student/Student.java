@@ -57,16 +57,16 @@ public class Student extends IdEntity implements User {
 	private String thesisup;//论文
 
 	@Column(length = 250, nullable = false)
-	private String progress;
+	private String progress;//工作进度
 
 	@Column(length = 250, nullable = false)
-	private String quality;
+	private String quality;//质量
 
 	@Column(length = 250, nullable = false)
-	private String attitude;
+	private String attitude;//工作态度
 
 	@Column(length = 250, nullable = false)
-	private String duty;
+	private String duty;//出勤情况
 
 	@Column(length = 250, nullable = false)
 	private String remark;
