@@ -11,7 +11,7 @@
 <body>
 	<div class="row">
 		<div class="span6 offset3">
-			<h1>&nbsp</h1>
+			<p>&nbsp;</p>
 			<!-- DEFAULT_ERROR_KEY_ATTRIBUTE_NAME = "shiroLoginFailure" -->
 			<c:if test="${pageContext.request.getAttribute('shiroLoginFailure')!=null}">
 				<div class="alert alert-block alert-error">
