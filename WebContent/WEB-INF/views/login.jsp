@@ -29,7 +29,7 @@
 							<h4 class="alert-heading">其他错误!</h4>
 						</c:otherwise>
 					</c:choose>
-					<p class="alert-heading">登录失败，请重试!</p>
+					<p>登录失败，请重试!</p>
 				</div>
 			</c:if>
 
