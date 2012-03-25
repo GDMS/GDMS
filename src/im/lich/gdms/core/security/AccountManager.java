@@ -1,9 +1,14 @@
 package im.lich.gdms.core.security;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import im.lich.gdms.base.service.BaseServiceImpl;
 import im.lich.gdms.core.dao.admin.AdministratorDao;
+import im.lich.gdms.core.dao.admin.SysPropertyDao;
 import im.lich.gdms.core.dao.student.StudentDao;
 import im.lich.gdms.core.dao.teacher.TeacherDao;
+import im.lich.gdms.core.model.admin.SysProperty;
 import im.lich.gdms.core.model.generic.User;
 
 import javax.annotation.Resource;
@@ -31,6 +36,9 @@ public class AccountManager extends BaseServiceImpl {
 
 	@Resource
 	private StudentDao studentDao;
+
+	@Resource
+	private SysPropertyDao sysPropertyDao;
 
 	public User findUserByLoginName(String loginName, String roleType) {
 		Assert.notNull(roleType);
@@ -81,5 +89,36 @@ public class AccountManager extends BaseServiceImpl {
 
 		Assert.notNull(role);
 		return role;
+	}
+
+	public List<String> findPermissionsByUser(String roleType) {
+		Assert.notNull(roleType);
+
+		List<SysProperty> props = null;
+		List<String> perms = new ArrayList<String>();
+
+		//Admin中查询
+		if (roleType.equals("admin"))
+			props = sysPropertyDao.findByPropKeyLike("admin:%");
+
+		//Teacher中查询
+		if (roleType.equals("teacher"))
+			props = sysPropertyDao.findByPropKeyLike("teacher:%");
+
+		//Student中查询
+		if (roleType.equals("student"))
+			props = sysPropertyDao.findByPropKeyLike("student:%");
+
+		logger.debug("查询{}类型的权限总数量：{}", roleType, props.size());
+
+		for (SysProperty p : props) {
+			Assert.isTrue(p.getType().equals("boolean"), "Shiro权限类型不正确");
+			if (p.getPropVal().equals("true"))
+				perms.add(p.getPropKey());
+		}
+
+		logger.debug("查询{}类型的权限总数量：{}", roleType, perms.size());
+
+		return perms;
 	}
 }

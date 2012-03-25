@@ -1,11 +1,13 @@
 package im.lich.gdms.core.security;
 
+import im.lich.gdms.core.model.generic.User;
+
 import java.io.Serializable;
+import java.util.List;
 
 import javax.annotation.Resource;
 
-import im.lich.gdms.core.model.generic.User;
-
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -58,10 +60,13 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		User user = accountManager.findUserByLoginName(shiroUser.getLoginName(), roleType);
 		if (user != null) {
 			SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+			//添加角色
 			String role = accountManager.findRoleByUser(user.getLoginName(), roleType);
-			//基于Role的权限信息
 			info.addRole(role);
 			logger.debug("登录用户：{}，拥有角色：{}", user.getLoginName(), role);
+			//添加权限
+			List<String> permissions = accountManager.findPermissionsByUser(roleType);
+			logger.debug("登录用户：{}，拥有权限：{}", user.getLoginName(), StringUtils.join(permissions, ','));
 			return info;
 		}
 		return null;

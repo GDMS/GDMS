@@ -19,6 +19,9 @@ public class SysProperty extends IdEntity {
 	@Column(length = 50, nullable = false)
 	private String propVal;//数值
 
+	@Column(length = 50, nullable = false)
+	private String type;
+
 	@Column(length = 250, nullable = false)
 	private String description;//字段描述
 
@@ -36,6 +39,14 @@ public class SysProperty extends IdEntity {
 
 	public void setPropVal(String propVal) {
 		this.propVal = propVal;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public String getDescription() {
