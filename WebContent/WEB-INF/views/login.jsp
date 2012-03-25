@@ -13,16 +13,14 @@
 		<div class="span6 offset3">
 			<p>&nbsp;</p>
 			<!-- DEFAULT_ERROR_KEY_ATTRIBUTE_NAME = "shiroLoginFailure" -->
-			<c:if test="${pageContext.request.getAttribute('shiroLoginFailure')!=null}">
+			<c:if test="${shiroLoginFailure!=null}">
 				<div class="alert alert-block alert-error">
 					<a class="close" data-dismiss="alert" href="#">×</a>
 					<c:choose>
-						<c:when
-							test="${pageContext.request.getAttribute('shiroLoginFailure').toString()=='org.apache.shiro.authc.UnknownAccountException'}">
+						<c:when test="${shiroLoginFailure=='org.apache.shiro.authc.UnknownAccountException'}">
 							<h4 class="alert-heading">用户不存在!</h4>
 						</c:when>
-						<c:when
-							test="${pageContext.request.getAttribute('shiroLoginFailure').toString()=='org.apache.shiro.authc.IncorrectCredentialsException'}">
+						<c:when test="${shiroLoginFailure=='org.apache.shiro.authc.IncorrectCredentialsException'}">
 							<h4 class="alert-heading">用户名、密码错误!</h4>
 						</c:when>
 						<c:otherwise>
@@ -33,7 +31,7 @@
 				</div>
 			</c:if>
 
-			<c:if test="${pageContext.request.getParameter('unauthorized')!=null}">
+			<c:if test="${param.unauthorized!=null}">
 				<div class="alert alert-block">
 					<a class="close" data-dismiss="alert" href="#">×</a>
 					<h4 class="alert-heading">提示!</h4>
