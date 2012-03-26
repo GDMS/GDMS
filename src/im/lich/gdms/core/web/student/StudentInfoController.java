@@ -10,6 +10,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ public class StudentInfoController extends BaseController {
 	@Resource
 	private StudentInfoService studentInfoService;
 
+	@RequiresPermissions("student:info:show")
 	@RequestMapping(value = "/info")
 	public String showInfo(Model model) {
 		logger.debug("GET-showInfo");
@@ -37,8 +39,9 @@ public class StudentInfoController extends BaseController {
 		return "student/info";
 	}
 
+	@RequiresPermissions("student:info:mod")
 	@RequestMapping(value = "/info", method = RequestMethod.POST)
-	public String postInfo(Student student, Model model) {
+	public String modInfo(Student student, Model model) {
 		logger.debug("POST-postInfo");
 
 		logger.debug("网页获取信息：{}", student);

@@ -8,7 +8,6 @@ import im.lich.gdms.core.model.teacher.Teacher;
 import im.lich.gdms.core.model.teacher.Thesis;
 import im.lich.gdms.core.service.teacher.TeacherMidternCheckService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -47,7 +46,7 @@ public class TeacherMidternCheckServiceImpl extends BaseServiceImpl implements T
 			return null;
 		}
 
-		List<Student> students = new ArrayList<Student>();
+		List<Student> students = Lists.newArrayList();
 		for (Thesis t : thesises) {
 			Student s = studentDao.findByThesisId(t.getId());
 			if (s != null)
@@ -77,6 +76,7 @@ public class TeacherMidternCheckServiceImpl extends BaseServiceImpl implements T
 
 		//获取内部学生
 		Student _s = studentDao.findByLoginName(s.getLoginName());
+		Assert.notNull(_s);
 
 		_s.setProgress(s.getProgress());
 		_s.setQuality(s.getQuality());
@@ -95,6 +95,7 @@ public class TeacherMidternCheckServiceImpl extends BaseServiceImpl implements T
 
 		//获取内部学生
 		Student _s = studentDao.findByLoginName(studentLoginName);
+		Assert.notNull(_s);
 
 		_s.setWarn("");
 

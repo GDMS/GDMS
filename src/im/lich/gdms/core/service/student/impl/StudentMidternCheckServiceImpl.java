@@ -22,7 +22,10 @@ public class StudentMidternCheckServiceImpl extends BaseServiceImpl implements S
 	public String getMidternCheckWarn(String loginName) {
 		Assert.notNull(loginName);
 
-		String warn = studentDao.findByLoginName(loginName).getWarn();
+		Student student = studentDao.findByLoginName(loginName);
+		Assert.notNull(student);
+
+		String warn = student.getWarn();
 		logger.debug("学生：{}，中期检查警告信息：{}", loginName, warn);
 
 		return warn;

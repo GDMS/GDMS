@@ -31,6 +31,8 @@ public class TeacherInfoServiceImpl extends BaseServiceImpl implements TeacherIn
 		Assert.notNull(loginName);
 
 		Teacher teacher = teacherDao.findByLoginName(loginName);
+		Assert.notNull(teacher);
+
 		logger.debug("查询教师信息：{}", teacher);
 
 		return teacher;
@@ -46,6 +48,7 @@ public class TeacherInfoServiceImpl extends BaseServiceImpl implements TeacherIn
 
 		//获取内部学生
 		Teacher _t = teacherDao.findByLoginName(t.getLoginName());
+		Assert.notNull(_t);
 
 		//判断是否需要修改密码
 		String pass = t.getPassword();

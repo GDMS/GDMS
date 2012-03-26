@@ -31,6 +31,8 @@ public class StudentInfoServiceImpl extends BaseServiceImpl implements StudentIn
 		Assert.notNull(loginName);
 
 		Student student = studentDao.findByLoginName(loginName);
+		Assert.notNull(student);
+
 		logger.debug("查询学生信息：{}", student);
 		return student;
 	}
@@ -45,6 +47,7 @@ public class StudentInfoServiceImpl extends BaseServiceImpl implements StudentIn
 
 		//获取内部学生
 		Student _s = studentDao.findByLoginName(s.getLoginName());
+		Assert.notNull(_s);
 
 		//判断是否需要修改密码
 		String pass = s.getPassword();
