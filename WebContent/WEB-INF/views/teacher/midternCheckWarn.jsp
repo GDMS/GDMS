@@ -75,8 +75,16 @@
 					</div>
 				</div>
 
+				<div class="control-group">
+					<label class="control-label">警告内容:</label>
+					<div class="controls">
+						<form:input path="warn" size="20" cssClass="input-xlarge" />
+					</div>
+				</div>
+
 				<div class="form-actions">
-					<input type="submit" class="btn btn-primary" value="修改" /> <input type="reset" class="btn" value="取消" />
+					<input type="submit" class="btn btn-primary" value="提交" /> <input type="reset" class="btn" value="取消" /> <a
+						href="${ctx}/teacher/midternCheck" class="btn btn-inverse">返回</a>
 				</div>
 
 			</form:form>
@@ -86,7 +94,7 @@
 	<!-- Javascript -->
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$('#li-student_score').addClass('active');
+			$('#li-teacher_score').addClass('active');
 		});
 	</script>
 </body>
