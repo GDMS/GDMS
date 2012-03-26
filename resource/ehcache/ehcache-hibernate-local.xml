@@ -37,7 +37,10 @@
 	<cache name="im.lich.gdms.core.model.teacher.CommentTemple"
 		maxElementsInMemory="10000" memoryStoreEvictionPolicy="LRU" eternal="true"
 		diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
-	<cache name="im.lich.gdms.core.model.teacher.ReplyRelRecord"
+	<cache name="im.lich.gdms.core.model.teacher.RemarkRecord"
+		maxElementsInMemory="10000" memoryStoreEvictionPolicy="LRU" eternal="true"
+		diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
+	<cache name="im.lich.gdms.core.model.teacher.ReplyRecord"
 		maxElementsInMemory="10000" memoryStoreEvictionPolicy="LRU" eternal="true"
 		diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
 	<cache name="im.lich.gdms.core.model.teacher.Teacher"

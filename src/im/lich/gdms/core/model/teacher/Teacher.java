@@ -10,38 +10,50 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
+@Table
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Teacher extends IdEntity implements User {
 	private static final long serialVersionUID = 5919308243195296451L;
 
-	@Column(length = 20, nullable = false, unique = true)
 	private String loginName;//教工号
+	private String name = "";//姓名
+	private String password = "0";//密码
+	private String dept = "";//部门
+	private Integer subnum = 0;//可指导学生数、课题数
+	private String tel = "";//电话
+	private String mail = "";//邮箱
+	private Set<Thesis> thesises = new HashSet<Thesis>();//教师的课题
 
-	@Column(length = 20, nullable = false)
-	private String name;//姓名
+	public Teacher(String loginName) {
+		super();
+		this.loginName = loginName;
+	}
 
-	@Column(length = 50, nullable = false)
-	private String password;//密码
+	public Teacher(String loginName, String name, String password) {
+		super();
+		this.loginName = loginName;
+		this.name = name;
+		this.password = password;
+	}
 
-	@Column(length = 50, nullable = false)
-	private String dept;//部门
+	public Teacher(String loginName, String name, String password, String dept, Integer subnum, String tel, String mail) {
+		super();
+		this.loginName = loginName;
+		this.name = name;
+		this.password = password;
+		this.dept = dept;
+		this.subnum = subnum;
+		this.tel = tel;
+		this.mail = mail;
+	}
 
-	@Column(nullable = false)
-	private Integer subnum;//可指导学生数、课题数
-
-	@Column(length = 50, nullable = false)
-	private String tel;//电话
-
-	@Column(length = 250, nullable = false)
-	private String mail;//邮箱
-
-	private Set<Thesis> thesises = new HashSet<Thesis>();
-
+	@Column(nullable = false, unique = true)
 	public String getLoginName() {
 		return loginName;
 	}
@@ -50,6 +62,7 @@ public class Teacher extends IdEntity implements User {
 		this.loginName = loginName;
 	}
 
+	@Column(nullable = false)
 	public String getName() {
 		return name;
 	}
@@ -58,6 +71,7 @@ public class Teacher extends IdEntity implements User {
 		this.name = name;
 	}
 
+	@Column(nullable = false)
 	public String getPassword() {
 		return password;
 	}
@@ -66,6 +80,7 @@ public class Teacher extends IdEntity implements User {
 		this.password = password;
 	}
 
+	@Column(nullable = false)
 	public String getDept() {
 		return dept;
 	}
@@ -74,6 +89,7 @@ public class Teacher extends IdEntity implements User {
 		this.dept = dept;
 	}
 
+	@Column(nullable = false)
 	public Integer getSubnum() {
 		return subnum;
 	}
@@ -82,6 +98,7 @@ public class Teacher extends IdEntity implements User {
 		this.subnum = subnum;
 	}
 
+	@Column(nullable = false)
 	public String getTel() {
 		return tel;
 	}
@@ -90,6 +107,7 @@ public class Teacher extends IdEntity implements User {
 		this.tel = tel;
 	}
 
+	@Column(nullable = false)
 	public String getMail() {
 		return mail;
 	}
@@ -106,5 +124,4 @@ public class Teacher extends IdEntity implements User {
 	public void setThesises(Set<Thesis> thesises) {
 		this.thesises = thesises;
 	}
-
 }

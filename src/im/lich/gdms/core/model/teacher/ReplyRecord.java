@@ -1,6 +1,8 @@
 package im.lich.gdms.core.model.teacher;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -8,32 +10,21 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import im.lich.gdms.base.model.IdEntity;
 
 @Entity
+@Table
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class ReplyRelRecord extends IdEntity {
+public class ReplyRecord extends IdEntity {
 	private static final long serialVersionUID = -6626250567951247734L;
 
+	private Long studentId;//答辩学生id
 	private Long teacherId;//答辩老师id
 
-	private Long thesisId;//答辩课题id
-
-	private Long studentId;//答辩学生id
-
-	public Long getTeacherId() {
-		return teacherId;
-	}
-
-	public void setTeacherId(Long teacherId) {
+	public ReplyRecord(Long studentId, Long teacherId) {
+		super();
+		this.studentId = studentId;
 		this.teacherId = teacherId;
 	}
 
-	public Long getThesisId() {
-		return thesisId;
-	}
-
-	public void setThesisId(Long thesisId) {
-		this.thesisId = thesisId;
-	}
-
+	@Column(nullable = false, unique = true)
 	public Long getStudentId() {
 		return studentId;
 	}
@@ -42,4 +33,12 @@ public class ReplyRelRecord extends IdEntity {
 		this.studentId = studentId;
 	}
 
+	@Column(nullable = false)
+	public Long getTeacherId() {
+		return teacherId;
+	}
+
+	public void setTeacherId(Long teacherId) {
+		this.teacherId = teacherId;
+	}
 }

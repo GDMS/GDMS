@@ -2,6 +2,7 @@ package im.lich.gdms.core.model.student;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -10,130 +11,53 @@ import im.lich.gdms.base.model.IdEntity;
 import im.lich.gdms.core.model.generic.User;
 
 @Entity
+@Table
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Student extends IdEntity implements User {
 	private static final long serialVersionUID = -1349146988009388680L;
 
-	@Column(length = 20, nullable = false, unique = true)
 	private String loginName;//学号
-
-	@Column(length = 20, nullable = false)
-	private String name;//姓名
-
-	@Column(length = 20, nullable = false)
-	private String gender;//性别
-
-	@Column(length = 20, nullable = false)
-	private Double credit;//绩点
-
-	@Column(length = 50, nullable = false)
-	private String phone;//电话
-
-	@Column(length = 250, nullable = false)
-	private String email;//邮箱
-
-	@Column(length = 20, nullable = false)
-	private String password;//密码
-
-	@Column(length = 50, nullable = false)
-	private String major;//专业班级
-
-	@Column(length = 20, nullable = false, unique = true)
+	private String name = "";//姓名
+	private String gender = "";//性别
+	private Double credit = 0d;//绩点
+	private String phone = "";//电话
+	private String email = "";//邮箱
+	private String password = "0";//密码
+	private String major = "";//专业班级
 	private Long thesisId;//选中课题id
+	private String assign = "";//分配状态
+	private String ktup = "";//开题报告
+	private String rwsup = "";//任务书
+	private String transup = "";//翻译
+	private String thesisup = "";//论文
+	private String progress = "";//工作进度
+	private String quality = "";//质量
+	private String attitude = "";//工作态度
+	private String duty = "";//出勤情况
+	private String remark = "";
+	private String warn = "";
+	private Integer grade = 0;
+	private String question1 = "";
+	private String answer1 = "";
+	private String question2 = "";
+	private String answer2 = "";
+	private String question3 = "";
+	private String answer3 = "";
+	private String projDesc = "";
+	private String thesDesc = "";
+	private Integer zd1grade = 0;
+	private Integer zd2grade = 0;
+	private Integer zd3grade = 0;
+	private Integer zd4grade = 0;
+	private Integer py1grade = 0;
+	private Integer py2grade = 0;
+	private Integer db1grade = 0;
+	private Integer db2grade = 0;
+	private String zdpingyu = "";
+	private String pypingyu = "";
+	private String dbpingyu = "";
 
-	@Column(length = 20, nullable = false)
-	private String assign;//分配状态
-
-	@Column(length = 250, nullable = false)
-	private String ktup;//开题报告
-
-	@Column(length = 250, nullable = false)
-	private String rwsup;//任务书
-
-	@Column(length = 250, nullable = false)
-	private String transup;//翻译
-
-	@Column(length = 250, nullable = false)
-	private String thesisup;//论文
-
-	@Column(length = 250, nullable = false)
-	private String progress;//工作进度
-
-	@Column(length = 250, nullable = false)
-	private String quality;//质量
-
-	@Column(length = 250, nullable = false)
-	private String attitude;//工作态度
-
-	@Column(length = 250, nullable = false)
-	private String duty;//出勤情况
-
-	@Column(length = 250, nullable = false)
-	private String remark;
-
-	@Column(length = 250, nullable = false)
-	private String warn;
-
-	@Column(length = 250, nullable = false)
-	private Integer grade;
-
-	@Column(length = 250, nullable = false)
-	private String question1;
-
-	@Column(length = 250, nullable = false)
-	private String answer1;
-
-	@Column(length = 250, nullable = false)
-	private String question2;
-
-	@Column(length = 250, nullable = false)
-	private String answer2;
-
-	@Column(length = 250, nullable = false)
-	private String question3;
-
-	@Column(length = 250, nullable = false)
-	private String answer3;
-
-	@Column(length = 250, nullable = false)
-	private String projDesc;
-
-	@Column(length = 250, nullable = false)
-	private String thesDesc;
-
-	@Column(length = 250, nullable = false)
-	private Integer zd1grade;
-
-	@Column(length = 250, nullable = false)
-	private Integer zd2grade;
-
-	@Column(length = 250, nullable = false)
-	private Integer zd3grade;
-
-	@Column(length = 250, nullable = false)
-	private Integer zd4grade;
-
-	@Column(length = 250, nullable = false)
-	private Integer py1grade;
-
-	@Column(length = 250, nullable = false)
-	private Integer py2grade;
-
-	@Column(length = 250, nullable = false)
-	private Integer db1grade;
-
-	@Column(length = 250, nullable = false)
-	private Integer db2grade;
-
-	@Column(length = 250, nullable = false)
-	private String zdpingyu;
-
-	@Column(length = 250, nullable = false)
-	private String pypingyu;
-
-	@Column(length = 250, nullable = false)
-	private String dbpingyu;
-
+	@Column(nullable = false, unique = true)
 	public String getLoginName() {
 		return loginName;
 	}
@@ -142,6 +66,7 @@ public class Student extends IdEntity implements User {
 		this.loginName = loginName;
 	}
 
+	@Column(nullable = false)
 	public String getName() {
 		return name;
 	}
@@ -150,6 +75,7 @@ public class Student extends IdEntity implements User {
 		this.name = name;
 	}
 
+	@Column(nullable = false)
 	public String getGender() {
 		return gender;
 	}
@@ -158,6 +84,7 @@ public class Student extends IdEntity implements User {
 		this.gender = gender;
 	}
 
+	@Column(length = 5, precision = 2, nullable = false)
 	public Double getCredit() {
 		return credit;
 	}
@@ -166,6 +93,7 @@ public class Student extends IdEntity implements User {
 		this.credit = credit;
 	}
 
+	@Column(nullable = false)
 	public String getPhone() {
 		return phone;
 	}
@@ -174,6 +102,7 @@ public class Student extends IdEntity implements User {
 		this.phone = phone;
 	}
 
+	@Column(nullable = false)
 	public String getEmail() {
 		return email;
 	}
@@ -182,6 +111,7 @@ public class Student extends IdEntity implements User {
 		this.email = email;
 	}
 
+	@Column(nullable = false)
 	public String getPassword() {
 		return password;
 	}
@@ -190,6 +120,7 @@ public class Student extends IdEntity implements User {
 		this.password = password;
 	}
 
+	@Column(nullable = false)
 	public String getMajor() {
 		return major;
 	}
@@ -198,6 +129,7 @@ public class Student extends IdEntity implements User {
 		this.major = major;
 	}
 
+	@Column(nullable = false, unique = true)
 	public Long getThesisId() {
 		return thesisId;
 	}
@@ -206,6 +138,7 @@ public class Student extends IdEntity implements User {
 		this.thesisId = thesisId;
 	}
 
+	@Column(nullable = false)
 	public String getAssign() {
 		return assign;
 	}
@@ -214,6 +147,7 @@ public class Student extends IdEntity implements User {
 		this.assign = assign;
 	}
 
+	@Column(nullable = false)
 	public String getKtup() {
 		return ktup;
 	}
@@ -222,6 +156,7 @@ public class Student extends IdEntity implements User {
 		this.ktup = ktup;
 	}
 
+	@Column(nullable = false)
 	public String getRwsup() {
 		return rwsup;
 	}
@@ -230,6 +165,7 @@ public class Student extends IdEntity implements User {
 		this.rwsup = rwsup;
 	}
 
+	@Column(nullable = false)
 	public String getTransup() {
 		return transup;
 	}
@@ -238,6 +174,7 @@ public class Student extends IdEntity implements User {
 		this.transup = transup;
 	}
 
+	@Column(nullable = false)
 	public String getThesisup() {
 		return thesisup;
 	}
@@ -246,6 +183,7 @@ public class Student extends IdEntity implements User {
 		this.thesisup = thesisup;
 	}
 
+	@Column(nullable = false)
 	public String getProgress() {
 		return progress;
 	}
@@ -254,6 +192,7 @@ public class Student extends IdEntity implements User {
 		this.progress = progress;
 	}
 
+	@Column(nullable = false)
 	public String getQuality() {
 		return quality;
 	}
@@ -262,6 +201,7 @@ public class Student extends IdEntity implements User {
 		this.quality = quality;
 	}
 
+	@Column(nullable = false)
 	public String getAttitude() {
 		return attitude;
 	}
@@ -270,6 +210,7 @@ public class Student extends IdEntity implements User {
 		this.attitude = attitude;
 	}
 
+	@Column(nullable = false)
 	public String getDuty() {
 		return duty;
 	}
@@ -278,6 +219,7 @@ public class Student extends IdEntity implements User {
 		this.duty = duty;
 	}
 
+	@Column(nullable = false)
 	public String getRemark() {
 		return remark;
 	}
@@ -286,6 +228,7 @@ public class Student extends IdEntity implements User {
 		this.remark = remark;
 	}
 
+	@Column(nullable = false)
 	public String getWarn() {
 		return warn;
 	}
@@ -294,6 +237,7 @@ public class Student extends IdEntity implements User {
 		this.warn = warn;
 	}
 
+	@Column(nullable = false)
 	public Integer getGrade() {
 		return grade;
 	}
@@ -302,6 +246,7 @@ public class Student extends IdEntity implements User {
 		this.grade = grade;
 	}
 
+	@Column(nullable = false)
 	public String getQuestion1() {
 		return question1;
 	}
@@ -310,6 +255,7 @@ public class Student extends IdEntity implements User {
 		this.question1 = question1;
 	}
 
+	@Column(nullable = false)
 	public String getAnswer1() {
 		return answer1;
 	}
@@ -318,6 +264,7 @@ public class Student extends IdEntity implements User {
 		this.answer1 = answer1;
 	}
 
+	@Column(nullable = false)
 	public String getQuestion2() {
 		return question2;
 	}
@@ -326,6 +273,7 @@ public class Student extends IdEntity implements User {
 		this.question2 = question2;
 	}
 
+	@Column(nullable = false)
 	public String getAnswer2() {
 		return answer2;
 	}
@@ -334,6 +282,7 @@ public class Student extends IdEntity implements User {
 		this.answer2 = answer2;
 	}
 
+	@Column(nullable = false)
 	public String getQuestion3() {
 		return question3;
 	}
@@ -342,6 +291,7 @@ public class Student extends IdEntity implements User {
 		this.question3 = question3;
 	}
 
+	@Column(nullable = false)
 	public String getAnswer3() {
 		return answer3;
 	}
@@ -350,6 +300,7 @@ public class Student extends IdEntity implements User {
 		this.answer3 = answer3;
 	}
 
+	@Column(nullable = false)
 	public String getProjDesc() {
 		return projDesc;
 	}
@@ -358,6 +309,7 @@ public class Student extends IdEntity implements User {
 		this.projDesc = projDesc;
 	}
 
+	@Column(nullable = false)
 	public String getThesDesc() {
 		return thesDesc;
 	}
@@ -366,6 +318,7 @@ public class Student extends IdEntity implements User {
 		this.thesDesc = thesDesc;
 	}
 
+	@Column(nullable = false)
 	public Integer getZd1grade() {
 		return zd1grade;
 	}
@@ -374,6 +327,7 @@ public class Student extends IdEntity implements User {
 		this.zd1grade = zd1grade;
 	}
 
+	@Column(nullable = false)
 	public Integer getZd2grade() {
 		return zd2grade;
 	}
@@ -382,6 +336,7 @@ public class Student extends IdEntity implements User {
 		this.zd2grade = zd2grade;
 	}
 
+	@Column(nullable = false)
 	public Integer getZd3grade() {
 		return zd3grade;
 	}
@@ -390,6 +345,7 @@ public class Student extends IdEntity implements User {
 		this.zd3grade = zd3grade;
 	}
 
+	@Column(nullable = false)
 	public Integer getZd4grade() {
 		return zd4grade;
 	}
@@ -398,6 +354,7 @@ public class Student extends IdEntity implements User {
 		this.zd4grade = zd4grade;
 	}
 
+	@Column(nullable = false)
 	public Integer getPy1grade() {
 		return py1grade;
 	}
@@ -406,6 +363,7 @@ public class Student extends IdEntity implements User {
 		this.py1grade = py1grade;
 	}
 
+	@Column(nullable = false)
 	public Integer getPy2grade() {
 		return py2grade;
 	}
@@ -414,6 +372,7 @@ public class Student extends IdEntity implements User {
 		this.py2grade = py2grade;
 	}
 
+	@Column(nullable = false)
 	public Integer getDb1grade() {
 		return db1grade;
 	}
@@ -422,6 +381,7 @@ public class Student extends IdEntity implements User {
 		this.db1grade = db1grade;
 	}
 
+	@Column(nullable = false)
 	public Integer getDb2grade() {
 		return db2grade;
 	}
@@ -430,6 +390,7 @@ public class Student extends IdEntity implements User {
 		this.db2grade = db2grade;
 	}
 
+	@Column(nullable = false)
 	public String getZdpingyu() {
 		return zdpingyu;
 	}
@@ -438,6 +399,7 @@ public class Student extends IdEntity implements User {
 		this.zdpingyu = zdpingyu;
 	}
 
+	@Column(nullable = false)
 	public String getPypingyu() {
 		return pypingyu;
 	}
@@ -446,6 +408,7 @@ public class Student extends IdEntity implements User {
 		this.pypingyu = pypingyu;
 	}
 
+	@Column(nullable = false)
 	public String getDbpingyu() {
 		return dbpingyu;
 	}
@@ -453,5 +416,4 @@ public class Student extends IdEntity implements User {
 	public void setDbpingyu(String dbpingyu) {
 		this.dbpingyu = dbpingyu;
 	}
-
 }

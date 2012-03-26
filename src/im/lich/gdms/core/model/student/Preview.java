@@ -2,6 +2,8 @@ package im.lich.gdms.core.model.student;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -9,35 +11,47 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import im.lich.gdms.base.model.IdEntity;
 
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "thesisId", "studentId" }))
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Preview extends IdEntity {
 	private static final long serialVersionUID = -7315029590096827074L;
 
-	@Column(length = 20, nullable = false, unique = true)
-	private Long thesis_id;
+	private Long thesisId;//课题ID
+	private Long studentId;//学生ID
+	private int subjectOrder = 1;//预选顺序
 
-	@Column(length = 20, nullable = false, unique = true)
-	private Long student_id;
+	public Preview(Long thesisId, Long studentId) {
+		super();
+		this.thesisId = thesisId;
+		this.studentId = studentId;
+	}
+
+	public Preview(Long thesisId, Long studentId, int subjectOrder) {
+		super();
+		this.thesisId = thesisId;
+		this.studentId = studentId;
+		this.subjectOrder = subjectOrder;
+	}
 
 	@Column(nullable = false)
-	private int subjectOrder;
-
-	public Long getThesis_id() {
-		return thesis_id;
+	public Long getThesisId() {
+		return thesisId;
 	}
 
-	public void setThesis_id(Long thesis_id) {
-		this.thesis_id = thesis_id;
+	public void setThesisId(Long thesisId) {
+		this.thesisId = thesisId;
 	}
 
-	public Long getStudent_id() {
-		return student_id;
+	@Column(nullable = false)
+	public Long getStudentId() {
+		return studentId;
 	}
 
-	public void setStudent_id(Long student_id) {
-		this.student_id = student_id;
+	public void setStudentId(Long studentId) {
+		this.studentId = studentId;
 	}
 
+	@Column(nullable = false)
 	public int getSubjectOrder() {
 		return subjectOrder;
 	}
@@ -45,5 +59,4 @@ public class Preview extends IdEntity {
 	public void setSubjectOrder(int subjectOrder) {
 		this.subjectOrder = subjectOrder;
 	}
-
 }
