@@ -21,6 +21,10 @@ public class Administrator extends IdEntity implements User {
 	private String password = "0";//密码
 	private String enable = "true";//是否启用
 
+	public Administrator() {
+		super();
+	}
+
 	public Administrator(String loginName) {
 		super();
 		this.loginName = loginName;

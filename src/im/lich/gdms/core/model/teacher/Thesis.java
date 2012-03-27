@@ -1,5 +1,7 @@
 package im.lich.gdms.core.model.teacher;
 
+import im.lich.gdms.base.model.IdEntity;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -8,8 +10,6 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import im.lich.gdms.base.model.IdEntity;
 
 @Entity
 @Table
@@ -24,6 +24,25 @@ public class Thesis extends IdEntity {
 	private String assign = "";//分配方式
 	private String majorRestrict = "";
 	private Teacher teacher;//开设课题的教师
+
+	public Thesis() {
+		super();
+	}
+
+	public Thesis(String name) {
+		super();
+		this.name = name;
+	}
+
+	public Thesis(String name, String type, String property, String mode, String assign, String majorRestrict) {
+		super();
+		this.name = name;
+		this.type = type;
+		this.property = property;
+		this.mode = mode;
+		this.assign = assign;
+		this.majorRestrict = majorRestrict;
+	}
 
 	@Column(nullable = false)
 	public String getName() {

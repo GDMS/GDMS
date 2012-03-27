@@ -18,6 +18,10 @@ public class ReplyRecord extends IdEntity {
 	private Long studentId;//答辩学生id
 	private Long teacherId;//答辩老师id
 
+	public ReplyRecord() {
+		super();
+	}
+
 	public ReplyRecord(Long studentId, Long teacherId) {
 		super();
 		this.studentId = studentId;

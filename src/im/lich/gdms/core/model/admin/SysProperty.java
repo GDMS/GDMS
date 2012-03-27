@@ -20,6 +20,10 @@ public class SysProperty extends IdEntity {
 	private String type = "boolean";//字段类型
 	private String description = "";//字段描述
 
+	public SysProperty() {
+		super();
+	}
+
 	public SysProperty(String propKey) {
 		super();
 		this.propKey = propKey;

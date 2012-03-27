@@ -20,6 +20,10 @@ public class Preview extends IdEntity {
 	private Long studentId;//学生ID
 	private int subjectOrder = 1;//预选顺序
 
+	public Preview() {
+		super();
+	}
+
 	public Preview(Long thesisId, Long studentId) {
 		super();
 		this.thesisId = thesisId;

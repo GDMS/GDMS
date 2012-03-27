@@ -16,12 +16,13 @@ public class CommentTemple extends IdEntity {
 	private static final long serialVersionUID = -180477163122663159L;
 
 	private String grade;//评语等第
-
 	private String zdpingyu = "";//指导评语
-
 	private String pypingyu = "";//评阅评语
-
 	private String dbpingyu = "";//答辩评语
+
+	public CommentTemple() {
+		super();
+	}
 
 	public CommentTemple(String grade) {
 		super();

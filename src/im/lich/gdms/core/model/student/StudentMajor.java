@@ -17,6 +17,10 @@ public class StudentMajor extends IdEntity {
 
 	private String name = "";//专业、班级名称
 
+	public StudentMajor() {
+		super();
+	}
+
 	public StudentMajor(String name) {
 		super();
 		this.name = name;

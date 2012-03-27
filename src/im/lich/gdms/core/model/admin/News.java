@@ -19,6 +19,10 @@ public class News extends IdEntity {
 	private String message = "";//消息内容
 	private String receiver = "";//发送对象
 
+	public News() {
+		super();
+	}
+
 	public News(String title, String message, String receiver) {
 		super();
 		this.title = title;

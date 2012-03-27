@@ -30,6 +30,10 @@ public class Teacher extends IdEntity implements User {
 	private String mail = "";//邮箱
 	private Set<Thesis> thesises = new HashSet<Thesis>();//教师的课题
 
+	public Teacher() {
+		super();
+	}
+
 	public Teacher(String loginName) {
 		super();
 		this.loginName = loginName;

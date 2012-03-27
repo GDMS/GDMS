@@ -57,6 +57,72 @@ public class Student extends IdEntity implements User {
 	private String pypingyu = "";
 	private String dbpingyu = "";
 
+	public Student() {
+		super();
+	}
+
+	public Student(String loginName) {
+		super();
+		this.loginName = loginName;
+	}
+
+	public Student(String loginName, String name, String password) {
+		super();
+		this.loginName = loginName;
+		this.name = name;
+		this.password = password;
+	}
+
+	public Student(String loginName, String name, String gender, Double credit, String phone, String email,
+			String password, String major, Long thesisId, String assign, String ktup, String rwsup, String transup,
+			String thesisup, String progress, String quality, String attitude, String duty, String remark, String warn,
+			Integer grade, String question1, String answer1, String question2, String answer2, String question3,
+			String answer3, String projDesc, String thesDesc, Integer zd1grade, Integer zd2grade, Integer zd3grade,
+			Integer zd4grade, Integer py1grade, Integer py2grade, Integer db1grade, Integer db2grade, String zdpingyu,
+			String pypingyu, String dbpingyu) {
+		super();
+		this.loginName = loginName;
+		this.name = name;
+		this.gender = gender;
+		this.credit = credit;
+		this.phone = phone;
+		this.email = email;
+		this.password = password;
+		this.major = major;
+		this.thesisId = thesisId;
+		this.assign = assign;
+		this.ktup = ktup;
+		this.rwsup = rwsup;
+		this.transup = transup;
+		this.thesisup = thesisup;
+		this.progress = progress;
+		this.quality = quality;
+		this.attitude = attitude;
+		this.duty = duty;
+		this.remark = remark;
+		this.warn = warn;
+		this.grade = grade;
+		this.question1 = question1;
+		this.answer1 = answer1;
+		this.question2 = question2;
+		this.answer2 = answer2;
+		this.question3 = question3;
+		this.answer3 = answer3;
+		this.projDesc = projDesc;
+		this.thesDesc = thesDesc;
+		this.zd1grade = zd1grade;
+		this.zd2grade = zd2grade;
+		this.zd3grade = zd3grade;
+		this.zd4grade = zd4grade;
+		this.py1grade = py1grade;
+		this.py2grade = py2grade;
+		this.db1grade = db1grade;
+		this.db2grade = db2grade;
+		this.zdpingyu = zdpingyu;
+		this.pypingyu = pypingyu;
+		this.dbpingyu = dbpingyu;
+	}
+
 	@Column(nullable = false, unique = true)
 	public String getLoginName() {
 		return loginName;

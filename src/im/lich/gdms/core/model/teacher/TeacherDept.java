@@ -17,6 +17,10 @@ public class TeacherDept extends IdEntity {
 
 	private String name = "";//部门名称
 
+	public TeacherDept() {
+		super();
+	}
+
 	public TeacherDept(String name) {
 		super();
 		this.name = name;

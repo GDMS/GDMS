@@ -18,6 +18,10 @@ public class Paper extends IdEntity {
 	private String description = "";//论文名称、描述
 	private String filename = "";//实际论文名称
 
+	public Paper() {
+		super();
+	}
+
 	public Paper(String description, String filename) {
 		super();
 		this.description = description;
