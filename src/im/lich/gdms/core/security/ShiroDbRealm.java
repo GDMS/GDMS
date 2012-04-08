@@ -36,11 +36,11 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	 */
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
 		UsernamePasswordRoleTypeToken token = (UsernamePasswordRoleTypeToken) authcToken;
-		String roleType = token.getRoleType();
+		RoleType roleType = token.getRoleType();
 		User user = accountManager.findUserByLoginName(token.getUsername(), roleType);
 		if (user != null) {
 			ShiroUser u = new ShiroUser(user.getLoginName(), user.getName(), roleType);
-			logger.debug("登录用户：{}，RoleType：{}", user.getLoginName(), roleType);
+			logger.debug("登录用户：{}，RoleType：{}", user.getLoginName(), roleType.getValue());
 			return new SimpleAuthenticationInfo(u, user.getPassword(), getName());
 		} else {
 			return null;
@@ -56,17 +56,18 @@ public class ShiroDbRealm extends AuthorizingRealm {
 			return null;
 		}
 		ShiroUser shiroUser = (ShiroUser) principals.fromRealm(getName()).iterator().next();
-		String roleType = shiroUser.getRoleType();
+		RoleType roleType = shiroUser.getRoleType();
 		User user = accountManager.findUserByLoginName(shiroUser.getLoginName(), roleType);
 		if (user != null) {
 			SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 			//添加角色
 			String role = accountManager.findRoleByUser(user.getLoginName(), roleType);
 			info.addRole(role);
-			logger.debug("登录用户：{}，拥有角色：{}", user.getLoginName(), role);
+			logger.debug("登录用户:{}，拥有角色:{}", user.getLoginName(), StringUtils.join(info.getRoles(), ','));
 			//添加权限
 			List<String> permissions = accountManager.findPermissionsByUser(roleType);
-			logger.debug("登录用户：{}，拥有权限：{}", user.getLoginName(), StringUtils.join(permissions, ','));
+			info.addStringPermissions(permissions);
+			logger.debug("登录用户:{}，拥有权限:{}", user.getLoginName(), StringUtils.join(info.getStringPermissions(), ','));
 			return info;
 		}
 		return null;
@@ -100,9 +101,9 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		private static final long serialVersionUID = -1748602382963711884L;
 		private final String loginName;
 		private final String name;
-		private final String roleType;
+		private final RoleType roleType;
 
-		public ShiroUser(String loginName, String name, String roleType) {
+		public ShiroUser(String loginName, String name, RoleType roleType) {
 			this.loginName = loginName;
 			this.name = name;
 			this.roleType = roleType;
@@ -116,7 +117,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 			return name;
 		}
 
-		public String getRoleType() {
+		public RoleType getRoleType() {
 			return roleType;
 		}
 
@@ -127,7 +128,5 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		public String toString() {
 			return loginName;
 		}
-
 	}
-
 }

@@ -1,15 +1,15 @@
 package im.lich.gdms.core.security;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import im.lich.gdms.base.service.BaseServiceImpl;
 import im.lich.gdms.core.dao.admin.AdministratorDao;
-import im.lich.gdms.core.dao.admin.SysPropertyDao;
+import im.lich.gdms.core.dao.admin.SysPermissionDao;
 import im.lich.gdms.core.dao.student.StudentDao;
 import im.lich.gdms.core.dao.teacher.TeacherDao;
-import im.lich.gdms.core.model.admin.SysProperty;
+import im.lich.gdms.core.model.admin.SysPermission;
 import im.lich.gdms.core.model.generic.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -38,86 +38,65 @@ public class AccountManager extends BaseServiceImpl {
 	private StudentDao studentDao;
 
 	@Resource
-	private SysPropertyDao sysPropertyDao;
+	private SysPermissionDao sysPermissionDao;
 
-	public User findUserByLoginName(String loginName, String roleType) {
+	public User findUserByLoginName(String loginName, RoleType roleType) {
 		Assert.notNull(roleType);
 
 		User user = null;
 
-		//Admin中查询
-		if (roleType.equals("admin"))
+		switch (roleType) {
+		case ADMIN:
 			user = administratorDao.findByLoginName(loginName);
-
-		//Teacher中查询
-		if (roleType.equals("teacher"))
+			break;
+		case TEACHER:
 			user = teacherDao.findByLoginName(loginName);
-
-		//Student中查询
-		if (roleType.equals("student"))
+			break;
+		case STUDENT:
 			user = studentDao.findByLoginName(loginName);
+			break;
+		}
 
 		return user;
 	}
 
-	public String findRoleByUser(String loginName, String roleType) {
+	public String findRoleByUser(String loginName, RoleType roleType) {
 		Assert.notNull(roleType);
 
-		User user = null;
-		String role = null;
-
-		//Admin中查询
-		if (roleType.equals("admin")) {
-			user = administratorDao.findByLoginName(loginName);
-			if (user != null)
-				role = "ROLE_ADMIN";
+		switch (roleType) {
+		case ADMIN:
+			if (administratorDao.findByLoginName(loginName) != null)
+				return roleType.getRoleName();
+		case TEACHER:
+			if (teacherDao.findByLoginName(loginName) != null)
+				return roleType.getRoleName();
+		case STUDENT:
+			if (studentDao.findByLoginName(loginName) != null)
+				return roleType.getRoleName();
 		}
 
-		//Teacher中查询
-		if (roleType.equals("teacher")) {
-			user = teacherDao.findByLoginName(loginName);
-			if (user != null)
-				role = "ROLE_TEACHER";
-		}
-
-		//Student中查询
-		if (roleType.equals("student")) {
-			user = studentDao.findByLoginName(loginName);
-			if (user != null)
-				role = "ROLE_STUDENT";
-		}
-
-		Assert.notNull(role);
-		return role;
+		return null;
 	}
 
-	public List<String> findPermissionsByUser(String roleType) {
+	public List<String> findPermissionsByUser(RoleType roleType) {
 		Assert.notNull(roleType);
 
-		List<SysProperty> props = null;
+		List<SysPermission> _perms = null;
 		List<String> perms = new ArrayList<String>();
 
-		//Admin中查询
-		if (roleType.equals("admin"))
-			props = sysPropertyDao.findByPropKeyLike("admin:%");
+		switch (roleType) {
+		case ADMIN:
+		case TEACHER:
+		case STUDENT:
+			_perms = sysPermissionDao.findByPropKeyLike(roleType.getValue() + ":%");
+		}
 
-		//Teacher中查询
-		if (roleType.equals("teacher"))
-			props = sysPropertyDao.findByPropKeyLike("teacher:%");
-
-		//Student中查询
-		if (roleType.equals("student"))
-			props = sysPropertyDao.findByPropKeyLike("student:%");
-
-		logger.debug("查询{}类型的权限总数量：{}", roleType, props.size());
-
-		for (SysProperty p : props) {
-			Assert.isTrue(p.getType().equals("boolean"), "Shiro权限类型不正确");
-			if (p.getPropVal().equals("true"))
+		for (SysPermission p : _perms) {
+			if (p.getPropVal() == true)
 				perms.add(p.getPropKey());
 		}
 
-		logger.debug("查询{}类型的权限总数量：{}", roleType, perms.size());
+		logger.debug("{}的允许权限数量：{}", roleType, perms.size());
 
 		return perms;
 	}
