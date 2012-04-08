@@ -12,17 +12,17 @@ import im.lich.gdms.base.model.IdEntity;
 @Entity
 @Table
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class ReplyRecord extends IdEntity {
+public class DabianRecord extends IdEntity {
 	private static final long serialVersionUID = -6626250567951247734L;
 
 	private Long studentId;//答辩学生id
 	private Long teacherId;//答辩老师id
 
-	public ReplyRecord() {
+	public DabianRecord() {
 		super();
 	}
 
-	public ReplyRecord(Long studentId, Long teacherId) {
+	public DabianRecord(Long studentId, Long teacherId) {
 		super();
 		this.studentId = studentId;
 		this.teacherId = teacherId;

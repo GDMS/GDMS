@@ -20,6 +20,9 @@
 	<cache name="im.lich.gdms.core.model.admin.Paper"
 		maxElementsInMemory="10000" memoryStoreEvictionPolicy="LRU" eternal="true"
 		diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
+	<cache name="im.lich.gdms.core.model.admin.SysPermission"
+		maxElementsInMemory="10000" memoryStoreEvictionPolicy="LRU" eternal="true"
+		diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
 	<cache name="im.lich.gdms.core.model.admin.SysProperty"
 		maxElementsInMemory="10000" memoryStoreEvictionPolicy="LRU" eternal="true"
 		diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
@@ -37,10 +40,10 @@
 	<cache name="im.lich.gdms.core.model.teacher.CommentTemple"
 		maxElementsInMemory="10000" memoryStoreEvictionPolicy="LRU" eternal="true"
 		diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
-	<cache name="im.lich.gdms.core.model.teacher.ReviewRecord"
+	<cache name="im.lich.gdms.core.model.teacher.PingyueRecord"
 		maxElementsInMemory="10000" memoryStoreEvictionPolicy="LRU" eternal="true"
 		diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
-	<cache name="im.lich.gdms.core.model.teacher.ReplyRecord"
+	<cache name="im.lich.gdms.core.model.teacher.DabianRecord"
 		maxElementsInMemory="10000" memoryStoreEvictionPolicy="LRU" eternal="true"
 		diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
 	<cache name="im.lich.gdms.core.model.teacher.Teacher"

@@ -12,17 +12,17 @@ import im.lich.gdms.base.model.IdEntity;
 @Entity
 @Table
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class ReviewRecord extends IdEntity {
+public class PingyueRecord extends IdEntity {
 	private static final long serialVersionUID = -6161579350529623170L;
 
 	private Long studentId;//答辩学生id
 	private Long teacherId;//评阅老师id
 
-	public ReviewRecord() {
+	public PingyueRecord() {
 		super();
 	}
 
-	public ReviewRecord(Long studentId, Long teacherId) {
+	public PingyueRecord(Long studentId, Long teacherId) {
 		super();
 		this.studentId = studentId;
 		this.teacherId = teacherId;
