@@ -1,13 +1,14 @@
 package im.lich.gdms.core.service.teacher.impl;
 
-import im.lich.gdms.base.service.BaseServiceImpl;
-import im.lich.gdms.core.dao.teacher.TeacherDao;
-import im.lich.gdms.core.dao.teacher.TeacherDeptDao;
-import im.lich.gdms.core.model.teacher.Teacher;
-import im.lich.gdms.core.model.teacher.TeacherDept;
-import im.lich.gdms.core.service.teacher.TeacherInfoService;
-
 import java.util.List;
+
+import im.lich.gdms.base.service.BaseServiceImpl;
+import im.lich.gdms.core.dao.student.StudentDao;
+import im.lich.gdms.core.dao.teacher.TeacherDao;
+import im.lich.gdms.core.model.student.Student;
+import im.lich.gdms.core.model.teacher.Teacher;
+import im.lich.gdms.core.model.teacher.Thesis;
+import im.lich.gdms.core.service.teacher.TeacherService;
 
 import javax.annotation.Resource;
 
@@ -16,15 +17,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import com.google.common.collect.Lists;
+
 @Service
 @Transactional(readOnly = true)
-public class TeacherInfoServiceImpl extends BaseServiceImpl implements TeacherInfoService {
+public class TeacherServiceImpl extends BaseServiceImpl implements TeacherService {
 
 	@Resource
 	private TeacherDao teacherDao;
 
 	@Resource
-	private TeacherDeptDao teacherDeptDao;
+	private StudentDao studentDao;
 
 	@Override
 	public Teacher getTeacherInfo(String loginName) {
@@ -68,8 +71,32 @@ public class TeacherInfoServiceImpl extends BaseServiceImpl implements TeacherIn
 	}
 
 	@Override
-	public List<TeacherDept> getTeacherDepts() {
-		return teacherDeptDao.findAll();
-	}
+	public List<Student> getTeachingStudents(String teacherLoginName) {
+		Assert.notNull(teacherLoginName);
 
+		Teacher teacher = teacherDao.findByLoginName(teacherLoginName);
+		List<Thesis> _thesises = Lists.newArrayList(teacher.getThesises());
+
+		List<Thesis> thesises = Lists.newArrayList();
+		for (Thesis t : _thesises)
+			if (StringUtils.isNotBlank(t.getAssign()))
+				thesises.add(t);
+
+		if (thesises.isEmpty()) {
+			logger.debug("课题数为零，返回空学生");
+			return null;
+		}
+
+		List<Student> students = Lists.newArrayList();
+		for (Thesis t : thesises) {
+			Student s = studentDao.findByThesisId(t.getId());
+			if (s != null)
+				students.add(s);
+		}
+
+		//判断课题数、学生数是否符合
+		Assert.isTrue(thesises.size() == students.size(), "课题数、学生数不一致");
+
+		return students;
+	}
 }

@@ -3,7 +3,8 @@ package im.lich.gdms.core.web.teacher;
 import im.lich.gdms.base.web.BaseController;
 import im.lich.gdms.core.model.teacher.Teacher;
 import im.lich.gdms.core.model.teacher.TeacherDept;
-import im.lich.gdms.core.service.teacher.TeacherInfoService;
+import im.lich.gdms.core.service.teacher.TeacherDeptService;
+import im.lich.gdms.core.service.teacher.TeacherService;
 
 import java.util.List;
 
@@ -20,18 +21,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class TeacherInfoController extends BaseController {
 
 	@Resource
-	private TeacherInfoService teacherInfoService;
+	private TeacherService teacherService;
+
+	@Resource
+	private TeacherDeptService teacherDeptService;
 
 	@RequestMapping(value = "/info")
 	public String showInfo(Model model) {
 		logger.debug("GET-showInfo");
 
 		String loginName = SecurityUtils.getSubject().getPrincipal().toString();
-		Teacher teacher = teacherInfoService.getTeacherInfo(loginName);
+		Teacher teacher = teacherService.getTeacherInfo(loginName);
 		model.addAttribute("teacher", teacher);
 
 		//添加部门列表
-		List<TeacherDept> depts = teacherInfoService.getTeacherDepts();
+		List<TeacherDept> depts = teacherDeptService.getTeacherDepts();
 		model.addAttribute("depts", depts);
 
 		return "teacher/info";
@@ -48,13 +52,13 @@ public class TeacherInfoController extends BaseController {
 
 		//保存
 		boolean success = false;
-		if (teacherInfoService.saveTeacherInfo(teacher) != null) {
+		if (teacherService.saveTeacherInfo(teacher) != null) {
 			success = true;
 		}
 		model.addAttribute("success", success);
 
 		//添加部门列表
-		List<TeacherDept> depts = teacherInfoService.getTeacherDepts();
+		List<TeacherDept> depts = teacherDeptService.getTeacherDepts();
 		model.addAttribute("depts", depts);
 
 		return "teacher/info";

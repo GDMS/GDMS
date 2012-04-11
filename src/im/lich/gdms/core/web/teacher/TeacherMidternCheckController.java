@@ -2,7 +2,8 @@ package im.lich.gdms.core.web.teacher;
 
 import im.lich.gdms.base.web.BaseController;
 import im.lich.gdms.core.model.student.Student;
-import im.lich.gdms.core.service.teacher.TeacherMidternCheckService;
+import im.lich.gdms.core.service.student.StudentService;
+import im.lich.gdms.core.service.teacher.TeacherService;
 
 import java.util.List;
 
@@ -19,8 +20,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("/teacher")
 public class TeacherMidternCheckController extends BaseController {
+
 	@Resource
-	private TeacherMidternCheckService teacherMidternCheckService;
+	private TeacherService teacherService;
+
+	@Resource
+	private StudentService studentService;
 
 	@RequestMapping(value = "/midternCheck")
 	public String showMidternCheck(Model model) {
@@ -28,7 +33,7 @@ public class TeacherMidternCheckController extends BaseController {
 
 		String loginName = SecurityUtils.getSubject().getPrincipal().toString();
 		//获取中期检查信息
-		List<Student> students = teacherMidternCheckService.getStudents(loginName);
+		List<Student> students = teacherService.getTeachingStudents(loginName);
 		model.addAttribute("students", students);
 
 		logger.debug("学生:{}", StringUtils.join(students, ','));
@@ -40,7 +45,7 @@ public class TeacherMidternCheckController extends BaseController {
 	public String showWarn(@PathVariable("studentLoginName") String studentLoginName, Model model) {
 		logger.debug("GET-showWarn");
 
-		Student student = teacherMidternCheckService.getStudent(studentLoginName);
+		Student student = studentService.getStudent(studentLoginName);
 		model.addAttribute("student", student);
 
 		return "teacher/midternCheckWarn";
@@ -57,7 +62,7 @@ public class TeacherMidternCheckController extends BaseController {
 
 		//保存
 		boolean success = false;
-		if (teacherMidternCheckService.saveMidternCheckWarn(student) != null) {
+		if (studentService.saveMidternCheckInfoByTeacher(student) != null) {
 			success = true;
 		}
 		model.addAttribute("success", success);
@@ -71,14 +76,14 @@ public class TeacherMidternCheckController extends BaseController {
 
 		//保存
 		boolean success = false;
-		if (teacherMidternCheckService.delMidternCheckWarn(studentLoginName) != null) {
+		if (studentService.delMidternCheckWarn(studentLoginName) != null) {
 			success = true;
 		}
 		model.addAttribute("success", success);
 
 		String loginName = SecurityUtils.getSubject().getPrincipal().toString();
 		//获取中期检查信息
-		List<Student> students = teacherMidternCheckService.getStudents(loginName);
+		List<Student> students = teacherService.getTeachingStudents(loginName);
 		model.addAttribute("students", students);
 
 		return "teacher/midternCheck";

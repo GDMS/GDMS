@@ -1,7 +1,12 @@
-package im.lich.gdms.core.service.teacher.impl;
+package im.lich.gdms.core.service.student.impl;
 
 import java.util.Collection;
 import java.util.List;
+
+import im.lich.gdms.base.service.BaseServiceImpl;
+import im.lich.gdms.core.dao.student.StudentDao;
+import im.lich.gdms.core.model.student.Student;
+import im.lich.gdms.core.service.student.StudentService;
 
 import javax.annotation.Resource;
 
@@ -12,59 +17,141 @@ import org.springframework.util.Assert;
 
 import com.google.common.collect.Lists;
 
-import im.lich.gdms.base.service.BaseServiceImpl;
-import im.lich.gdms.core.dao.student.StudentDao;
-import im.lich.gdms.core.dao.teacher.TeacherDao;
-import im.lich.gdms.core.dao.teacher.ThesisDao;
-import im.lich.gdms.core.model.student.Student;
-import im.lich.gdms.core.model.teacher.Teacher;
-import im.lich.gdms.core.model.teacher.Thesis;
-import im.lich.gdms.core.service.teacher.TeacherMidternCheckService;
-import im.lich.gdms.core.service.teacher.TeacherScoreInputService;
-
 @Service
 @Transactional(readOnly = true)
-public class TeacherScoreInputServiceImpl extends BaseServiceImpl implements TeacherScoreInputService {
-
-	@Resource
-	private TeacherDao teacherDao;
+public class StudentServiceImpl extends BaseServiceImpl implements StudentService {
 
 	@Resource
 	private StudentDao studentDao;
 
-	@Resource
-	private ThesisDao thesisDao;
-
-	@Resource
-	private TeacherMidternCheckService teacherMidternCheckService;
-
 	@Override
-	public Student getStudent(String studentLoginName) {
-		return teacherMidternCheckService.getStudent(studentLoginName);
+	public Student getStudent(String loginName) {
+		Assert.notNull(loginName);
+
+		Student student = studentDao.findByLoginName(loginName);
+		Assert.notNull(student);
+
+		logger.debug("查询学生信息：{}", student);
+		return student;
 	}
 
 	@Override
-	public List<Student> getStudents(String teacherLoginName) {
-		return teacherMidternCheckService.getStudents(teacherLoginName);
+	public Student getStudentInfo(String loginName) {
+		return getStudent(loginName);
 	}
 
 	@Override
-	public List<Thesis> getStudentsThesises(Collection<Student> students) {
-		List<Thesis> thesises = Lists.newArrayList();
-		for (Student s : students) {
-			Long thesisId = s.getThesisId();
-			Thesis t = thesisDao.findOne(thesisId);
-			Assert.notNull(t);
-			Assert.hasText(t.getAssign());
-			thesises.add(t);
+	@Transactional(readOnly = false)
+	public Student saveStudentInfo(Student student) {
+		Assert.notNull(student);
+		Assert.notNull(student.getLoginName());
+		//简化名称
+		Student s = student;
+
+		//获取内部学生
+		Student _s = studentDao.findByLoginName(s.getLoginName());
+		Assert.notNull(_s);
+
+		//判断是否需要修改密码
+		String pass = s.getPassword();
+		if (StringUtils.isNotEmpty(pass)) {
+			_s.setPassword(pass);
+			logger.debug("用户：{} 修改密码", _s.getLoginName());
 		}
-		return thesises;
+
+		_s.setName(s.getName());
+		_s.setGender(s.getGender());
+		_s.setPhone(s.getPhone());
+		_s.setEmail(s.getEmail());
+		_s.setMajor(s.getMajor());
+
+		logger.debug("保存学生信息：{}", _s);
+		return studentDao.save(_s);
+	}
+
+	@Override
+	public String getMidternCheckWarn(String loginName) {
+		Assert.notNull(loginName);
+
+		Student student = studentDao.findByLoginName(loginName);
+		Assert.notNull(student);
+
+		String warn = student.getWarn();
+		logger.debug("学生：{}，中期检查警告信息：{}", loginName, warn);
+
+		return warn;
+	}
+
+	@Override
+	public Student getMidternCheckInfo(String loginName) {
+		Assert.notNull(loginName);
+
+		Student student = studentDao.findByLoginName(loginName);
+		logger.debug("查询学生中期检查信息：{}", student);
+		return student;
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public Student saveMidternCheckInfo(Student student) {
+		Assert.notNull(student);
+		Assert.notNull(student.getLoginName());
+		//简化名称
+		Student s = student;
+
+		//获取内部学生
+		Student _s = studentDao.findByLoginName(s.getLoginName());
+		Assert.notNull(_s);
+
+		_s.setProgress(s.getProgress());
+		_s.setQuality(s.getQuality());
+		_s.setAttitude(s.getAttitude());
+		_s.setDuty(s.getDuty());
+
+		logger.debug("保存学生中期检查信息：{}", _s);
+		return studentDao.save(_s);
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public Student saveMidternCheckInfoByTeacher(Student student) {
+		Assert.notNull(student);
+		Assert.notNull(student.getLoginName());
+		//简化名称
+		Student s = student;
+
+		//获取内部学生
+		Student _s = studentDao.findByLoginName(s.getLoginName());
+		Assert.notNull(_s);
+
+		_s.setProgress(s.getProgress());
+		_s.setQuality(s.getQuality());
+		_s.setAttitude(s.getAttitude());
+		_s.setDuty(s.getDuty());
+		_s.setWarn(s.getWarn());
+
+		logger.debug("保存学生中期检查信息：{}", _s);
+		return studentDao.save(_s);
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public Student delMidternCheckWarn(String studentLoginName) {
+		Assert.notNull(studentLoginName);
+
+		//获取内部学生
+		Student _s = studentDao.findByLoginName(studentLoginName);
+		Assert.notNull(_s);
+
+		_s.setWarn("");
+
+		logger.debug("保存学生中期检查信息：{}", _s);
+		return studentDao.save(_s);
 	}
 
 	private static final String ZHIDAO_NOT_INPUT = "未输入";
 	private static final String ZHIDAO_INPUT = "已输入";
 
-	//
 	@Override
 	public List<String> getStudentsZhidaoScoreStatuses(Collection<Student> students) {
 		List<String> statuses = Lists.newArrayList();
@@ -113,18 +200,6 @@ public class TeacherScoreInputServiceImpl extends BaseServiceImpl implements Tea
 			statuses.add(status);
 		}
 		return statuses;
-	}
-
-	@Override
-	public List<Teacher> getStudentsPingyueTeachers(Collection<Student> students) {
-		// TODO to be continued
-		return null;
-	}
-
-	@Override
-	public List<Teacher> getStudentsDabianTeachers(Collection<Student> students) {
-		// TODO to be continued
-		return null;
 	}
 
 	@Override

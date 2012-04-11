@@ -3,7 +3,8 @@ package im.lich.gdms.core.web.student;
 import im.lich.gdms.base.web.BaseController;
 import im.lich.gdms.core.model.student.Student;
 import im.lich.gdms.core.model.student.StudentMajor;
-import im.lich.gdms.core.service.student.StudentInfoService;
+import im.lich.gdms.core.service.student.StudentMajorService;
+import im.lich.gdms.core.service.student.StudentService;
 
 import java.util.List;
 
@@ -21,7 +22,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class StudentInfoController extends BaseController {
 
 	@Resource
-	private StudentInfoService studentInfoService;
+	private StudentService studentService;
+
+	@Resource
+	private StudentMajorService studentMajorService;
 
 	@RequiresPermissions("student:info:show")
 	@RequestMapping(value = "/info")
@@ -29,11 +33,11 @@ public class StudentInfoController extends BaseController {
 		logger.debug("GET-showInfo");
 
 		String loginName = SecurityUtils.getSubject().getPrincipal().toString();
-		Student student = studentInfoService.getStudentInfo(loginName);
+		Student student = studentService.getStudentInfo(loginName);
 		model.addAttribute("student", student);
 
 		//添加专业列表
-		List<StudentMajor> majors = studentInfoService.getStudentMajors();
+		List<StudentMajor> majors = studentMajorService.getStudentMajors();
 		model.addAttribute("majors", majors);
 
 		return "student/info";
@@ -51,13 +55,13 @@ public class StudentInfoController extends BaseController {
 
 		//保存
 		boolean success = false;
-		if (studentInfoService.saveStudentInfo(student) != null) {
+		if (studentService.saveStudentInfo(student) != null) {
 			success = true;
 		}
 		model.addAttribute("success", success);
 
 		//添加专业列表
-		List<StudentMajor> majors = studentInfoService.getStudentMajors();
+		List<StudentMajor> majors = studentMajorService.getStudentMajors();
 		model.addAttribute("majors", majors);
 
 		return "student/info";

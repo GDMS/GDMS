@@ -1,9 +1,9 @@
-package im.lich.gdms.core.service.root.impl;
+package im.lich.gdms.core.service.admin.impl;
 
 import im.lich.gdms.base.service.BaseServiceImpl;
 import im.lich.gdms.core.dao.admin.PaperDao;
 import im.lich.gdms.core.model.admin.Paper;
-import im.lich.gdms.core.service.root.IndexService;
+import im.lich.gdms.core.service.admin.PaperService;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import com.google.common.collect.Lists;
 
 @Service
 @Transactional(readOnly = false)
-public class IndexServiceImpl extends BaseServiceImpl implements IndexService {
+public class PaperServiceImpl extends BaseServiceImpl implements PaperService {
 	@Resource
 	private PaperDao paperDao;
 

@@ -2,7 +2,7 @@ package im.lich.gdms.core.web.student;
 
 import im.lich.gdms.base.web.BaseController;
 import im.lich.gdms.core.model.student.Student;
-import im.lich.gdms.core.service.student.StudentMidternCheckService;
+import im.lich.gdms.core.service.student.StudentService;
 
 import javax.annotation.Resource;
 
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/student")
 public class StudentMidternCheckController extends BaseController {
 	@Resource
-	private StudentMidternCheckService studentMidternCheckService;
+	private StudentService studentService;
 
 	@RequestMapping(value = "/midternCheck")
 	public String showMidternCheck(Model model) {
@@ -24,11 +24,11 @@ public class StudentMidternCheckController extends BaseController {
 
 		String loginName = SecurityUtils.getSubject().getPrincipal().toString();
 		//获取警告信息
-		String warn = studentMidternCheckService.getMidternCheckWarn(loginName);
+		String warn = studentService.getMidternCheckWarn(loginName);
 		model.addAttribute("warn", warn);
 
 		//获取中期检查信息
-		Student student = studentMidternCheckService.getMidternCheckInfo(loginName);
+		Student student = studentService.getMidternCheckInfo(loginName);
 		model.addAttribute("student", student);
 
 		return "student/midternCheck";
@@ -45,7 +45,7 @@ public class StudentMidternCheckController extends BaseController {
 
 		//保存
 		boolean success = false;
-		if (studentMidternCheckService.saveMidternCheckInfo(student) != null) {
+		if (studentService.saveMidternCheckInfo(student) != null) {
 			success = true;
 		}
 		model.addAttribute("success", success);
