@@ -1,12 +1,18 @@
 package im.lich.gdms.core.service.student.impl;
 
-import java.util.Collection;
-import java.util.List;
-
 import im.lich.gdms.base.service.BaseServiceImpl;
 import im.lich.gdms.core.dao.student.StudentDao;
+import im.lich.gdms.core.dao.teacher.DabianRecordDao;
+import im.lich.gdms.core.dao.teacher.PingyueRecordDao;
+import im.lich.gdms.core.dao.teacher.TeacherDao;
 import im.lich.gdms.core.model.student.Student;
+import im.lich.gdms.core.model.teacher.DabianRecord;
+import im.lich.gdms.core.model.teacher.PingyueRecord;
+import im.lich.gdms.core.model.teacher.Teacher;
 import im.lich.gdms.core.service.student.StudentService;
+
+import java.util.Collection;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -23,6 +29,15 @@ public class StudentServiceImpl extends BaseServiceImpl implements StudentServic
 
 	@Resource
 	private StudentDao studentDao;
+
+	@Resource
+	private TeacherDao teacherDao;
+
+	@Resource
+	private PingyueRecordDao pingyueRecordDao;
+
+	@Resource
+	private DabianRecordDao dabianRecordDao;
 
 	@Override
 	public Student getStudent(String loginName) {
@@ -168,25 +183,25 @@ public class StudentServiceImpl extends BaseServiceImpl implements StudentServic
 		return statuses;
 	}
 
-	private static final String PINGYUE_NOT_INPUT = "未输入";
-	private static final String PINGYUE_INPUT = "已输入";
-
 	@Override
 	public List<String> getStudentsPingyueScoreStatuses(Collection<Student> students) {
 		List<String> statuses = Lists.newArrayList();
 		for (Student s : students) {
 			int py1 = s.getPy1grade();
 			int py2 = s.getPy2grade();
-			String status = PINGYUE_NOT_INPUT;
-			if (py1 > 0 && py2 > 0)
-				status = PINGYUE_INPUT;
+			String status = "未输入";
+
+			//根据记录查询
+			PingyueRecord _py = pingyueRecordDao.findByStudentId(s.getId());
+			if (_py != null && (py1 > 0 && py2 > 0)) {
+				Teacher _t = teacherDao.findOne(_py.getTeacherId());
+				status = "已输入：" + _t.getName();
+			}
+
 			statuses.add(status);
 		}
 		return statuses;
 	}
-
-	private static final String DABIAN_NOT_INPUT = "未输入";
-	private static final String DABIAN_INPUT = "已输入";
 
 	@Override
 	public List<String> getStudentsDabianScoreStatuses(Collection<Student> students) {
@@ -194,9 +209,15 @@ public class StudentServiceImpl extends BaseServiceImpl implements StudentServic
 		for (Student s : students) {
 			int db1 = s.getDb1grade();
 			int db2 = s.getDb2grade();
-			String status = DABIAN_NOT_INPUT;
-			if (db1 > 0 && db2 > 0)
-				status = DABIAN_INPUT;
+			String status = "未输入";
+
+			//根据记录查询
+			DabianRecord _db = dabianRecordDao.findByStudentId(s.getId());
+			if (_db != null && (db1 > 0 && db2 > 0)) {
+				Teacher _t = teacherDao.findOne(_db.getTeacherId());
+				status = "已输入：" + _t.getName();
+			}
+
 			statuses.add(status);
 		}
 		return statuses;
@@ -204,7 +225,7 @@ public class StudentServiceImpl extends BaseServiceImpl implements StudentServic
 
 	@Override
 	@Transactional(readOnly = false)
-	public Student saveScoreInputZhidaoDetail(Student student) {
+	public Student updateScoreInputZhidaoDetail(Student student) {
 		Assert.notNull(student);
 		Assert.notNull(student.getLoginName());
 		//简化名称
@@ -225,7 +246,7 @@ public class StudentServiceImpl extends BaseServiceImpl implements StudentServic
 
 	@Override
 	@Transactional(readOnly = false)
-	public Student saveScoreInputPingyueDetail(Student student) {
+	public Student addScoreInputPingyue(Student student, String teacherLoginName) {
 		Assert.notNull(student);
 		Assert.notNull(student.getLoginName());
 		//简化名称
@@ -238,13 +259,29 @@ public class StudentServiceImpl extends BaseServiceImpl implements StudentServic
 		_s.setPy1grade(s.getPy1grade());
 		_s.setPy2grade(s.getPy2grade());
 
+		Teacher _t = teacherDao.findByLoginName(teacherLoginName);
+		Assert.notNull(_t);
+
+		PingyueRecord py = new PingyueRecord(_s.getId(), _t.getId());
+		PingyueRecord _py = pingyueRecordDao.save(py);
+		Assert.notNull(_py);
+
 		logger.debug("保存评阅教师输入成绩信息：{}", _s);
 		return studentDao.save(_s);
 	}
 
 	@Override
 	@Transactional(readOnly = false)
-	public Student saveScoreInputDabianDetail(Student student) {
+	public Student delScoreInputPingyue(String studentLoginName) {
+		Student s = studentDao.findByLoginName(studentLoginName);
+		Long pingyueId = pingyueRecordDao.findByStudentId(s.getId()).getId();
+		pingyueRecordDao.delete(pingyueId);
+		return s;
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public Student saveScoreInputDabianDetail(Student student, String teacherLoginName) {
 		Assert.notNull(student);
 		Assert.notNull(student.getLoginName());
 		//简化名称
@@ -256,6 +293,13 @@ public class StudentServiceImpl extends BaseServiceImpl implements StudentServic
 
 		_s.setDb1grade(s.getDb1grade());
 		_s.setDb2grade(s.getDb2grade());
+
+		Teacher _t = teacherDao.findByLoginName(teacherLoginName);
+		Assert.notNull(_t);
+
+		DabianRecord db = new DabianRecord(_s.getId(), _t.getId());
+		DabianRecord _db = dabianRecordDao.save(db);
+		Assert.notNull(_db);
 
 		logger.debug("保存答辩小组输入成绩信息：{}", _s);
 		return studentDao.save(_s);

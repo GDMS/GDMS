@@ -14,4 +14,11 @@ public interface PingyueService extends BaseService {
 	 * @return List<Teacher>
 	 */
 	public List<Teacher> getStudentsPingyueTeachers(Collection<Student> students);
+
+	/**
+	 * 获取评阅教师填写成绩的学生
+	 * @param teacherLoginName 教师登录名、教工号
+	 * @return List<Student>
+	 */
+	public List<Student> getStudents(String teacherLoginName);
 }

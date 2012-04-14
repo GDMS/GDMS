@@ -95,6 +95,8 @@ public class TeacherServiceImpl extends BaseServiceImpl implements TeacherServic
 		}
 
 		//判断课题数、学生数是否符合
+		logger.debug("课题数: {}", thesises.size());
+		logger.debug("学生数: {}", students.size());
 		Assert.isTrue(thesises.size() == students.size(), "课题数、学生数不一致");
 
 		return students;

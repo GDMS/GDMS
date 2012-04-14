@@ -5,6 +5,7 @@ import im.lich.gdms.core.model.student.Student;
 import im.lich.gdms.core.model.teacher.Thesis;
 import im.lich.gdms.core.service.student.StudentService;
 import im.lich.gdms.core.service.student.StudentThesisService;
+import im.lich.gdms.core.service.teacher.PingyueService;
 import im.lich.gdms.core.service.teacher.TeacherService;
 
 import java.util.List;
@@ -32,6 +33,9 @@ public class TeacherScoreInputController extends BaseController {
 	@Resource
 	private StudentThesisService studentThesisService;
 
+	@Resource
+	private PingyueService pingyueService;
+
 	@RequestMapping(value = "/scoreInput")
 	public String showScoreInput(Model model) {
 		logger.debug("GET-showScoreInput");
@@ -58,25 +62,27 @@ public class TeacherScoreInputController extends BaseController {
 		List<String> studentsDabianScoreStatuses = studentService.getStudentsDabianScoreStatuses(students);
 		model.addAttribute("studentsDabianScoreStatuses", studentsDabianScoreStatuses);
 
-		return "teacher/scoreInput";
+		//获取评阅教师输入成绩的学生
+		List<Student> pingyueStudents = pingyueService.getStudents(loginName);
+		model.addAttribute("pingyueStudents", pingyueStudents);
+		//获取评阅教师输入成绩的学生的课题
+		List<Thesis> pingyueStudentsThesises = studentThesisService.getStudentsThesises(pingyueStudents);
+		model.addAttribute("pingyueStudentsThesises", pingyueStudentsThesises);
+
+		return "/teacher/scoreInput";
 	}
 
-	@RequestMapping(value = "/scoreInput/zhidao/{studentLoginName}")
-	public String showScoreZhidaoInputDetail(@PathVariable("studentLoginName") String studentLoginName, Model model) {
-		logger.debug("GET-showScoreZhidaoInputDetail");
+	//指导教师成绩更新
+	@RequestMapping(value = "/scoreInput/zhidao/update/{studentLoginName}", method = RequestMethod.POST)
+	public String updateScoreInputZhidao(@PathVariable("studentLoginName") String studentLoginName, Integer zd1grade,
+			Integer zd2grade, Integer zd3grade, Integer zd4grade, Model model) {
+		logger.debug("POST-updateScoreInputZhidao");
 
-		Student student = studentService.getStudent(studentLoginName);
-		model.addAttribute("student", student);
-		logger.debug("学生:{}", student);
-
-		return "teacher/scoreInputZhidaoDetail";
-	}
-
-	@RequestMapping(value = "/scoreInput/zhidao/{studentLoginName}", method = RequestMethod.POST)
-	public String saveScoreInputZhidaoDetail(@PathVariable("studentLoginName") String studentLoginName,
-			Student student, Model model) {
-		logger.debug("POST-saveScoreZhidaoInputDetail");
-
+		Student student = new Student();
+		student.setZd1grade(zd1grade);
+		student.setZd2grade(zd2grade);
+		student.setZd3grade(zd3grade);
+		student.setZd4grade(zd4grade);
 		logger.debug("网页获取信息：{}", student);
 
 		//强制指定学生登录名
@@ -84,11 +90,51 @@ public class TeacherScoreInputController extends BaseController {
 
 		//保存
 		boolean success = false;
-		if (studentService.saveScoreInputZhidaoDetail(student) != null) {
+		if (studentService.updateScoreInputZhidaoDetail(student) != null) {
 			success = true;
 		}
 		model.addAttribute("success", success);
 
-		return "teacher/scoreInputZhidaoDetail";
+		return "forward:/teacher/scoreInput";
+	}
+
+	//评阅教师成绩输入
+	@RequestMapping(value = "/scoreInput/pingyue/add", method = RequestMethod.POST)
+	public String addScoreInputPingyue(String loginName, Integer py1grade, Integer py2grade, Model model) {
+		logger.debug("POST-addScoreInputPingyue");
+
+		String teacherLoginName = SecurityUtils.getSubject().getPrincipal().toString();
+
+		Student student = new Student();
+		student.setLoginName(loginName);
+		student.setPy1grade(py1grade);
+		student.setPy2grade(py2grade);
+
+		boolean success = false;
+		if (studentService.addScoreInputPingyue(student, teacherLoginName) != null) {
+			success = true;
+		}
+		model.addAttribute("success", success);
+
+		//激活评阅Tab
+		model.addAttribute("tabChoose", "pingyue");
+		return "forward:/teacher/scoreInput";
+	}
+
+	//评阅教师成绩删除
+	@RequestMapping(value = "/scoreInput/pingyue/del/{studentLoginName}", method = RequestMethod.GET)
+	public String delScoreInputPingyue(@PathVariable("studentLoginName") String studentLoginName, Model model) {
+		logger.debug("GET-delScoreInputPingyue");
+
+		//删除
+		boolean success = false;
+		if (studentService.delScoreInputPingyue(studentLoginName) != null) {
+			success = true;
+		}
+		model.addAttribute("success", success);
+
+		//激活评阅Tab
+		model.addAttribute("tabChoose", "pingyue");
+		return "forward:/teacher/scoreInput";
 	}
 }

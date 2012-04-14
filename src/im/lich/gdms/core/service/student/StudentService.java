@@ -90,19 +90,28 @@ public interface StudentService extends BaseService {
 	 * @param student 学生指导成绩
 	 * @return Student 学生，失败返回null
 	 */
-	public Student saveScoreInputZhidaoDetail(Student student);
+	public Student updateScoreInputZhidaoDetail(Student student);
 
 	/**
 	 * 保存学生评阅教师输入成绩
 	 * @param student 学生评阅成绩
+	 * @param teacherLoginName 教师登录名、教工号
 	 * @return Student 学生，失败返回null
 	 */
-	public Student saveScoreInputPingyueDetail(Student student);
+	public Student addScoreInputPingyue(Student student, String teacherLoginName);
+
+	/**
+	* 删除学生评阅教师输入成绩
+	* @param studentLoginName 学生登录名、学号
+	* @return Student 学生，失败返回null
+	*/
+	public Student delScoreInputPingyue(String studentLoginName);
 
 	/**
 	 * 保存学生答辩小组输入成绩
 	 * @param student 学生答辩成绩
+	 * @param teacherLoginName 教师登录名、教工号
 	 * @return Student 学生，失败返回null
 	 */
-	public Student saveScoreInputDabianDetail(Student student);
+	public Student saveScoreInputDabianDetail(Student student, String teacherLoginName);
 }

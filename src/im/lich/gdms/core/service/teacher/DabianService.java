@@ -14,4 +14,11 @@ public interface DabianService extends BaseService {
 	 * @return List<Teacher>
 	 */
 	public List<Teacher> getStudentsDabianTeachers(Collection<Student> students);
+
+	/**
+	 * 获取答辩小组填写成绩的学生
+	 * @param teacherLoginName 教师登录名、教工号
+	 * @return List<Student>
+	 */
+	public List<Student> getStudents(String teacherLoginName);
 }
