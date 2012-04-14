@@ -16,7 +16,7 @@
 			<p>&nbsp</p>
 
 			<c:if test="${success!=null&&success}">
-				<div class="alert alert-block alert-info">
+				<div class="alert alert-block alert-success">
 					<a class="close" data-dismiss="alert" href="#">×</a>
 					<h4 class="alert-heading">修改成功</h4>
 				</div>
