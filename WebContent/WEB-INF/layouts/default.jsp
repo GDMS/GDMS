@@ -153,8 +153,55 @@
 
 		<div class="row">
 			<div class="span12">
-				<!-- Sitemesh正文 -->
-				<sitemesh:body />
+				<div id="globalMessageRow" class="row">
+					<div id="globalMessageSpan" class="span12">
+						<!-- 成功消息 -->
+						<c:if test="${successMessage!=null}">
+							<div class="alert alert-block alert-success">
+								<a class="close" data-dismiss="alert" href="#">×</a>
+								<h4 class="alert-heading">成功！</h4>
+								<p>${successMessage}</p>
+							</div>
+						</c:if>
+						<!-- /成功消息 -->
+						<!-- 提示消息 -->
+						<c:if test="${infoMessage!=null}">
+							<div class="alert alert-block alert-info">
+								<a class="close" data-dismiss="alert" href="#">×</a>
+								<h4 class="alert-heading">提示消息</h4>
+								<p>${infoMessage}</p>
+							</div>
+						</c:if>
+						<!-- /提示消息 -->
+						<!-- 警告消息 -->
+						<c:if test="${warnMessage!=null}">
+							<div class="alert alert-block">
+								<a class="close" data-dismiss="alert" href="#">×</a>
+								<h4 class="alert-heading">警告消息</h4>
+								<p>${warnMessage}</p>
+							</div>
+						</c:if>
+						<!-- /警告消息 -->
+						<!-- 错误消息 -->
+						<c:if test="${errorMessage!=null}">
+							<div class="alert alert-block alert-error">
+								<a class="close" data-dismiss="alert" href="#">×</a>
+								<h4 class="alert-heading">错误消息</h4>
+								<p>${errorMessage}</p>
+							</div>
+						</c:if>
+						<!-- /错误消息 -->
+					</div>
+				</div>
+				<!--/row-->
+				<div id="bodyRow" class="row">
+					<div id="bodyClass" class="span12">
+						<!-- Sitemesh正文 -->
+						<sitemesh:body />
+						<!-- /Sitemesh正文 -->
+					</div>
+				</div>
+				<!--/row-->
 			</div>
 		</div>
 		<!--/row-->
@@ -170,6 +217,5 @@
 
 	</div>
 	<!--/.container-->
-
 </body>
 </html>
