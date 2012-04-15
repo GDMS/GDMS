@@ -281,7 +281,7 @@ public class StudentServiceImpl extends BaseServiceImpl implements StudentServic
 
 	@Override
 	@Transactional(readOnly = false)
-	public Student saveScoreInputDabianDetail(Student student, String teacherLoginName) {
+	public Student addScoreInputDabian(Student student, String teacherLoginName) {
 		Assert.notNull(student);
 		Assert.notNull(student.getLoginName());
 		//简化名称
@@ -303,5 +303,14 @@ public class StudentServiceImpl extends BaseServiceImpl implements StudentServic
 
 		logger.debug("保存答辩小组输入成绩信息：{}", _s);
 		return studentDao.save(_s);
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public Student delScoreInputDabian(String studentLoginName) {
+		Student s = studentDao.findByLoginName(studentLoginName);
+		Long dabianId = dabianRecordDao.findByStudentId(s.getId()).getId();
+		dabianRecordDao.delete(dabianId);
+		return s;
 	}
 }

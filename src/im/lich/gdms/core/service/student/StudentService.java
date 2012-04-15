@@ -113,5 +113,12 @@ public interface StudentService extends BaseService {
 	 * @param teacherLoginName 教师登录名、教工号
 	 * @return Student 学生，失败返回null
 	 */
-	public Student saveScoreInputDabianDetail(Student student, String teacherLoginName);
+	public Student addScoreInputDabian(Student student, String teacherLoginName);
+
+	/**
+	* 删除学生答辩小组输入成绩
+	* @param studentLoginName 学生登录名、学号
+	* @return Student 学生，失败返回null
+	*/
+	public Student delScoreInputDabian(String studentLoginName);
 }

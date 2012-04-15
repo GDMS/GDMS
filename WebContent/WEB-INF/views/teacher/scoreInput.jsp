@@ -10,7 +10,7 @@
 </head>
 <body>
 	<ul id="tab" class="nav nav-tabs">
-		<li class="active"><a href="#zhidao" data-toggle="tab">指导教师成绩输入</a></li>
+		<li><a href="#zhidao" data-toggle="tab">指导教师成绩输入</a></li>
 		<li><a href="#pingyue" data-toggle="tab">评阅教师成绩输入</a></li>
 		<li><a href="#dabian" data-toggle="tab">答辩小组成绩输入</a></li>
 	</ul>
@@ -64,7 +64,7 @@
 				</thead>
 				<tbody>
 					<c:forEach items="${students}" var="student" varStatus="st">
-						<form id="pingyue_form" action="${ctx}/teacher/scoreInput/zhidao/update/${student.loginName}" method="post">
+						<form action="${ctx}/teacher/scoreInput/zhidao/update/${student.loginName}" method="post">
 							<tr>
 								<td>${student.loginName}</td>
 								<td>${student.name}</td>
@@ -91,7 +91,7 @@
 						<th rowspan="2" style="vertical-align: middle;">课题名称</th>
 						<th>毕业设计(论文)水平</th>
 						<th>图、文质量</th>
-						<th rowspan="2" style="vertical-align: middle;">删除成绩</th>
+						<th rowspan="2" style="vertical-align: middle;">操作</th>
 					</tr>
 					<tr>
 						<th>折合系数: 0.2</th>
@@ -109,7 +109,7 @@
 							<td><a href="${ctx}/teacher/scoreInput/pingyue/del/${student.loginName}" class="btn btn-mini">删除</a></td>
 						</tr>
 					</c:forEach>
-					<form id="pingyue_form" action="${ctx}/teacher/scoreInput/pingyue/add" method="post">
+					<form action="${ctx}/teacher/scoreInput/pingyue/add" method="post">
 						<tr>
 							<td><input type="text" class="input-mini" name="loginName" /></td>
 							<td></td>
@@ -118,12 +118,51 @@
 							<td><input type="text" class="input-mini" name="py2grade" /></td>
 							<td><input type="submit" class="btn btn-primary btn-mini" value="添加" /></td>
 						</tr>
-						<form>
+					</form>
 				</tbody>
 			</table>
 		</div>
+
 		<div id="dabian" class="tab-pane fade">
-			<p>答辩小组输入</p>
+			<h2>答辩小组输入</h2>
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th rowspan="2" style="vertical-align: middle;">学号</th>
+						<th rowspan="2" style="vertical-align: middle;">姓名</th>
+						<th rowspan="2" style="vertical-align: middle;">课题名称</th>
+						<th>口头汇报</th>
+						<th>回答问题正确性</th>
+						<th rowspan="2" style="vertical-align: middle;">操作</th>
+					</tr>
+					<tr>
+						<th>折合系数: 0.1</th>
+						<th>折合系数: 0.3</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${dabianStudents}" var="student" varStatus="st">
+						<tr>
+							<td>${student.loginName}</td>
+							<td>${student.name}</td>
+							<td>${dabianStudentsThesises[st.index].name}</td>
+							<td>${student.db1grade}</td>
+							<td>${student.db2grade}</td>
+							<td><a href="${ctx}/teacher/scoreInput/dabian/del/${student.loginName}" class="btn btn-mini">删除</a></td>
+						</tr>
+					</c:forEach>
+					<form action="${ctx}/teacher/scoreInput/dabian/add" method="post">
+						<tr>
+							<td><input type="text" class="input-mini" name="loginName" /></td>
+							<td></td>
+							<td></td>
+							<td><input type="text" class="input-mini" name="db1grade" /></td>
+							<td><input type="text" class="input-mini" name="db2grade" /></td>
+							<td><input type="submit" class="btn btn-primary btn-mini" value="添加" /></td>
+						</tr>
+					</form>
+				</tbody>
+			</table>
 		</div>
 	</div>
 
@@ -157,6 +196,10 @@
 			var tabChoose = $('#tabChoose').text();
 			if (tabChoose == 'pingyue')
 				$('#tab a:nth(1)').tab('show');
+			else if (tabChoose == 'dabian')
+				$('#tab a:nth(2)').tab('show');
+			else
+				$('#tab a:nth(0)').tab('show');
 		});
 	</script>
 </body>

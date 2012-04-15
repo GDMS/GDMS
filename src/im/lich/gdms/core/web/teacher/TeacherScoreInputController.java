@@ -5,6 +5,7 @@ import im.lich.gdms.core.model.student.Student;
 import im.lich.gdms.core.model.teacher.Thesis;
 import im.lich.gdms.core.service.student.StudentService;
 import im.lich.gdms.core.service.student.StudentThesisService;
+import im.lich.gdms.core.service.teacher.DabianService;
 import im.lich.gdms.core.service.teacher.PingyueService;
 import im.lich.gdms.core.service.teacher.TeacherService;
 
@@ -36,6 +37,9 @@ public class TeacherScoreInputController extends BaseController {
 	@Resource
 	private PingyueService pingyueService;
 
+	@Resource
+	private DabianService dabianService;
+
 	@RequestMapping(value = "/scoreInput")
 	public String showScoreInput(Model model) {
 		logger.debug("GET-showScoreInput");
@@ -62,12 +66,21 @@ public class TeacherScoreInputController extends BaseController {
 		List<String> studentsDabianScoreStatuses = studentService.getStudentsDabianScoreStatuses(students);
 		model.addAttribute("studentsDabianScoreStatuses", studentsDabianScoreStatuses);
 
+		//评阅Tab
 		//获取评阅教师输入成绩的学生
 		List<Student> pingyueStudents = pingyueService.getStudents(loginName);
 		model.addAttribute("pingyueStudents", pingyueStudents);
 		//获取评阅教师输入成绩的学生的课题
 		List<Thesis> pingyueStudentsThesises = studentThesisService.getStudentsThesises(pingyueStudents);
 		model.addAttribute("pingyueStudentsThesises", pingyueStudentsThesises);
+
+		//答辩Tab
+		//获取答辩教师输入成绩的学生
+		List<Student> dabianStudents = dabianService.getStudents(loginName);
+		model.addAttribute("dabianStudents", dabianStudents);
+		//获取答辩教师输入成绩的学生的课题
+		List<Thesis> dabianStudentsThesises = studentThesisService.getStudentsThesises(pingyueStudents);
+		model.addAttribute("dabianStudentsThesises", dabianStudentsThesises);
 
 		return "/teacher/scoreInput";
 	}
@@ -135,6 +148,46 @@ public class TeacherScoreInputController extends BaseController {
 
 		//激活评阅Tab
 		model.addAttribute("tabChoose", "pingyue");
+		return "forward:/teacher/scoreInput";
+	}
+
+	//答辩小组成绩输入
+	@RequestMapping(value = "/scoreInput/dabian/add", method = RequestMethod.POST)
+	public String addScoreInputDabian(String loginName, Integer db1grade, Integer db2grade, Model model) {
+		logger.debug("POST-addScoreInputDabian");
+
+		String teacherLoginName = SecurityUtils.getSubject().getPrincipal().toString();
+
+		Student student = new Student();
+		student.setLoginName(loginName);
+		student.setDb1grade(db1grade);
+		student.setDb2grade(db2grade);
+
+		boolean success = false;
+		if (studentService.addScoreInputDabian(student, teacherLoginName) != null) {
+			success = true;
+		}
+		model.addAttribute("success", success);
+
+		//激活评阅Tab
+		model.addAttribute("tabChoose", "dabian");
+		return "forward:/teacher/scoreInput";
+	}
+
+	//答辩小组成绩删除
+	@RequestMapping(value = "/scoreInput/dabian/del/{studentLoginName}", method = RequestMethod.GET)
+	public String delScoreInputDabian(@PathVariable("studentLoginName") String studentLoginName, Model model) {
+		logger.debug("GET-delScoreInputDabian");
+
+		//删除
+		boolean success = false;
+		if (studentService.delScoreInputDabian(studentLoginName) != null) {
+			success = true;
+		}
+		model.addAttribute("success", success);
+
+		//激活评阅Tab
+		model.addAttribute("tabChoose", "dabian");
 		return "forward:/teacher/scoreInput";
 	}
 }
