@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="WebApp_ID" version="3.0">
 	<display-name>GDMS</display-name>
 
-	<!-- Spring ApplicationContext配置文件的路径,可使用通配符,多个路径用,号分隔 此参数用于后面的Spring Context 
-		Loader -->
+	<!-- Spring ApplicationContext配置文件的路径,可使用通配符,多个路径用,号分隔 此参数用于后面的Spring Context Loader -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
@@ -58,16 +56,6 @@
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-
-	<!-- wro4j filter -->
-	<filter>
-		<filter-name>WebResourceOptimizer</filter-name>
-		<filter-class>ro.isdc.wro.http.WroFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>WebResourceOptimizer</filter-name>
-		<url-pattern>/static/*</url-pattern>
 	</filter-mapping>
 
 	<!-- Open Entity Manager in View filter -->

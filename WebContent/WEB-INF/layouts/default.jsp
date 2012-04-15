@@ -14,15 +14,12 @@
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
 
-<!--
+
 <link href="${ctx}/static/bootstrap/css/bootstrap.css" rel="stylesheet">
-<link href="${ctx}/static/bootstrap/docs.css" rel="stylesheet">
+<link href="${ctx}/static/bootstrap/css/docs.css" rel="stylesheet">
 
 <script type="text/javascript" src="${ctx}/static/jquery/jquery-1.7.2.js"></script>
 <script type="text/javascript" src="${ctx}/static/bootstrap/js/bootstrap.js"></script>
--->
-<link href="${ctx}/static/core.css" rel="stylesheet">
-<script type="text/javascript" src="${ctx}/static/core.js"></script>
 
 <!-- Sitemesh头部 -->
 <sitemesh:head />
