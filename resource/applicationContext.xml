@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
-	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-	xmlns:util="http://www.springframework.org/schema/util"
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
@@ -18,13 +17,11 @@
 
 	<!-- 使用annotation 自动注册bean, 并保证@Required、@Autowired的属性被注入 -->
 	<context:component-scan base-package="im.lich.gdms">
-		<context:exclude-filter type="annotation"
-			expression="org.springframework.stereotype.Controller" />
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 
 	<!-- Jpa Entity Manager 配置 -->
-	<bean id="entityManagerFactory"
-		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="persistenceUnitName" value="defaultPU" />
 		<property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter" />
@@ -42,12 +39,10 @@
 		</property>
 	</bean>
 
-	<bean id="hibernateJpaVendorAdapter"
-		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+	<bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
 
 	<!-- Spring Data Jpa配置 -->
-	<jpa:repositories base-package="im.lich.gdms.core.dao"
-		transaction-manager-ref="transactionManager"
+	<jpa:repositories base-package="im.lich.gdms.core.dao" transaction-manager-ref="transactionManager"
 		entity-manager-factory-ref="entityManagerFactory" />
 
 	<!-- Jpa 事务配置 -->
@@ -56,13 +51,11 @@
 	</bean>
 
 	<!-- 使用annotation定义事务 -->
-	<tx:annotation-driven transaction-manager="transactionManager"
-		proxy-target-class="true" />
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
 
 	<beans profile="production">
 		<!-- 定义受环境影响易变的变量 -->
-		<bean
-			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 			<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
 			<property name="ignoreResourceNotFound" value="true" />
 			<property name="locations">
@@ -78,8 +71,7 @@
 		</bean>
 
 		<!-- 数据源配置,使用应用内的C3P0数据库连接池 -->
-		<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
-			destroy-method="close" lazy-init="false">
+		<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close" lazy-init="false">
 			<property name="driverClass" value="${hibernate.connection.driver_class}" />
 			<property name="jdbcUrl" value="${hibernate.connection.url}" />
 			<property name="properties">
@@ -98,8 +90,7 @@
 		</bean>
 
 		<!-- 数据源配置,使用应用服务器的数据库连接池 -->
-		<!--<jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jdbc/ExampleDB" 
-			/> -->
+		<!--<jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jdbc/ExampleDB" /> -->
 	</beans>
 
 	<beans profile="test">
