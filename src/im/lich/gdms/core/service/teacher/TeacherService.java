@@ -8,6 +8,33 @@ import im.lich.gdms.core.model.teacher.Teacher;
 
 public interface TeacherService extends BaseService {
 	/**
+	 * 获取教师列表
+	 * @return List<Teacher>
+	 */
+	public List<Teacher> getTeachers();
+
+	/**
+	 * 添加教师
+	 * @param teacher 教师
+	 * @return Teacher or null
+	 */
+	public Teacher addTeacher(Teacher teacher);
+
+	/**
+	 * 添加或更新教师
+	 * @param teacher 教师
+	 * @return Teacher or null
+	 */
+	public Teacher addOrUpdateTeacher(Teacher teacher);
+
+	/**
+	 * 删除教师
+	 * @param teacherId 教师ID
+	 * @return Teacher
+	 */
+	public Teacher delTeacher(Long teacherId);
+
+	/**
 	 * 获取教师个人信息
 	 * @param loginName 登录名、教工号
 	 * @return Teacher

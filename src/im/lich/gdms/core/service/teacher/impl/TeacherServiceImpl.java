@@ -1,7 +1,5 @@
 package im.lich.gdms.core.service.teacher.impl;
 
-import java.util.List;
-
 import im.lich.gdms.base.service.BaseServiceImpl;
 import im.lich.gdms.core.dao.student.StudentDao;
 import im.lich.gdms.core.dao.teacher.TeacherDao;
@@ -9,6 +7,8 @@ import im.lich.gdms.core.model.student.Student;
 import im.lich.gdms.core.model.teacher.Teacher;
 import im.lich.gdms.core.model.teacher.Thesis;
 import im.lich.gdms.core.service.teacher.TeacherService;
+
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -28,6 +28,39 @@ public class TeacherServiceImpl extends BaseServiceImpl implements TeacherServic
 
 	@Resource
 	private StudentDao studentDao;
+
+	@Override
+	public List<Teacher> getTeachers() {
+		List<Teacher> teachers = Lists.newArrayList(teacherDao.findAll());
+
+		logger.debug("获取Teacher数量：{}", teachers.size());
+		return teachers;
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public Teacher addTeacher(Teacher teacher) {
+		return teacherDao.save(teacher);
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public Teacher addOrUpdateTeacher(Teacher teacher) {
+		Teacher _t = teacherDao.findByLoginName(teacher.getLoginName());
+		if (_t != null) {
+			teacher.setId(_t.getId());
+		}
+
+		return teacherDao.save(teacher);
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public Teacher delTeacher(Long teacherId) {
+		Teacher teacher = teacherDao.findOne(teacherId);
+		teacherDao.delete(teacher);
+		return teacher;
+	}
 
 	@Override
 	public Teacher getTeacherInfo(String loginName) {

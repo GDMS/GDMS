@@ -15,10 +15,17 @@ public interface AdminService extends BaseService {
 
 	/**
 	 * 增加管理员
-	 * @param news 消息
-	 * @return News or null
+	 * @param administrator 管理员
+	 * @return Administrator or null
 	 */
 	public Administrator addAdministrator(Administrator administrator);
+
+	/**
+	 * 增加或更新管理员
+	 * @param administrator 管理员
+	 * @return Administrator or null
+	 */
+	public Administrator addOrUpdateAdministrator(Administrator administrator);
 
 	/**
 	 * 删除管理员

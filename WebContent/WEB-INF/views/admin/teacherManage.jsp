@@ -5,40 +5,50 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>管理员管理</title>
+<title>教师管理</title>
 </head>
 <body>
-	<h3>管理员管理</h3>
+	<h3>教师管理</h3>
 
 	<table class="table table-bordered">
 		<thead>
 			<tr>
-				<th style="vertical-align: middle;">登录名</th>
+				<th style="vertical-align: middle;">教工号</th>
 				<th style="vertical-align: middle;">姓名</th>
 				<th style="vertical-align: middle;">密码</th>
-				<th style="vertical-align: middle;">启用</th>
+				<th style="vertical-align: middle;">部门</th>
+				<th style="vertical-align: middle;">课题数</th>
+				<th style="vertical-align: middle;">电话</th>
+				<th style="vertical-align: middle;">邮箱</th>
 				<th style="vertical-align: middle;">操作</th>
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${admins}" var="admin" varStatus="st">
+			<c:forEach items="${teachers}" var="teacher" varStatus="st">
 				<tr>
-					<td>${admin.loginName}</td>
-					<td>${admin.name}</td>
-					<td><span style="display: none;">${admin.password}</span></td>
-					<td>${admin.enable}</td>
-					<td><a href="${ctx}/admin/adminManage/del/${admin.id}" class="btn btn-mini">删除</a></td>
+					<td>${teacher.loginName}</td>
+					<td>${teacher.name}</td>
+					<td><span style="display: none;">${teacher.password}</span></td>
+					<td>${teacher.dept}</td>
+					<td>${teacher.subnum}</td>
+					<td>${teacher.tel}</td>
+					<td>${teacher.mail}</td>
+					<td><a href="${ctx}/admin/teacherManage/del/${teacher.id}" class="btn btn-mini">删除</a></td>
 				</tr>
 			</c:forEach>
-			<form name="admin" action="${ctx}/admin/adminManage/add" method="post">
+			<form name="teacher" action="${ctx}/admin/teacherManage/add" method="post">
 				<tr>
 					<td><input type="text" class="input-medium" name="loginName" /></td>
 					<td><input type="text" class="input-small" name="name" /></td>
 					<td><input type="text" class="input-medium" name="password" /></td>
-					<td><select name="enable" class="input-small">
-							<option value="true">启用</option>
-							<option value="false">禁用</option>
+					<td><select name="dept" class="input-medium">
+							<c:forEach items="${depts}" var="dept" varStatus="st">
+								<option value="${dept.name}">${dept.name}</option>
+							</c:forEach>
 					</select></td>
+					<td><input type="text" class="input-small" name="subnum" /></td>
+					<td><input type="text" class="input-medium" name="tel" /></td>
+					<td><input type="text" class="input-medium" name="mail" /></td>
 					<td><input type="submit" class="btn btn-primary btn-mini" value="添加、更新" /></td>
 				</tr>
 			</form>

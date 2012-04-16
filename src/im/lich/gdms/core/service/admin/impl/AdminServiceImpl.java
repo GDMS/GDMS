@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(readOnly = true)
-public class AdministratorImpl extends BaseServiceImpl implements AdminService {
+public class AdminServiceImpl extends BaseServiceImpl implements AdminService {
 
 	@Resource
 	private AdministratorDao administratorDao;
@@ -30,6 +30,12 @@ public class AdministratorImpl extends BaseServiceImpl implements AdminService {
 	@Override
 	@Transactional(readOnly = false)
 	public Administrator addAdministrator(Administrator administrator) {
+		return administratorDao.save(administrator);
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public Administrator addOrUpdateAdministrator(Administrator administrator) {
 		Administrator _a = administratorDao.findByLoginName(administrator.getLoginName());
 		if (_a != null) {
 			administrator.setId(_a.getId());

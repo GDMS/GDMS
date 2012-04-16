@@ -65,7 +65,7 @@ public class Administrator extends IdEntity implements User {
 		this.password = password;
 	}
 
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
 	public String getEnable() {
 		return enable;
 	}

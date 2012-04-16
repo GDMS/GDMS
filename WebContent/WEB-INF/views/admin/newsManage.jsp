@@ -36,8 +36,7 @@
 							<option value="student">学生</option>
 							<option value="teacher">教师</option>
 							<option value="admin">管理员</option>
-						</select>
-					</td>
+					</select></td>
 					<td><input type="submit" class="btn btn-primary btn-mini" value="添加" /></td>
 				</tr>
 			</form>
@@ -48,6 +47,14 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('#li-admin_index').addClass('active');
+			//实现点击表格条目，将内容复制到最后一行
+			$('tbody tr:not(:last)').click(function() {
+				var num = $('thead tr th').size() - 1;//减去最后操作一列
+				for ( var i = 0; i < num; i++) {
+					var val = $(this).children(':nth(' + i + ')').text();
+					$('tbody tr:last td:nth(' + i + ') input').val(val);
+				}
+			})
 		});
 	</script>
 </body>

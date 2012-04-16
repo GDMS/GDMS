@@ -30,11 +30,11 @@ public class AdminAdminManageController extends BaseController {
 	}
 
 	@RequestMapping(value = { "/adminManage/add" }, method = RequestMethod.POST)
-	public String addAdminManage(Administrator admin, Model model) {
+	public String addOrUpdateAdminManage(Administrator admin, Model model) {
 		logger.debug("获取新增的Administrator: {}", admin.toString());
 
 		boolean success = false;
-		if (adminService.addAdministrator(admin) != null) {
+		if (adminService.addOrUpdateAdministrator(admin) != null) {
 			success = true;
 		}
 		model.addAttribute("success", success);
