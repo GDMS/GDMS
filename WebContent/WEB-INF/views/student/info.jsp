@@ -88,10 +88,19 @@
 				</div>
 
 				<div class="control-group">
-					<label class="control-label">专业班级:</label>
+					<label class="control-label">专业:</label>
 					<div class="controls">
 						<form:select path="major" cssClass="input-xlarge">
 							<form:options items="${majors}" itemLabel="name" itemValue="name" />
+						</form:select>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label">班级:</label>
+					<div class="controls">
+						<form:select path="stuClass" cssClass="input-xlarge">
+							<form:options items="${stuClasses}" itemLabel="name" itemValue="name" />
 						</form:select>
 					</div>
 				</div>

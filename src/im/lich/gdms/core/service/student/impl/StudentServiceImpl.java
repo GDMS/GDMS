@@ -5,10 +5,12 @@ import im.lich.gdms.core.dao.student.StudentDao;
 import im.lich.gdms.core.dao.teacher.DabianRecordDao;
 import im.lich.gdms.core.dao.teacher.PingyueRecordDao;
 import im.lich.gdms.core.dao.teacher.TeacherDao;
+import im.lich.gdms.core.dao.teacher.ThesisDao;
 import im.lich.gdms.core.model.student.Student;
 import im.lich.gdms.core.model.teacher.DabianRecord;
 import im.lich.gdms.core.model.teacher.PingyueRecord;
 import im.lich.gdms.core.model.teacher.Teacher;
+import im.lich.gdms.core.model.teacher.Thesis;
 import im.lich.gdms.core.service.student.StudentService;
 
 import java.util.Collection;
@@ -29,6 +31,9 @@ public class StudentServiceImpl extends BaseServiceImpl implements StudentServic
 
 	@Resource
 	private StudentDao studentDao;
+
+	@Resource
+	private ThesisDao thesisDao;
 
 	@Resource
 	private TeacherDao teacherDao;
@@ -56,6 +61,13 @@ public class StudentServiceImpl extends BaseServiceImpl implements StudentServic
 	}
 
 	@Override
+	public Thesis getStudentThesis(Student student) {
+		Assert.notNull(student);
+		Long thesisId = student.getThesisId();
+		return thesisDao.findOne(thesisId);
+	}
+
+	@Override
 	@Transactional(readOnly = false)
 	public Student saveStudentInfo(Student student) {
 		Assert.notNull(student);
@@ -79,6 +91,7 @@ public class StudentServiceImpl extends BaseServiceImpl implements StudentServic
 		_s.setPhone(s.getPhone());
 		_s.setEmail(s.getEmail());
 		_s.setMajor(s.getMajor());
+		_s.setStuClass(s.getStuClass());
 
 		logger.debug("保存学生信息：{}", _s);
 		return studentDao.save(_s);

@@ -2,7 +2,9 @@ package im.lich.gdms.core.web.student;
 
 import im.lich.gdms.base.web.BaseController;
 import im.lich.gdms.core.model.student.Student;
+import im.lich.gdms.core.model.student.StudentClass;
 import im.lich.gdms.core.model.student.StudentMajor;
+import im.lich.gdms.core.service.student.StudentClassService;
 import im.lich.gdms.core.service.student.StudentMajorService;
 import im.lich.gdms.core.service.student.StudentService;
 
@@ -27,8 +29,11 @@ public class StudentInfoController extends BaseController {
 	@Resource
 	private StudentMajorService studentMajorService;
 
+	@Resource
+	private StudentClassService studentClassService;
+
 	@RequiresPermissions("student:info:show")
-	@RequestMapping(value = "/info")
+	@RequestMapping(value = "/info", method = RequestMethod.GET)
 	public String showInfo(Model model) {
 		logger.debug("GET-showInfo");
 
@@ -40,13 +45,17 @@ public class StudentInfoController extends BaseController {
 		List<StudentMajor> majors = studentMajorService.getStudentMajors();
 		model.addAttribute("majors", majors);
 
+		//添加班级列表
+		List<StudentClass> stuClasses = studentClassService.getStudentClasses();
+		model.addAttribute("stuClasses", stuClasses);
+
 		return "student/info";
 	}
 
 	@RequiresPermissions("student:info:mod")
 	@RequestMapping(value = "/info", method = RequestMethod.POST)
 	public String modInfo(Student student, Model model) {
-		logger.debug("POST-postInfo");
+		logger.debug("POST-modInfo");
 
 		logger.debug("网页获取信息：{}", student);
 		//强制指定用户登录名
@@ -63,6 +72,10 @@ public class StudentInfoController extends BaseController {
 		//添加专业列表
 		List<StudentMajor> majors = studentMajorService.getStudentMajors();
 		model.addAttribute("majors", majors);
+
+		//添加班级列表
+		List<StudentClass> stuClasses = studentClassService.getStudentClasses();
+		model.addAttribute("stuClasses", stuClasses);
 
 		return "student/info";
 	}

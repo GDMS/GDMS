@@ -1,10 +1,11 @@
 package im.lich.gdms.core.service.student;
 
-import java.util.Collection;
-import java.util.List;
-
 import im.lich.gdms.base.service.BaseService;
 import im.lich.gdms.core.model.student.Student;
+import im.lich.gdms.core.model.teacher.Thesis;
+
+import java.util.Collection;
+import java.util.List;
 
 public interface StudentService extends BaseService {
 
@@ -21,6 +22,13 @@ public interface StudentService extends BaseService {
 	 * @return Student 学生
 	 */
 	public Student getStudentInfo(String loginName);
+
+	/**
+	 * 获取学生课题
+	 * @param student 学生
+	 * @return Thesis 课题，或者null
+	 */
+	public Thesis getStudentThesis(Student student);
 
 	/**
 	 * 保存学生信息
