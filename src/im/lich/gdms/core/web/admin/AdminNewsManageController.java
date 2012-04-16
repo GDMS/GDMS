@@ -30,11 +30,11 @@ public class AdminNewsManageController extends BaseController {
 	}
 
 	@RequestMapping(value = { "/newsManage/add" }, method = RequestMethod.POST)
-	public String saveNewsManage(News news, Model model) {
+	public String addNewsManage(News news, Model model) {
 		logger.debug("获取新增的News: {}", news.toString());
 
 		boolean success = false;
-		if (newsService.saveNews(news) != null) {
+		if (newsService.addNews(news) != null) {
 			success = true;
 		}
 		model.addAttribute("success", success);
@@ -46,7 +46,7 @@ public class AdminNewsManageController extends BaseController {
 	}
 
 	@RequestMapping(value = { "/newsManage/del/{newsId}" })
-	public String saveNewsManage(@PathVariable("newsId") Long newsId, Model model) {
+	public String delNewsManage(@PathVariable("newsId") Long newsId, Model model) {
 		boolean success = false;
 		if (newsService.delNews(newsId) != null) {
 			success = true;

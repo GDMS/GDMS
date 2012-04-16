@@ -26,11 +26,11 @@ public interface NewsService extends BaseService {
 	public List<News> getNewses(String receiver);
 
 	/**
-	 * 保存消息
+	 * 增加消息
 	 * @param news 消息
 	 * @return News or null
 	 */
-	public News saveNews(News news);
+	public News addNews(News news);
 
 	/**
 	 * 删除消息

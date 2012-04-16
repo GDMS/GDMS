@@ -36,7 +36,7 @@ public class NewsServiceImpl extends BaseServiceImpl implements NewsService {
 
 	@Override
 	@Transactional(readOnly = false)
-	public News saveNews(News news) {
+	public News addNews(News news) {
 		return newsDao.save(news);
 	}
 
