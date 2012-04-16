@@ -114,21 +114,41 @@
 				<shiro:hasRole name="ROLE_ADMIN">
 					<li id="li-admin_info"><a href="${ctx}/admin/info">个人信息</a></li>
 					<li><a href="${ctx}/admin/newsManage">信息发布</a></li>
-					<li><a href="${ctx}/admin/teacherReg">注册新教师</a></li>
-					<li><a href="${ctx}/admin/majorReg">新增专业班级</a></li>
-					<li><a href="${ctx}/admin/pyManage">管理评语</a></li>
-					<li><a href="${ctx}/admin/dbOperate">数据库操作</a></li>
-					<li><a href="${ctx}/admin/lwManage">论文管理</a></li>
-					<li><a href="${ctx}/admin/viewSelect">查看视图</a></li>
-					<li><a href="${ctx}/admin/studentInfo">管理学生信息</a></li>
-					<li><a href="${ctx}/admin/teacherInfo">管理教师信息</a></li>
-					<li><a href="${ctx}/admin/subInfoManage">管理课题信息</a></li>
-					<li><a href="${ctx}/admin/studentPreviewInfo">管理学生预选信息</a></li>
-					<li><a href="${ctx}/admin/subAssignInfo">管理学生课题分配信息</a></li>
-					<li><a href="${ctx}/admin/subAssignedInfo">管理已分配信息</a></li>
-					<li><a href="${ctx}/admin/assignAuto">自动分配</a></li>
-					<li><a href="${ctx}/admin/printManage!adminuse">打印管理</a></li>
-					<li><a href="${ctx}/admin/adminPropertyQuery">后台属性管理</a></li>
+					<li id="li-admin_people" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">人员、组织管理<b
+							class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="${ctx}/admin/adminManage">管理员管理</a></li>
+							<li><a href="${ctx}/admin/teacherManage">教师管理</a></li>
+							<li><a href="${ctx}/admin/teacherDeptManage">教师部门管理</a></li>
+							<li><a href="${ctx}/admin/studentManage">学生管理</a></li>
+							<li><a href="${ctx}/admin/studentMajorClassManage">学生专业、班级管理</a></li>
+						</ul></li>
+
+					<li id="li-admin_material" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">材料管理<b
+							class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="${ctx}/admin/paperManage">优秀论文管理</a></li>
+							<li><a href="${ctx}/admin/commentTempleManage">评语模板管理</a></li>
+						</ul></li>
+
+					<li id="li-admin_subject" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">选课信息管理<b
+							class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="${ctx}/admin/subjectManage">课题信息管理</a></li>
+							<li><a href="${ctx}/admin/studentPreviewManage">学生预选信息管理</a></li>
+							<li><a href="${ctx}/admin/subAssignManage">学生课题分配信息管理</a></li>
+							<li><a href="${ctx}/admin/subAssignedManage">已分配信息管理</a></li>
+							<li><a href="${ctx}/admin/autoAssignOperate">自动分配操作</a></li>
+						</ul></li>
+
+					<li id="li-admin_system" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">系统管理<b
+							class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="${ctx}/admin/dbOperate">数据库操作</a></li>
+							<li><a href="${ctx}/admin/viewSelect">查看视图</a></li>
+							<li><a href="${ctx}/admin/printManage!adminuse">打印管理</a></li>
+							<li><a href="${ctx}/admin/adminPropertyQuery">后台属性管理</a></li>
+						</ul></li>
 				</shiro:hasRole>
 				<!-- /管理员菜单 -->
 
