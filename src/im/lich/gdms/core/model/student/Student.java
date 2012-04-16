@@ -23,7 +23,8 @@ public class Student extends IdEntity implements User {
 	private String phone = "";//电话
 	private String email = "";//邮箱
 	private String password = "0";//密码
-	private String major = "";//专业班级
+	private String major = "";//专业
+	private String stuClass = "";//班级
 	private Long thesisId;//选中课题id
 	private String assign = "";//分配状态
 	private String ktup = "";//开题报告
@@ -74,12 +75,12 @@ public class Student extends IdEntity implements User {
 	}
 
 	public Student(String loginName, String name, String gender, Double credit, String phone, String email,
-			String password, String major, Long thesisId, String assign, String ktup, String rwsup, String transup,
-			String thesisup, String progress, String quality, String attitude, String duty, String remark, String warn,
-			Integer grade, String question1, String answer1, String question2, String answer2, String question3,
-			String answer3, String projDesc, String thesDesc, Integer zd1grade, Integer zd2grade, Integer zd3grade,
-			Integer zd4grade, Integer py1grade, Integer py2grade, Integer db1grade, Integer db2grade, String zdpingyu,
-			String pypingyu, String dbpingyu) {
+			String password, String major, String stuClass, Long thesisId, String assign, String ktup, String rwsup,
+			String transup, String thesisup, String progress, String quality, String attitude, String duty,
+			String remark, String warn, Integer grade, String question1, String answer1, String question2,
+			String answer2, String question3, String answer3, String projDesc, String thesDesc, Integer zd1grade,
+			Integer zd2grade, Integer zd3grade, Integer zd4grade, Integer py1grade, Integer py2grade, Integer db1grade,
+			Integer db2grade, String zdpingyu, String pypingyu, String dbpingyu) {
 		super();
 		this.loginName = loginName;
 		this.name = name;
@@ -89,6 +90,7 @@ public class Student extends IdEntity implements User {
 		this.email = email;
 		this.password = password;
 		this.major = major;
+		this.stuClass = stuClass;
 		this.thesisId = thesisId;
 		this.assign = assign;
 		this.ktup = ktup;
@@ -193,6 +195,15 @@ public class Student extends IdEntity implements User {
 
 	public void setMajor(String major) {
 		this.major = major;
+	}
+
+	@Column(nullable = false)
+	public String getStuClass() {
+		return stuClass;
+	}
+
+	public void setStuClass(String stuClass) {
+		this.stuClass = stuClass;
 	}
 
 	@Column(nullable = false, unique = true)

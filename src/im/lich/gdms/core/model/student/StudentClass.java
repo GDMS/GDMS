@@ -12,16 +12,16 @@ import im.lich.gdms.base.model.IdEntity;
 @Entity
 @Table
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class StudentMajor extends IdEntity {
-	private static final long serialVersionUID = 2084180035575935501L;
+public class StudentClass extends IdEntity {
+	private static final long serialVersionUID = 2084180035575934401L;
 
-	private String name = "";//专业名称
+	private String name = "";//班级名称
 
-	public StudentMajor() {
+	public StudentClass() {
 		super();
 	}
 
-	public StudentMajor(String name) {
+	public StudentClass(String name) {
 		super();
 		this.name = name;
 	}
