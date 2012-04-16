@@ -113,7 +113,7 @@
 				<!-- 管理员菜单 -->
 				<shiro:hasRole name="ROLE_ADMIN">
 					<li id="li-admin_info"><a href="${ctx}/admin/info">个人信息</a></li>
-					<li><a href="${ctx}/admin/newsRelease">信息发布</a></li>
+					<li><a href="${ctx}/admin/newsManage">信息发布</a></li>
 					<li><a href="${ctx}/admin/teacherReg">注册新教师</a></li>
 					<li><a href="${ctx}/admin/majorReg">新增专业班级</a></li>
 					<li><a href="${ctx}/admin/pyManage">管理评语</a></li>

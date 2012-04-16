@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.common.collect.Lists;
 
 @Service
-@Transactional(readOnly = false)
+@Transactional(readOnly = true)
 public class PaperServiceImpl extends BaseServiceImpl implements PaperService {
 	@Resource
 	private PaperDao paperDao;
