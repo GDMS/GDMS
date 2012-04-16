@@ -64,7 +64,7 @@
 				</thead>
 				<tbody>
 					<c:forEach items="${students}" var="student" varStatus="st">
-						<form action="${ctx}/teacher/scoreInput/zhidao/update/${student.loginName}" method="post">
+						<form name="student" action="${ctx}/teacher/scoreInput/zhidao/update/${student.loginName}" method="post">
 							<tr>
 								<td>${student.loginName}</td>
 								<td>${student.name}</td>
@@ -109,7 +109,7 @@
 							<td><a href="${ctx}/teacher/scoreInput/pingyue/del/${student.loginName}" class="btn btn-mini">删除</a></td>
 						</tr>
 					</c:forEach>
-					<form action="${ctx}/teacher/scoreInput/pingyue/add" method="post">
+					<form name="student" action="${ctx}/teacher/scoreInput/pingyue/add" method="post">
 						<tr>
 							<td><input type="text" class="input-mini" name="loginName" /></td>
 							<td></td>
@@ -151,7 +151,7 @@
 							<td><a href="${ctx}/teacher/scoreInput/dabian/del/${student.loginName}" class="btn btn-mini">删除</a></td>
 						</tr>
 					</c:forEach>
-					<form action="${ctx}/teacher/scoreInput/dabian/add" method="post">
+					<form name="student" action="${ctx}/teacher/scoreInput/dabian/add" method="post">
 						<tr>
 							<td><input type="text" class="input-mini" name="loginName" /></td>
 							<td></td>

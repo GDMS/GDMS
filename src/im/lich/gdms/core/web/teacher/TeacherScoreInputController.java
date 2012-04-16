@@ -87,15 +87,9 @@ public class TeacherScoreInputController extends BaseController {
 
 	//指导教师成绩更新
 	@RequestMapping(value = "/scoreInput/zhidao/update/{studentLoginName}", method = RequestMethod.POST)
-	public String updateScoreInputZhidao(@PathVariable("studentLoginName") String studentLoginName, Integer zd1grade,
-			Integer zd2grade, Integer zd3grade, Integer zd4grade, Model model) {
+	public String updateScoreInputZhidao(@PathVariable("studentLoginName") String studentLoginName, Student student,
+			Model model) {
 		logger.debug("POST-updateScoreInputZhidao");
-
-		Student student = new Student();
-		student.setZd1grade(zd1grade);
-		student.setZd2grade(zd2grade);
-		student.setZd3grade(zd3grade);
-		student.setZd4grade(zd4grade);
 		logger.debug("网页获取信息：{}", student);
 
 		//强制指定学生登录名
@@ -113,15 +107,11 @@ public class TeacherScoreInputController extends BaseController {
 
 	//评阅教师成绩输入
 	@RequestMapping(value = "/scoreInput/pingyue/add", method = RequestMethod.POST)
-	public String addScoreInputPingyue(String loginName, Integer py1grade, Integer py2grade, Model model) {
+	public String addScoreInputPingyue(Student student, Model model) {
 		logger.debug("POST-addScoreInputPingyue");
+		logger.debug("网页获取信息：{}", student);
 
 		String teacherLoginName = SecurityUtils.getSubject().getPrincipal().toString();
-
-		Student student = new Student();
-		student.setLoginName(loginName);
-		student.setPy1grade(py1grade);
-		student.setPy2grade(py2grade);
 
 		boolean success = false;
 		if (studentService.addScoreInputPingyue(student, teacherLoginName) != null) {
@@ -153,15 +143,11 @@ public class TeacherScoreInputController extends BaseController {
 
 	//答辩小组成绩输入
 	@RequestMapping(value = "/scoreInput/dabian/add", method = RequestMethod.POST)
-	public String addScoreInputDabian(String loginName, Integer db1grade, Integer db2grade, Model model) {
+	public String addScoreInputDabian(Student student, Model model) {
 		logger.debug("POST-addScoreInputDabian");
+		logger.debug("网页获取信息：{}", student);
 
 		String teacherLoginName = SecurityUtils.getSubject().getPrincipal().toString();
-
-		Student student = new Student();
-		student.setLoginName(loginName);
-		student.setDb1grade(db1grade);
-		student.setDb2grade(db2grade);
 
 		boolean success = false;
 		if (studentService.addScoreInputDabian(student, teacherLoginName) != null) {
