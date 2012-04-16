@@ -23,7 +23,7 @@ public class AdminNewsManageController extends BaseController {
 
 	@RequestMapping(value = { "/newsManage" })
 	public String showNewsManage(Model model) {
-		List<News> newses = newsService.getNewes();
+		List<News> newses = newsService.getNewses();
 		model.addAttribute("newses", newses);
 
 		return "admin/newsManage";
@@ -39,7 +39,7 @@ public class AdminNewsManageController extends BaseController {
 		}
 		model.addAttribute("success", success);
 
-		List<News> newses = newsService.getNewes();
+		List<News> newses = newsService.getNewses();
 		model.addAttribute("newses", newses);
 
 		return "admin/newsManage";
@@ -53,7 +53,7 @@ public class AdminNewsManageController extends BaseController {
 		}
 		model.addAttribute("success", success);
 
-		List<News> newses = newsService.getNewes();
+		List<News> newses = newsService.getNewses();
 		model.addAttribute("newses", newses);
 
 		return "admin/newsManage";

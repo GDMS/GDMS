@@ -21,10 +21,16 @@ public class NewsServiceImpl extends BaseServiceImpl implements NewsService {
 	private NewsDao newsDao;
 
 	@Override
-	public List<News> getNewes() {
+	public List<News> getNewses() {
 		List<News> newses = Lists.newArrayList(newsDao.findAll());
 
 		logger.debug("获取News数量：{}", newses.size());
+		return newses;
+	}
+
+	@Override
+	public List<News> getNewses(String receiver) {
+		List<News> newses = Lists.newArrayList(newsDao.findByReceiver(receiver));
 		return newses;
 	}
 

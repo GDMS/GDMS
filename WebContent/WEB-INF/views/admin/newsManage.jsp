@@ -32,7 +32,7 @@
 				<tr>
 					<td><input type="text" class="input-small" name="title" /></td>
 					<td><input type="text" class="input-xxlarge" name="message" /></td>
-					<td><select class="input-small" name="reveiber"><option value="all">所有人</option>
+					<td><select class="input-small" name="receiver"><option value="all">所有人</option>
 							<option value="student">学生</option>
 							<option value="teacher">教师</option>
 							<option value="admin">管理员</option>
