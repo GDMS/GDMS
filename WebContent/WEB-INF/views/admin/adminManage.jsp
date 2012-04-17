@@ -27,7 +27,8 @@
 					<td>${admin.name}</td>
 					<td><span style="display: none;">${admin.password}</span></td>
 					<td>${admin.enable}</td>
-					<td><a href="${ctx}/admin/adminManage/del/${admin.id}" class="btn btn-mini">删除</a></td>
+					<td><a href="${ctx}/admin/adminManage/del/${admin.id}" class="btn btn-mini">删除</a>&nbsp;<a
+						class="btn btn-mini">修改</a></td>
 				</tr>
 			</c:forEach>
 			<form name="admin" action="${ctx}/admin/adminManage/add" method="post">
@@ -39,7 +40,8 @@
 							<option value="true">启用</option>
 							<option value="false">禁用</option>
 					</select></td>
-					<td><input type="submit" class="btn btn-primary btn-mini" value="添加、更新" /></td>
+					<td><input type="submit" class="btn btn-primary btn-mini" value="添加" />&nbsp;<input type="submit"
+						class="btn btn-primary btn-mini" value="更新" /></td>
 				</tr>
 			</form>
 		</tbody>

@@ -33,23 +33,25 @@
 					<td>${teacher.subnum}</td>
 					<td>${teacher.tel}</td>
 					<td>${teacher.mail}</td>
-					<td><a href="${ctx}/admin/teacherManage/del/${teacher.id}" class="btn btn-mini">删除</a></td>
+					<td><a href="${ctx}/admin/teacherManage/del/${teacher.id}" class="btn btn-mini">删除</a>&nbsp;<a
+						class="btn btn-mini">修改</a></td>
 				</tr>
 			</c:forEach>
 			<form name="teacher" action="${ctx}/admin/teacherManage/add" method="post">
 				<tr>
-					<td><input type="text" class="input-medium" name="loginName" /></td>
-					<td><input type="text" class="input-small" name="name" /></td>
-					<td><input type="text" class="input-medium" name="password" /></td>
-					<td><select name="dept" class="input-medium">
+					<td><input type="text" class="input-mini" name="loginName" /></td>
+					<td><input type="text" class="input-mini" name="name" /></td>
+					<td><input type="text" class="input-mini" name="password" /></td>
+					<td><select name="dept" class="input-small">
 							<c:forEach items="${depts}" var="dept" varStatus="st">
 								<option value="${dept.name}">${dept.name}</option>
 							</c:forEach>
 					</select></td>
 					<td><input type="text" class="input-small" name="subnum" /></td>
-					<td><input type="text" class="input-medium" name="tel" /></td>
+					<td><input type="text" class="input-small" name="tel" /></td>
 					<td><input type="text" class="input-medium" name="mail" /></td>
-					<td><input type="submit" class="btn btn-primary btn-mini" value="添加、更新" /></td>
+					<td><input type="submit" class="btn btn-primary btn-mini" value="添加" />&nbsp;<input type="submit"
+						class="btn btn-primary btn-mini" value="更新" /></td>
 				</tr>
 			</form>
 		</tbody>
