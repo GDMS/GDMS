@@ -249,6 +249,39 @@ public class StudentServiceImpl extends BaseServiceImpl implements StudentServic
 		return statuses;
 	}
 
+	@Transactional(readOnly = false)
+	private void updateTotalGrade(Student student) {
+		Assert.notNull(student);
+		Assert.notNull(student.getLoginName());
+		//简化名称
+		Student s = student;
+
+		//获取内部学生
+		Student _s = studentDao.findByLoginName(s.getLoginName());
+		Assert.notNull(_s);
+
+		int zd1 = _s.getZd1grade();
+		int zd2 = _s.getZd2grade();
+		int zd3 = _s.getZd3grade();
+		int zd4 = _s.getZd4grade();
+		int py1 = _s.getPy1grade();
+		int py2 = _s.getPy2grade();
+		int db1 = _s.getDb1grade();
+		int db2 = _s.getDb2grade();
+
+		double total = 0;
+		total += zd1 * 0.15 + zd2 * 0.05 + zd3 * 0.05 + zd4 * 0.05;
+		total += py1 * 0.2 + py2 * 0.1;
+		total += db1 * 0.3 + db2 * 0.1;
+		logger.debug("updateTotalGrade-total: {}", total);
+
+		int grade = (int) Math.round(total);
+		logger.debug("updateTotalGrade-grade: {}", grade);
+		_s.setGrade(grade);
+
+		logger.debug("更新成绩总分：{}", _s);
+	}
+
 	@Override
 	@Transactional(readOnly = false)
 	public Student updateScoreInputZhidaoDetail(Student student) {
@@ -265,6 +298,8 @@ public class StudentServiceImpl extends BaseServiceImpl implements StudentServic
 		_s.setZd2grade(s.getZd2grade());
 		_s.setZd3grade(s.getZd3grade());
 		_s.setZd4grade(s.getZd4grade());
+
+		updateTotalGrade(_s);
 
 		logger.debug("保存指导教师输入成绩信息：{}", _s);
 		return studentDao.save(_s);
@@ -284,6 +319,8 @@ public class StudentServiceImpl extends BaseServiceImpl implements StudentServic
 
 		_s.setPy1grade(s.getPy1grade());
 		_s.setPy2grade(s.getPy2grade());
+
+		updateTotalGrade(_s);
 
 		Teacher _t = teacherDao.findByLoginName(teacherLoginName);
 		Assert.notNull(_t);
@@ -319,6 +356,8 @@ public class StudentServiceImpl extends BaseServiceImpl implements StudentServic
 
 		_s.setDb1grade(s.getDb1grade());
 		_s.setDb2grade(s.getDb2grade());
+
+		updateTotalGrade(_s);
 
 		Teacher _t = teacherDao.findByLoginName(teacherLoginName);
 		Assert.notNull(_t);
