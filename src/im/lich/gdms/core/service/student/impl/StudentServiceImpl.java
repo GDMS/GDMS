@@ -68,6 +68,19 @@ public class StudentServiceImpl extends BaseServiceImpl implements StudentServic
 	}
 
 	@Override
+	public List<Thesis> getStudentsThesises(Collection<Student> students) {
+		List<Thesis> thesises = Lists.newArrayList();
+		for (Student s : students) {
+			Long thesisId = s.getThesisId();
+			Thesis t = thesisDao.findOne(thesisId);
+			Assert.notNull(t);
+			Assert.hasText(t.getAssign());
+			thesises.add(t);
+		}
+		return thesises;
+	}
+
+	@Override
 	@Transactional(readOnly = false)
 	public Student saveStudentInfo(Student student) {
 		Assert.notNull(student);
@@ -325,5 +338,34 @@ public class StudentServiceImpl extends BaseServiceImpl implements StudentServic
 		Long dabianId = dabianRecordDao.findByStudentId(s.getId()).getId();
 		dabianRecordDao.delete(dabianId);
 		return s;
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public Student updatePingyu(Student student) {
+		Assert.notNull(student);
+		Assert.notNull(student.getLoginName());
+
+		//简化名称
+		Student s = student;
+
+		//获取内部学生
+		Student _s = studentDao.findByLoginName(s.getLoginName());
+		Assert.notNull(_s);
+
+		_s.setZdpingyu(s.getZdpingyu());
+
+		_s.setPypingyu(s.getPypingyu());
+
+		_s.setQuestion1(s.getQuestion1());
+		_s.setAnswer1(s.getAnswer1());
+		_s.setQuestion2(s.getQuestion2());
+		_s.setAnswer2(s.getAnswer2());
+		_s.setQuestion3(s.getQuestion3());
+		_s.setAnswer3(s.getAnswer3());
+		_s.setDbpingyu(s.getDbpingyu());
+
+		logger.debug("保存评语信息：{}", _s);
+		return studentDao.save(_s);
 	}
 }

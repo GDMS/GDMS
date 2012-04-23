@@ -31,6 +31,13 @@ public interface StudentService extends BaseService {
 	public Thesis getStudentThesis(Student student);
 
 	/**
+	 * 获取学生课题信息
+	 * @param students 学生集合
+	 * @return List<Thesis>
+	 */
+	public List<Thesis> getStudentsThesises(Collection<Student> students);
+
+	/**
 	 * 保存学生信息
 	 * @param student 学生
 	 * @return Student 学生，失败返回null
@@ -129,4 +136,11 @@ public interface StudentService extends BaseService {
 	* @return Student 学生，失败返回null
 	*/
 	public Student delScoreInputDabian(String studentLoginName);
+
+	/**
+	 * 更新学生评语（全部）
+	 * @param student 学生
+	 * @return Student 学生，失败返回null
+	 */
+	public Student updatePingyu(Student student);
 }

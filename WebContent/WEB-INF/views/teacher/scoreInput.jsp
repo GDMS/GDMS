@@ -73,7 +73,8 @@
 								<td><input type="text" name="zd2grade" value="${student.zd2grade}" class="input-mini" /></td>
 								<td><input type="text" name="zd3grade" value="${student.zd3grade}" class="input-mini" /></td>
 								<td><input type="text" name="zd4grade" value="${student.zd4grade}" class="input-mini" /></td>
-								<td><input type="submit" class="btn btn-primary btn-mini" value="更新" /></td>
+								<td><input type="submit" class="btn btn-primary btn-mini" value="更新" />&nbsp;<a
+									href="${ctx}/teacher/pingyuInput/zhidao/${student.loginName}" class="btn btn-primary btn-mini">评语</a></td>
 							</tr>
 						</form>
 					</c:forEach>
@@ -106,7 +107,8 @@
 							<td>${pingyueStudentsThesises[st.index].name}</td>
 							<td>${student.py1grade}</td>
 							<td>${student.py2grade}</td>
-							<td><a href="${ctx}/teacher/scoreInput/pingyue/del/${student.loginName}" class="btn btn-mini">删除</a></td>
+							<td><a href="${ctx}/teacher/scoreInput/pingyue/del/${student.loginName}" class="btn btn-mini">删除</a>&nbsp;<a
+								href="${ctx}/teacher/pingyuInput/pingyue/${student.loginName}" class="btn btn-primary btn-mini">评语</a></td>
 						</tr>
 					</c:forEach>
 					<form name="student" action="${ctx}/teacher/scoreInput/pingyue/add" method="post">
@@ -148,7 +150,8 @@
 							<td>${dabianStudentsThesises[st.index].name}</td>
 							<td>${student.db1grade}</td>
 							<td>${student.db2grade}</td>
-							<td><a href="${ctx}/teacher/scoreInput/dabian/del/${student.loginName}" class="btn btn-mini">删除</a></td>
+							<td><a href="${ctx}/teacher/scoreInput/dabian/del/${student.loginName}" class="btn btn-mini">删除</a>&nbsp;<a
+								href="${ctx}/teacher/pingyuInput/dabian/${student.loginName}" class="btn btn-primary btn-mini">评语</a></td>
 						</tr>
 					</c:forEach>
 					<form name="student" action="${ctx}/teacher/scoreInput/dabian/add" method="post">

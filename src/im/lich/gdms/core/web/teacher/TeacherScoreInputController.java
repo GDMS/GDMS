@@ -4,7 +4,6 @@ import im.lich.gdms.base.web.BaseController;
 import im.lich.gdms.core.model.student.Student;
 import im.lich.gdms.core.model.teacher.Thesis;
 import im.lich.gdms.core.service.student.StudentService;
-import im.lich.gdms.core.service.student.StudentThesisService;
 import im.lich.gdms.core.service.teacher.DabianService;
 import im.lich.gdms.core.service.teacher.PingyueService;
 import im.lich.gdms.core.service.teacher.TeacherService;
@@ -32,9 +31,6 @@ public class TeacherScoreInputController extends BaseController {
 	private StudentService studentService;
 
 	@Resource
-	private StudentThesisService studentThesisService;
-
-	@Resource
 	private PingyueService pingyueService;
 
 	@Resource
@@ -51,7 +47,7 @@ public class TeacherScoreInputController extends BaseController {
 		logger.debug("学生:{}", StringUtils.join(students, ','));
 
 		//获取学生课题
-		List<Thesis> studentsThesises = studentThesisService.getStudentsThesises(students);
+		List<Thesis> studentsThesises = studentService.getStudentsThesises(students);
 		model.addAttribute("studentsThesises", studentsThesises);
 
 		//获取指导教师成绩输入状态
@@ -71,7 +67,7 @@ public class TeacherScoreInputController extends BaseController {
 		List<Student> pingyueStudents = pingyueService.getStudents(loginName);
 		model.addAttribute("pingyueStudents", pingyueStudents);
 		//获取评阅教师输入成绩的学生的课题
-		List<Thesis> pingyueStudentsThesises = studentThesisService.getStudentsThesises(pingyueStudents);
+		List<Thesis> pingyueStudentsThesises = studentService.getStudentsThesises(pingyueStudents);
 		model.addAttribute("pingyueStudentsThesises", pingyueStudentsThesises);
 
 		//答辩Tab
@@ -79,7 +75,7 @@ public class TeacherScoreInputController extends BaseController {
 		List<Student> dabianStudents = dabianService.getStudents(loginName);
 		model.addAttribute("dabianStudents", dabianStudents);
 		//获取答辩教师输入成绩的学生的课题
-		List<Thesis> dabianStudentsThesises = studentThesisService.getStudentsThesises(pingyueStudents);
+		List<Thesis> dabianStudentsThesises = studentService.getStudentsThesises(pingyueStudents);
 		model.addAttribute("dabianStudentsThesises", dabianStudentsThesises);
 
 		return "/teacher/scoreInput";
@@ -174,6 +170,14 @@ public class TeacherScoreInputController extends BaseController {
 
 		//激活评阅Tab
 		model.addAttribute("tabChoose", "dabian");
+		return "forward:/teacher/scoreInput";
+	}
+
+	//重定向回成绩输入
+	@RequestMapping(value = "/scoreInput/redirect/{tab}")
+	public String redirect(@PathVariable("tab") String tab, Model model) {
+		//激活评阅Tab
+		model.addAttribute("tabChoose", tab);
 		return "forward:/teacher/scoreInput";
 	}
 }
