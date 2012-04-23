@@ -4,16 +4,20 @@ import im.lich.gdms.base.web.BaseController;
 import im.lich.gdms.core.model.student.Student;
 import im.lich.gdms.core.model.teacher.Thesis;
 import im.lich.gdms.core.service.student.StudentService;
+import im.lich.gdms.core.service.teacher.TeacherService;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,6 +28,26 @@ public class TeacherPrintController extends BaseController {
 
 	@Resource
 	private StudentService studentService;
+
+	@Resource
+	private TeacherService teacherService;
+
+	@RequestMapping("/print")
+	public String showStudentPrint(Model model) {
+		logger.debug("GET-showScoreInput");
+
+		String loginName = SecurityUtils.getSubject().getPrincipal().toString();
+		//获取学生信息
+		List<Student> students = teacherService.getTeachingStudents(loginName);
+		model.addAttribute("students", students);
+		logger.debug("学生:{}", StringUtils.join(students, ','));
+
+		//获取学生课题
+		List<Thesis> studentsThesises = studentService.getStudentsThesises(students);
+		model.addAttribute("studentsThesises", studentsThesises);
+
+		return "/teacher/print";
+	}
 
 	@RequestMapping("/print/{loginName}")
 	@ResponseBody
