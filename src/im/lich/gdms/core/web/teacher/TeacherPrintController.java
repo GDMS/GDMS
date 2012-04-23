@@ -139,7 +139,7 @@ public class TeacherPrintController extends BaseController {
 		Integer db1grade = student.getDb1grade();//答辩成绩1
 		if (db1grade == null)
 			db1grade = ZERO;
-		Integer db2grade = student.getDb1grade();//答辩成绩2
+		Integer db2grade = student.getDb2grade();//答辩成绩2
 		if (db2grade == null)
 			db2grade = ZERO;
 
