@@ -11,4 +11,18 @@ public interface TeacherDeptService extends BaseService {
 	 * @return List<TeacherDept>
 	 */
 	public List<TeacherDept> getTeacherDepts();
+
+	/**
+	 * 添加教师部门信息
+	 * @param teacherDept
+	 * @return
+	 */
+	public TeacherDept addTeacherDept(TeacherDept teacherDept);
+
+	/**
+	 * 删除教师部门信息
+	 * @param teacherDeptId 部门id
+	 * @return
+	 */
+	public TeacherDept delTeacherDept(Long teacherDeptId);
 }

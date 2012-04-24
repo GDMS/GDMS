@@ -23,4 +23,19 @@ public class TeacherDeptServiceImpl extends BaseServiceImpl implements TeacherDe
 	public List<TeacherDept> getTeacherDepts() {
 		return teacherDeptDao.findAll();
 	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public TeacherDept addTeacherDept(TeacherDept teacherDept) {
+		return teacherDeptDao.save(teacherDept);
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public TeacherDept delTeacherDept(Long teacherDeptId) {
+		TeacherDept teacherDept = teacherDeptDao.findOne(teacherDeptId);
+		teacherDeptDao.delete(teacherDept);
+
+		return teacherDept;
+	}
 }
