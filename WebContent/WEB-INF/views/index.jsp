@@ -63,31 +63,10 @@
 		<div class="span8 offset2">
 			<h3>下载</h3>
 			<table class="table table-bordered" style="margin-top: 20px;">
-				<thead>
-					<tr>
-						<th colspan="2">优秀论文</th>
-					</tr>
-				</thead>
 				<tbody>
-					<tr>
-						<td>人生的思考</td>
-						<td><a>下载</a></td>
-					</tr>
-					<tr>
-						<td>人生的思考</td>
-						<td><a>下载</a></td>
-					</tr>
-					<tr>
-						<td>人生的思考</td>
-						<td><a>下载</a></td>
-					</tr>
-					<tr>
-						<td>人生的思考</td>
-						<td><a>下载</a></td>
-					</tr>
 					<c:forEach items="${papers}" var="paper">
 						<tr>
-							<td>${paper.description}</td>
+							<td width="80%">${paper.description}</td>
 							<td><a href="${ctx}/file/paper/${paper.filename}">下载</a></td>
 						</tr>
 					</c:forEach>
@@ -95,17 +74,6 @@
 			</table>
 		</div>
 		<!-- /span8 offset2 -->
-	</div>
-	<!-- /row -->
-
-	<div class="row">
-		<div class="span8 offset2">
-			<ul>
-				<li><p>计算机学院计算机学院计算机学院计算机学院计算机学院计算机学院计算机学院</p>
-					<p>aaaaaa</p></li>
-			</ul>
-		</div>
-		<!-- /span12 -->
 	</div>
 	<!-- /row -->
 

@@ -49,7 +49,7 @@ public class IndexController extends BaseController {
 		model.addAttribute("adminNewses", adminNewses);
 		logger.debug("adminNewses:{}", adminNewses.size());
 		//获取优秀论文列表
-		List<Paper> papers = paperService.getPapers();
+		List<Paper> papers = paperService.getPapersURLEncoded();
 		model.addAttribute("papers", papers);
 		return "index";
 	}
