@@ -116,10 +116,10 @@ public interface StudentService extends BaseService {
 	public Student addScoreInputPingyue(Student student, String teacherLoginName);
 
 	/**
-	* 删除学生评阅教师输入成绩
-	* @param studentLoginName 学生登录名、学号
-	* @return Student 学生，失败返回null
-	*/
+	 * 删除学生评阅教师输入成绩
+	 * @param studentLoginName 学生登录名、学号
+	 * @return Student 学生，失败返回null
+	 */
 	public Student delScoreInputPingyue(String studentLoginName);
 
 	/**

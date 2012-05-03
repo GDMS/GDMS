@@ -396,6 +396,7 @@ public class StudentServiceImpl extends BaseServiceImpl implements StudentServic
 
 		_s.setPypingyu(s.getPypingyu());
 
+		_s.setQuestionanswer(s.getQuestionanswer());
 		_s.setQuestion1(s.getQuestion1());
 		_s.setAnswer1(s.getAnswer1());
 		_s.setQuestion2(s.getQuestion2());
@@ -411,7 +412,7 @@ public class StudentServiceImpl extends BaseServiceImpl implements StudentServic
 	@Override
 	public List<Student> getStudents() {
 		List<Student> students = Lists.newArrayList(studentDao.findAll());
-		
+
 		logger.debug("获取Student数量：{}", students.size());
 		return students;
 	}
@@ -419,8 +420,8 @@ public class StudentServiceImpl extends BaseServiceImpl implements StudentServic
 	@Override
 	public Student addOrUpdateStudent(Student student) {
 		Student _t = studentDao.findByLoginName(student.getLoginName());
-		
-		if(_t != null){
+
+		if (_t != null) {
 			student.setId(_t.getId());
 		}
 		return studentDao.save(student);
@@ -430,7 +431,7 @@ public class StudentServiceImpl extends BaseServiceImpl implements StudentServic
 	@Transactional(readOnly = false)
 	public Student delStudent(Long studentId) {
 		Student student = studentDao.findOne(studentId);
-		
+
 		studentDao.delete(student);
 		return student;
 	}

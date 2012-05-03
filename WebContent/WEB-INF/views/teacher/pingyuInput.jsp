@@ -72,6 +72,23 @@
 
 				<div id="dabian">
 					<div class="control-group">
+						<label class="control-label">答辩提问及回答简况:</label>
+						<div class="controls">
+							<form:textarea path="questionanswer" rows="4" cssClass="input-xlarge" />
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">答辩评语:</label>
+						<div class="controls">
+							<form:textarea path="dbpingyu" rows="4" cssClass="input-xlarge" />
+						</div>
+					</div>
+				</div>
+
+				<!--
+				<div id="dabian" style="display: none;">
+					<div class="control-group">
 						<label class="control-label">答辩提问1:</label>
 						<div class="controls">
 							<form:textarea path="question1" rows="4" cssClass="input-xlarge" />
@@ -116,6 +133,7 @@
 						</div>
 					</div>
 				</div>
+				-->
 
 				<div class="form-actions">
 					<input type="submit" class="btn btn-primary" value="修改" />&nbsp;<input type="reset" class="btn" value="取消" />&nbsp;<a
