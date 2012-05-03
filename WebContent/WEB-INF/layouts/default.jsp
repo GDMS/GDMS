@@ -104,8 +104,7 @@
 						<ul class="dropdown-menu">
 							<li><a href="${ctx}/teacher/midternCheck">中期检查</a></li>
 							<li><a href="${ctx}/teacher/scoreInput">输入学生论文成绩和评语</a></li>
-							<li><a href="${ctx}/teacher/scoreSplit">分数拆分</a></li>
-							<li><a href="${ctx}/teacher/print">打印管理</a></li>
+							<!--<li><a href="${ctx}/teacher/scoreSplit">分数拆分</a></li>-->
 						</ul></li>
 
 				</shiro:hasRole>

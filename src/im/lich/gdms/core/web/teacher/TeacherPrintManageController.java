@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/teacher")
-public class TeacherPrintController extends BaseController {
+public class TeacherPrintManageController extends BaseController {
 
 	@Resource
 	private StudentService studentService;
@@ -32,7 +32,7 @@ public class TeacherPrintController extends BaseController {
 	@Resource
 	private TeacherService teacherService;
 
-	@RequestMapping("/print")
+	@RequestMapping("/printManage")
 	public String showStudentPrint(Model model) {
 		logger.debug("GET-showScoreInput");
 
@@ -46,10 +46,10 @@ public class TeacherPrintController extends BaseController {
 		List<Thesis> studentsThesises = studentService.getStudentsThesises(students);
 		model.addAttribute("studentsThesises", studentsThesises);
 
-		return "/teacher/print";
+		return "/teacher/printManage";
 	}
 
-	@RequestMapping("/print/{loginName}")
+	@RequestMapping("/printManage/print/{loginName}")
 	@ResponseBody
 	public void print(@PathVariable("loginName") String loginName, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
@@ -98,6 +98,10 @@ public class TeacherPrintController extends BaseController {
 		String thes_desc = student.getThesDesc();//课题描述
 		if (thes_desc == null)
 			thes_desc = NULL;
+
+		String questionanswer = student.getQuestionanswer();//答辩问题及回答简讯
+		if (questionanswer == null)
+			questionanswer = NULL;
 
 		String question1 = student.getQuestion1();//答辩问题1
 		if (question1 == null)
@@ -929,6 +933,7 @@ public class TeacherPrintController extends BaseController {
 		out.write("  \"Times New Roman\";mso-hansi-font-family:\"Times New Roman\"'>答辩提问和回答简况：</span><span\r\n");
 		out.write("  lang=EN-US style='font-size:12.0pt'><o:p></o:p></span></p>\r\n");
 		out.write("  <p class=MsoNormal><span style='font-size:12.0pt;font-family:宋体;mso-ascii-font-family:\r\n");
+		/**
 		out.write("  \"Times New Roman\";mso-hansi-font-family:\"Times New Roman\"'>问题</span><span\r\n");
 		out.write("  lang=EN-US style='font-size:12.0pt'>1</span><span style='font-size:12.0pt;\r\n");
 		out.write("  font-family:宋体;mso-ascii-font-family:\"Times New Roman\";mso-hansi-font-family:\r\n");
@@ -975,6 +980,12 @@ public class TeacherPrintController extends BaseController {
 		out.write("  style='font-size:12.0pt;font-family:宋体;mso-ascii-font-family:\"Times New Roman\";\r\n");
 		out.write("  mso-hansi-font-family:\"Times New Roman\"'></span><span lang=EN-US\r\n");
 		out.write("  style='font-size:12.0pt'><o:p></o:p></span></p>\r\n");
+		*/
+		/* 新实现questionanswer */
+		out.write("  \"Times New Roman\";mso-hansi-font-family:\"Times New Roman\"'>" + questionanswer + "</span>\r\n");
+		out.write("  </p>\r\n");
+		/* 新实现questionanswer */
+
 		out.write("  </td>\r\n");
 		out.write(" </tr>\r\n");
 		out.write(" <tr style='mso-yfti-irow:2;height:54.15pt'>\r\n");

@@ -26,7 +26,7 @@
 					<td>${student.loginName}</td>
 					<td>${student.name}</td>
 					<td>${studentsThesises[st.index].name}</td>
-					<td><a href="${ctx}/teacher/print/${student.loginName}" class="btn btn-mini">下载</a></td>
+					<td><a href="${ctx}/teacher/printManage/print/${student.loginName}" class="btn btn-mini">下载</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>
@@ -35,7 +35,7 @@
 	<!-- Javascript -->
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$('#li-teacher_score').addClass('active');
+			$('#li-teacher_file').addClass('active');
 		});
 	</script>
 </body>
