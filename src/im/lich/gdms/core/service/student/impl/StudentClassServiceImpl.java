@@ -23,4 +23,23 @@ public class StudentClassServiceImpl extends BaseServiceImpl implements StudentC
 	public List<StudentClass> getStudentClasses() {
 		return studentClassDao.findAll();
 	}
+
+	@Override
+	public StudentClass addOrUpdateStudentClass(StudentClass studentClass) {
+		StudentClass _t = studentClassDao.findByName(studentClass.getName());
+		
+		if(_t != null){
+			studentClass.setId(_t.getId());
+		}
+		return studentClassDao.save(studentClass);
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public StudentClass delStudentClass(Long studentClassId) {
+		StudentClass studentClass = studentClassDao.findOne(studentClassId);
+		studentClassDao.delete(studentClass);
+		
+		return studentClass;
+	}
 }

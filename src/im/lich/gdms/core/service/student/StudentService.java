@@ -143,4 +143,24 @@ public interface StudentService extends BaseService {
 	 * @return Student 学生，失败返回null
 	 */
 	public Student updatePingyu(Student student);
+
+	/**
+	 * 获取学生列表
+	 * @return List<Student>
+	 */
+	public List<Student> getStudents();
+
+	/**
+	 * 添加或更新学生信息
+	 * @param student
+	 * @return
+	 */
+	public Student addOrUpdateStudent(Student student);
+
+	/**
+	 * 删除学生信息
+	 * @param StudentId
+	 * @return
+	 */
+	public Student delStudent(Long studentId);
 }

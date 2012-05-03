@@ -407,4 +407,31 @@ public class StudentServiceImpl extends BaseServiceImpl implements StudentServic
 		logger.debug("保存评语信息：{}", _s);
 		return studentDao.save(_s);
 	}
+
+	@Override
+	public List<Student> getStudents() {
+		List<Student> students = Lists.newArrayList(studentDao.findAll());
+		
+		logger.debug("获取Student数量：{}", students.size());
+		return students;
+	}
+
+	@Override
+	public Student addOrUpdateStudent(Student student) {
+		Student _t = studentDao.findByLoginName(student.getLoginName());
+		
+		if(_t != null){
+			student.setId(_t.getId());
+		}
+		return studentDao.save(student);
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public Student delStudent(Long studentId) {
+		Student student = studentDao.findOne(studentId);
+		
+		studentDao.delete(student);
+		return student;
+	}
 }

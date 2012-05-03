@@ -24,4 +24,22 @@ public class StudentMajorServiceImpl extends BaseServiceImpl implements StudentM
 		return studentMajorDao.findAll();
 	}
 
+	@Override
+	public StudentMajor addOrUpdateStudentMajor(StudentMajor studentMajor) {
+		StudentMajor _t = studentMajorDao.findByName(studentMajor.getName());
+		if(_t != null){
+			studentMajor.setId(_t.getId());
+		}
+		return studentMajorDao.save(studentMajor);
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public StudentMajor delStudentMajor(Long studentMajorId) {
+		StudentMajor studentMajor = studentMajorDao.findOne(studentMajorId);
+		studentMajorDao.delete(studentMajor);
+		
+		return studentMajor;
+	}
+
 }
