@@ -38,6 +38,7 @@ public class Student extends IdEntity implements User {
 	private String remark = "";
 	private String warn = "";
 	private Integer grade = 0;
+	private String questionanswer = "";//答辩提问及回答简况
 	private String question1 = "";
 	private String answer1 = "";
 	private String question2 = "";
@@ -77,10 +78,10 @@ public class Student extends IdEntity implements User {
 	public Student(String loginName, String name, String gender, Double credit, String phone, String email,
 			String password, String major, String stuClass, Long thesisId, String assign, String ktup, String rwsup,
 			String transup, String thesisup, String progress, String quality, String attitude, String duty,
-			String remark, String warn, Integer grade, String question1, String answer1, String question2,
-			String answer2, String question3, String answer3, String projDesc, String thesDesc, Integer zd1grade,
-			Integer zd2grade, Integer zd3grade, Integer zd4grade, Integer py1grade, Integer py2grade, Integer db1grade,
-			Integer db2grade, String zdpingyu, String pypingyu, String dbpingyu) {
+			String remark, String warn, Integer grade, String questionanswer, String question1, String answer1,
+			String question2, String answer2, String question3, String answer3, String projDesc, String thesDesc,
+			Integer zd1grade, Integer zd2grade, Integer zd3grade, Integer zd4grade, Integer py1grade, Integer py2grade,
+			Integer db1grade, Integer db2grade, String zdpingyu, String pypingyu, String dbpingyu) {
 		super();
 		this.loginName = loginName;
 		this.name = name;
@@ -104,6 +105,7 @@ public class Student extends IdEntity implements User {
 		this.remark = remark;
 		this.warn = warn;
 		this.grade = grade;
+		this.questionanswer = questionanswer;
 		this.question1 = question1;
 		this.answer1 = answer1;
 		this.question2 = question2;
@@ -321,6 +323,15 @@ public class Student extends IdEntity implements User {
 
 	public void setGrade(Integer grade) {
 		this.grade = grade;
+	}
+
+	@Column(nullable = false)
+	public String getQuestionanswer() {
+		return questionanswer;
+	}
+
+	public void setQuestionanswer(String questionanswer) {
+		this.questionanswer = questionanswer;
 	}
 
 	@Column(nullable = false)
