@@ -25,7 +25,8 @@ public interface PaperService extends BaseService {
 	 * 保存优秀论文
 	 * @param descption 论文描述
 	 * @param uploadFile 上传文件
-	 * @return
+	 * @return Paper
+	 * @throws IOException
 	 */
 	public Paper savePaper(String description, MultipartFile uploadFile) throws IOException;
 
@@ -33,6 +34,7 @@ public interface PaperService extends BaseService {
 	 * 删除优秀论文
 	 * @param id ID
 	 * @return Paper or null
+	 * @throws IOException
 	 */
-	public Paper delPaper(Long id);
+	public Paper delPaper(Long id) throws IOException;
 }

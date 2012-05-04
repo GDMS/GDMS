@@ -10,7 +10,8 @@
 <body>
 	<div class="row">
 		<div class="span6 offset3">
-			<h3 style="text-align: center;">管理员管理</h3>
+			<h3 style="text-align: center;">优秀论文管理</h3>
+			<p>提示：请不要上传带有空格的文件</p>
 
 			<table class="table table-bordered">
 				<thead>

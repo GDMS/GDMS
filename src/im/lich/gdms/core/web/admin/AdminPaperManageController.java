@@ -46,7 +46,7 @@ public class AdminPaperManageController extends BaseController {
 	}
 
 	@RequestMapping(value = { "/paperManage/del/{id}" })
-	public String deletePaperManage(@PathVariable("id") Long id, Model model) {
+	public String deletePaperManage(@PathVariable("id") Long id, Model model) throws IOException {
 		logger.debug("删除Paper: {}", id);
 
 		//保存

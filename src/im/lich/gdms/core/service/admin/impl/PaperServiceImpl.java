@@ -53,13 +53,28 @@ public class PaperServiceImpl extends BaseServiceImpl implements PaperService {
 		return papers;
 	}
 
+	private File getDir() throws IOException {
+		return getDir("/file/paper");
+	}
+
+	private File getDir(String path) throws IOException {
+		Assert.notNull(path);
+		org.springframework.core.io.Resource res = applicationContext.getResource(path);
+		//Assert.isTrue(res.exists());
+		File dir = res.getFile();
+		if (!res.exists()) {
+			logger.info("文件夹{}不存在，准备创建", dir.getAbsoluteFile());
+			Assert.isTrue(dir.createNewFile());
+			logger.info("文件夹{}创建成功", dir.getAbsoluteFile());
+		}
+		Assert.isTrue(dir.isDirectory());
+		return dir;
+	}
+
 	@Override
 	@Transactional(readOnly = false)
 	public Paper savePaper(String description, MultipartFile uploadFile) throws IOException {
-		org.springframework.core.io.Resource res = applicationContext.getResource("/file/paper");
-		Assert.isTrue(res.exists());
-		File dir = res.getFile();
-		Assert.isTrue(dir.isDirectory());
+		File dir = getDir();
 
 		String filename = uploadFile.getOriginalFilename();
 		File f = new File(dir, filename);
@@ -74,8 +89,19 @@ public class PaperServiceImpl extends BaseServiceImpl implements PaperService {
 
 	@Override
 	@Transactional(readOnly = false)
-	public Paper delPaper(Long id) {
+	public Paper delPaper(Long id) throws IOException {
 		Paper paper = paperDao.findOne(id);
+
+		File dir = getDir();
+		String filename = paper.getFilename();
+		File f = new File(dir, filename);
+		if (f.exists()) {
+			Assert.isTrue(f.delete());
+			logger.debug("删除文件：{}", f.getAbsolutePath());
+		} else {
+			logger.warn("找不到被删除文件：{}", f.getAbsolutePath());
+		}
+
 		paperDao.delete(paper);
 		return paper;
 	}
