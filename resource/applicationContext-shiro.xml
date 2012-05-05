@@ -31,6 +31,7 @@
 				/login = authc
 				/logout = logout
 				/static/** = anon
+				/file/** = anon
 				/admin/** = roles["ROLE_ADMIN"]
 				/teacher/** = roles["ROLE_TEACHER"]
 				/student/** = roles["ROLE_STUDENT"]

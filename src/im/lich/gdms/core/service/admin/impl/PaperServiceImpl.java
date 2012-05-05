@@ -54,19 +54,23 @@ public class PaperServiceImpl extends BaseServiceImpl implements PaperService {
 	}
 
 	private File getDir() throws IOException {
-		return getDir("/file/paper");
+		return getDir("paper");
 	}
 
-	private File getDir(String path) throws IOException {
-		Assert.notNull(path);
-		org.springframework.core.io.Resource res = applicationContext.getResource(path);
-		//Assert.isTrue(res.exists());
-		File dir = res.getFile();
-		if (!res.exists()) {
-			logger.info("文件夹{}不存在，准备创建", dir.getAbsoluteFile());
-			Assert.isTrue(dir.createNewFile());
-			logger.info("文件夹{}创建成功", dir.getAbsoluteFile());
+	private File getDir(String folderName) throws IOException {
+		Assert.notNull(folderName);
+		org.springframework.core.io.Resource r = applicationContext.getResource("/file");
+		Assert.isTrue(r.exists());
+
+		org.springframework.core.io.Resource res = applicationContext.getResource("/file/" + folderName);
+		if (!res.exists()) {//如果folder目录不存在，进入上级目录并创建folder
+			File parent = r.getFile();
+			File d = new File(parent, folderName);
+			Assert.isTrue(d.mkdir());
+			logger.info("文件夹{}不存在，创建成功", d.getAbsoluteFile());
 		}
+
+		File dir = res.getFile();
 		Assert.isTrue(dir.isDirectory());
 		return dir;
 	}
@@ -75,8 +79,8 @@ public class PaperServiceImpl extends BaseServiceImpl implements PaperService {
 	@Transactional(readOnly = false)
 	public Paper savePaper(String description, MultipartFile uploadFile) throws IOException {
 		File dir = getDir();
-
 		String filename = uploadFile.getOriginalFilename();
+		filename = StringUtils.replace(filename, " ", "_");//将所有空格替换成下划线
 		File f = new File(dir, filename);
 		Assert.isTrue(f.createNewFile());
 		uploadFile.transferTo(f);
