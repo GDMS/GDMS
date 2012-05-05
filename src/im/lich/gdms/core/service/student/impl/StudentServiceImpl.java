@@ -13,6 +13,8 @@ import im.lich.gdms.core.model.teacher.Teacher;
 import im.lich.gdms.core.model.teacher.Thesis;
 import im.lich.gdms.core.service.student.StudentService;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
@@ -22,6 +24,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.common.collect.Lists;
 
@@ -432,7 +435,87 @@ public class StudentServiceImpl extends BaseServiceImpl implements StudentServic
 	public Student delStudent(Long studentId) {
 		Student student = studentDao.findOne(studentId);
 
+		Long thesisId = student.getThesisId();
+		Thesis thesis = thesisDao.findOne(thesisId);
+		thesis.setAssign("");
+		//TODO 删除学生同时，检查相关课题，同步删除
 		studentDao.delete(student);
 		return student;
+	}
+
+	private File getDir(String folderName) throws IOException {
+		Assert.notNull(folderName);
+		org.springframework.core.io.Resource r = applicationContext.getResource("/file");
+		Assert.isTrue(r.exists());
+
+		org.springframework.core.io.Resource res = applicationContext.getResource("/file/" + folderName);
+		if (!res.exists()) {//如果folder目录不存在，进入上级目录并创建folder
+			File parent = r.getFile();
+			File d = new File(parent, folderName);
+			Assert.isTrue(d.mkdir());
+			logger.info("文件夹{}不存在，创建成功", d.getAbsoluteFile());
+		}
+
+		File dir = res.getFile();
+		Assert.isTrue(dir.isDirectory());
+		return dir;
+	}
+
+	private String saveUploadFile(MultipartFile uploadFile, String loginName, String folder) throws IOException {
+		File dir = getDir(folder);
+		String filename = uploadFile.getOriginalFilename();
+		filename = filename.replaceAll(" ", "_");//将所有空格替换成下划线
+		Assert.notNull(loginName);
+		filename = loginName + '-' + filename;//添加学号
+		File f = new File(dir, filename);
+		if (f.exists())
+			f.delete();
+		Assert.isTrue(f.createNewFile());
+		uploadFile.transferTo(f);
+
+		return filename;
+	}
+
+	private void delUploadFile(String filename, String folder) throws IOException {
+		File dir = getDir(folder);
+		File f = new File(dir, filename);
+		if (f.exists()) {
+			Assert.isTrue(f.delete());
+			logger.debug("删除文件：{}", f.getAbsolutePath());
+		} else {
+			logger.warn("找不到被删除文件：{}", f.getAbsolutePath());
+		}
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public Student saveKtup(MultipartFile ktup, String loginName) {
+		String filename;
+		try {
+			filename = saveUploadFile(ktup, loginName, "ktup");
+		} catch (IOException e) {
+			logger.warn(e.toString());
+			return null;
+		}
+		Student _s = studentDao.findByLoginName(loginName);
+		_s.setKtup(filename);
+
+		return studentDao.save(_s);
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public Student delKtup(String loginName) {
+		Student _s = studentDao.findByLoginName(loginName);
+		String filename = _s.getKtup();
+		try {
+			delUploadFile(filename, "ktup");
+		} catch (IOException e) {
+			logger.warn(e.toString());
+			return null;
+		}
+		_s.setKtup("");
+
+		return _s;
 	}
 }

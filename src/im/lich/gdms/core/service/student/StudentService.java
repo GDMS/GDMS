@@ -4,8 +4,11 @@ import im.lich.gdms.base.service.BaseService;
 import im.lich.gdms.core.model.student.Student;
 import im.lich.gdms.core.model.teacher.Thesis;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 public interface StudentService extends BaseService {
 
@@ -163,4 +166,22 @@ public interface StudentService extends BaseService {
 	 * @return
 	 */
 	public Student delStudent(Long studentId);
+
+	/**
+	 * 保存开题报告
+	 * @param ktup MultipartFile
+	 * @param loginName String
+	 * @return Student
+	 * @throws IOException
+	 */
+	public Student saveKtup(MultipartFile ktup, String loginName);
+
+	/**
+	 * 删除开题报告
+	 * @param ktup MultipartFile
+	 * @param loginName String
+	 * @return Student
+	 * @throws IOException
+	 */
+	public Student delKtup(String loginName);
 }

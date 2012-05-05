@@ -35,6 +35,7 @@
 				<li id="li-index"><a href="${ctx}/">首页</a></li>
 
 				<!-- 主页链接 -->
+				<!--
 				<shiro:hasRole name="ROLE_STUDENT">
 					<li id="li-student_index"><a href="${ctx}/student/index">学生主页</a></li>
 				</shiro:hasRole>
@@ -44,6 +45,7 @@
 				<shiro:hasRole name="ROLE_ADMIN">
 					<li id="li-admin_index"><a href="${ctx}/admin/index">管理员主页</a></li>
 				</shiro:hasRole>
+				-->
 				<!-- /主页链接 -->
 
 				<!-- 学生菜单 -->
@@ -58,14 +60,7 @@
 							<li><a href="${ctx}/student/projectResult">查看课题分配结果</a></li>
 						</ul></li>
 
-					<li id="li-student_file" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">文件提交<b
-							class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<li><a href="${ctx}/student/openUp">开题报告提交</a></li>
-							<li><a href="${ctx}/student/assignmentUp">任务书提交</a></li>
-							<li><a href="${ctx}/student/translateUp">翻译资料提交</a></li>
-							<li><a href="${ctx}/student/paperUp">论文提交</a></li>
-						</ul></li>
+					<li id="li-student_file"><a href="${ctx}/student/fileManage">文件管理</a></li>
 
 					<li id="li-student_score" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">成绩管理<b
 							class="caret"></b></a>
