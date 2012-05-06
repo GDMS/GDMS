@@ -3,11 +3,13 @@ package im.lich.gdms.core.service.teacher.impl;
 import im.lich.gdms.base.service.BaseServiceImpl;
 import im.lich.gdms.core.dao.student.StudentDao;
 import im.lich.gdms.core.dao.teacher.TeacherDao;
+import im.lich.gdms.core.dao.teacher.ThesisDao;
 import im.lich.gdms.core.model.student.Student;
 import im.lich.gdms.core.model.teacher.Teacher;
 import im.lich.gdms.core.model.teacher.Thesis;
 import im.lich.gdms.core.service.teacher.TeacherService;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -28,6 +30,9 @@ public class TeacherServiceImpl extends BaseServiceImpl implements TeacherServic
 
 	@Resource
 	private StudentDao studentDao;
+
+	@Resource
+	private ThesisDao thesisDao;
 
 	@Override
 	public List<Teacher> getTeachers() {
@@ -58,6 +63,7 @@ public class TeacherServiceImpl extends BaseServiceImpl implements TeacherServic
 	@Transactional(readOnly = false)
 	public Teacher delTeacher(Long teacherId) {
 		Teacher teacher = teacherDao.findOne(teacherId);
+		//TODO 完成删除学生课题
 		teacherDao.delete(teacher);
 		return teacher;
 	}
@@ -133,5 +139,86 @@ public class TeacherServiceImpl extends BaseServiceImpl implements TeacherServic
 		Assert.isTrue(thesises.size() == students.size(), "课题数、学生数不一致");
 
 		return students;
+	}
+
+	@Override
+	public Thesis getTeacherThesis(Long thesisId) {
+		Assert.notNull(thesisId);
+
+		Thesis t = thesisDao.findOne(thesisId);
+		String majorRestrict = t.getMajorRestrict();
+		String[] ms = majorRestrict.split(",");
+		List<String> majors = Arrays.asList(ms);
+		t.setMajorRes(majors);
+
+		return t;
+	}
+
+	@Override
+	public List<Thesis> getTeacherThesises(String teacherLoginName) {
+		Assert.notNull(teacherLoginName);
+
+		Teacher teacher = teacherDao.findByLoginName(teacherLoginName);
+		List<Thesis> _thesises = Lists.newArrayList(teacher.getThesises());
+
+		for (Thesis t : _thesises) {
+			String majorRestrict = t.getMajorRestrict();
+			String[] ms = majorRestrict.split(",");
+			List<String> majors = Arrays.asList(ms);
+			t.setMajorRes(majors);
+		}
+
+		return _thesises;
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public Thesis saveTeacherThesis(Thesis thesis, String teacherLoginName) {
+		//处理专业限制字符串
+		List<String> majors = thesis.getMajorRes();
+		String majorRestrict = StringUtils.join(majors, ',');
+		majorRestrict = StringUtils.stripToEmpty(majorRestrict);
+		thesis.setMajorRestrict(majorRestrict);
+
+		//设置课题所属教师
+		Teacher teacher = teacherDao.findByLoginName(teacherLoginName);
+		thesis.setTeacher(teacher);
+
+		return thesisDao.save(thesis);
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public Thesis delTeacherThesis(Long thesisId) {
+		//删除学生指向的课题
+		Student student = studentDao.findByThesisId(thesisId);
+		student.setThesisId(0L);
+
+		//TODO 完成从dabianRecord和pingyueRecord中同步删除
+
+		Thesis thesis = thesisDao.findOne(thesisId);
+		thesisDao.delete(thesis);
+		return thesis;
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public Thesis modTeacherThesis(Long thesisId, Thesis newThesis) {
+		//处理专业限制字符串
+		List<String> majors = newThesis.getMajorRes();
+		String majorRestrict = StringUtils.join(majors, ',');
+		majorRestrict = StringUtils.stripToEmpty(majorRestrict);
+		newThesis.setMajorRestrict(majorRestrict);
+
+		Thesis t = newThesis;
+		Thesis _t = thesisDao.findOne(thesisId);
+
+		_t.setMajorRestrict(t.getMajorRestrict());
+		_t.setMode(t.getMode());
+		_t.setName(t.getName());
+		_t.setProperty(t.getProperty());
+		_t.setType(t.getType());
+
+		return thesisDao.save(_t);
 	}
 }

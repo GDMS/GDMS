@@ -11,4 +11,11 @@ public interface ThesisService extends BaseService {
 	 * @return List<Thesis>
 	 */
 	public List<Thesis> getThesises();
+
+	/**
+	 * 获取指定课题
+	 * @param thesisId 课题ID
+	 * @return Thesis
+	 */
+	public Thesis getThesis(Long thesisId);
 }

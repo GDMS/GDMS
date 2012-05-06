@@ -208,7 +208,7 @@ public class Student extends IdEntity implements User {
 		this.stuClass = stuClass;
 	}
 
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
 	public Long getThesisId() {
 		return thesisId;
 	}
