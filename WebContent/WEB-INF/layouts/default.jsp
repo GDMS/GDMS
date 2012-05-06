@@ -69,7 +69,7 @@
 							class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="${ctx}/student/midternCheck">中期检查</a></li>
-							<li><a href="${ctx}/student/dabianInput">答辩信息输入</a></li>
+							<!--<li><a href="${ctx}/student/dabianInput">答辩信息输入</a></li>-->
 							<li><a href="${ctx}/student/finalScore">查看最后成绩</a></li>
 						</ul></li>
 
