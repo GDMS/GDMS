@@ -4,7 +4,6 @@ import im.lich.gdms.base.service.BaseService;
 import im.lich.gdms.core.model.student.Student;
 import im.lich.gdms.core.model.teacher.Thesis;
 
-import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
@@ -172,7 +171,6 @@ public interface StudentService extends BaseService {
 	 * @param ktup MultipartFile
 	 * @param loginName String
 	 * @return Student
-	 * @throws IOException
 	 */
 	public Student saveKtup(MultipartFile ktup, String loginName);
 
@@ -181,7 +179,51 @@ public interface StudentService extends BaseService {
 	 * @param ktup MultipartFile
 	 * @param loginName String
 	 * @return Student
-	 * @throws IOException
 	 */
 	public Student delKtup(String loginName);
+
+	/**
+	 * 保存任务书
+	 * @param rwsup
+	 * @param loginName
+	 * @return
+	 */
+	public Student saveRwsup(MultipartFile rwsup, String loginName);
+
+	/**
+	 * 删除任务书
+	 * @param loginName
+	 * @return
+	 */
+	public Student delRwsup(String loginName);
+
+	/**
+	 * 保存翻译
+	 * @param transup
+	 * @param loginName
+	 * @return
+	 */
+	public Student saveTransup(MultipartFile transup, String loginName);
+
+	/**
+	 * 删除翻译
+	 * @param loginName
+	 * @return
+	 */
+	public Student delTransup(String loginName);
+
+	/**
+	 * 保存论文
+	 * @param thesisup
+	 * @param loginName
+	 * @return
+	 */
+	public Student saveThesisup(MultipartFile thesisup, String loginName);
+
+	/**
+	 * 删除论文
+	 * @param loginName
+	 * @return
+	 */
+	public Student delThesisup(String loginName);
 }

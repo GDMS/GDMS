@@ -38,6 +38,9 @@ public class StudentFileManageController extends BaseController {
 
 	@RequestMapping(value = { "/fileManage/add/kt" }, method = RequestMethod.POST)
 	public String addKtup(MultipartFile ktup, Model model) {
+		if (ktup.isEmpty())
+			return "redirect:/student/fileManage";
+
 		String studentLoginName = SecurityUtils.getSubject().getPrincipal().toString();
 		logger.debug("添加学生：{}开题报告", studentLoginName);
 
@@ -48,7 +51,7 @@ public class StudentFileManageController extends BaseController {
 		}
 		model.addAttribute("success", success);
 
-		return "forward:/student/fileManage";
+		return "redirect:/student/fileManage";
 	}
 
 	@RequestMapping(value = { "/fileManage/del/kt" })
@@ -63,6 +66,105 @@ public class StudentFileManageController extends BaseController {
 		}
 		model.addAttribute("success", success);
 
-		return "forward:/student/fileManage";
+		return "redirect:/student/fileManage";
+	}
+
+	@RequestMapping(value = { "/fileManage/add/rws" }, method = RequestMethod.POST)
+	public String addRwsup(MultipartFile rwsup, Model model) {
+		if (rwsup.isEmpty())
+			return "redirect:/student/fileManage";
+
+		String studentLoginName = SecurityUtils.getSubject().getPrincipal().toString();
+		logger.debug("添加学生：{}开题报告", studentLoginName);
+
+		//保存
+		boolean success = false;
+		if (studentService.saveRwsup(rwsup, studentLoginName) != null) {
+			success = true;
+		}
+		model.addAttribute("success", success);
+
+		return "redirect:/student/fileManage";
+	}
+
+	@RequestMapping(value = { "/fileManage/del/rws" })
+	public String delRwsup(Model model) {
+		String studentLoginName = SecurityUtils.getSubject().getPrincipal().toString();
+		logger.debug("删除学生：{}开题报告", studentLoginName);
+
+		//保存
+		boolean success = false;
+		if (studentService.delRwsup(studentLoginName) != null) {
+			success = true;
+		}
+		model.addAttribute("success", success);
+
+		return "redirect:/student/fileManage";
+	}
+
+	@RequestMapping(value = { "/fileManage/add/trans" }, method = RequestMethod.POST)
+	public String addTransup(MultipartFile transup, Model model) {
+		if (transup.isEmpty())
+			return "redirect:/student/fileManage";
+
+		String studentLoginName = SecurityUtils.getSubject().getPrincipal().toString();
+		logger.debug("添加学生：{}开题报告", studentLoginName);
+
+		//保存
+		boolean success = false;
+		if (studentService.saveTransup(transup, studentLoginName) != null) {
+			success = true;
+		}
+		model.addAttribute("success", success);
+
+		return "redirect:/student/fileManage";
+	}
+
+	@RequestMapping(value = { "/fileManage/del/trans" })
+	public String delTransup(Model model) {
+		String studentLoginName = SecurityUtils.getSubject().getPrincipal().toString();
+		logger.debug("删除学生：{}开题报告", studentLoginName);
+
+		//保存
+		boolean success = false;
+		if (studentService.delTransup(studentLoginName) != null) {
+			success = true;
+		}
+		model.addAttribute("success", success);
+
+		return "redirect:/student/fileManage";
+	}
+
+	@RequestMapping(value = { "/fileManage/add/thesis" }, method = RequestMethod.POST)
+	public String addThesisup(MultipartFile thesisup, Model model) {
+		if (thesisup.isEmpty())
+			return "redirect:/student/fileManage";
+
+		String studentLoginName = SecurityUtils.getSubject().getPrincipal().toString();
+		logger.debug("添加学生：{}开题报告", studentLoginName);
+
+		//保存
+		boolean success = false;
+		if (studentService.saveThesisup(thesisup, studentLoginName) != null) {
+			success = true;
+		}
+		model.addAttribute("success", success);
+
+		return "redirect:/student/fileManage";
+	}
+
+	@RequestMapping(value = { "/fileManage/del/thesis" })
+	public String delThesisup(Model model) {
+		String studentLoginName = SecurityUtils.getSubject().getPrincipal().toString();
+		logger.debug("删除学生：{}开题报告", studentLoginName);
+
+		//保存
+		boolean success = false;
+		if (studentService.delThesisup(studentLoginName) != null) {
+			success = true;
+		}
+		model.addAttribute("success", success);
+
+		return "redirect:/student/fileManage";
 	}
 }

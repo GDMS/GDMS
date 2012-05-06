@@ -458,6 +458,7 @@ public class StudentServiceImpl extends BaseServiceImpl implements StudentServic
 
 		File dir = res.getFile();
 		Assert.isTrue(dir.isDirectory());
+		logger.debug("文件夹绝对路径：{}", dir.getAbsolutePath());
 		return dir;
 	}
 
@@ -515,6 +516,102 @@ public class StudentServiceImpl extends BaseServiceImpl implements StudentServic
 			return null;
 		}
 		_s.setKtup("");
+
+		return _s;
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public Student saveRwsup(MultipartFile rwsup, String loginName) {
+		String filename;
+		try {
+			filename = saveUploadFile(rwsup, loginName, "rwsup");
+		} catch (IOException e) {
+			logger.warn(e.toString());
+			return null;
+		}
+		Student _s = studentDao.findByLoginName(loginName);
+		_s.setRwsup(filename);
+
+		return studentDao.save(_s);
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public Student delRwsup(String loginName) {
+		Student _s = studentDao.findByLoginName(loginName);
+		String filename = _s.getRwsup();
+		try {
+			delUploadFile(filename, "rwsup");
+		} catch (IOException e) {
+			logger.warn(e.toString());
+			return null;
+		}
+		_s.setRwsup("");
+
+		return _s;
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public Student saveTransup(MultipartFile transup, String loginName) {
+		String filename;
+		try {
+			filename = saveUploadFile(transup, loginName, "transup");
+		} catch (IOException e) {
+			logger.warn(e.toString());
+			return null;
+		}
+		Student _s = studentDao.findByLoginName(loginName);
+		_s.setTransup(filename);
+
+		return studentDao.save(_s);
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public Student delTransup(String loginName) {
+		Student _s = studentDao.findByLoginName(loginName);
+		String filename = _s.getTransup();
+		try {
+			delUploadFile(filename, "transup");
+		} catch (IOException e) {
+			logger.warn(e.toString());
+			return null;
+		}
+		_s.setTransup("");
+
+		return _s;
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public Student saveThesisup(MultipartFile thesisup, String loginName) {
+		String filename;
+		try {
+			filename = saveUploadFile(thesisup, loginName, "thesisup");
+		} catch (IOException e) {
+			logger.warn(e.toString());
+			return null;
+		}
+		Student _s = studentDao.findByLoginName(loginName);
+		_s.setThesisup(filename);
+
+		return studentDao.save(_s);
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public Student delThesisup(String loginName) {
+		Student _s = studentDao.findByLoginName(loginName);
+		String filename = _s.getThesisup();
+		try {
+			delUploadFile(filename, "thesisup");
+		} catch (IOException e) {
+			logger.warn(e.toString());
+			return null;
+		}
+		_s.setThesisup("");
 
 		return _s;
 	}
