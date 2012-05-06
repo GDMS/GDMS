@@ -79,15 +79,15 @@
 				<!-- 教师菜单 -->
 				<shiro:hasRole name="ROLE_TEACHER">
 					<li id="li-teacher_info"><a href="${ctx}/teacher/info">个人信息</a></li>
-					<li id="li-teacher_project" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">课题管理<b
+					<li id="li-teacher_thesis" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">课题管理<b
 							class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="${ctx}/teacher/projectAdd">注册新的课题</a></li>
-							<li><a href="${ctx}/teacher/projectManage">管理您的课题信息</a></li>
+							<!--<li><a href="${ctx}/teacher/projectAdd">注册新的课题</a></li>-->
+							<li><a href="${ctx}/teacher/thesisManage">管理您的课题信息</a></li>
 							<li><a href="${ctx}/teacher/projectAssign">管理您的课题分配信息</a></li>
 							<li><a href="${ctx}/teacher/projectPreview">查看学生预选情况</a></li>
-							<li><a href="${ctx}/teacher/projectReassign">为学生重新分配课题</a></li>
-							<li><a href="${ctx}/teacher/projectChangeName">为学生更改课题名称</a></li>
+							<!--<li><a href="${ctx}/teacher/projectReassign">为学生重新分配课题</a></li>
+							<li><a href="${ctx}/teacher/projectChangeName">为学生更改课题名称</a></li>-->
 						</ul></li>
 
 					<li id="li-teacher_file" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">文件管理<b

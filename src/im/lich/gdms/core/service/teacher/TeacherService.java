@@ -1,10 +1,11 @@
 package im.lich.gdms.core.service.teacher;
 
-import java.util.List;
-
 import im.lich.gdms.base.service.BaseService;
 import im.lich.gdms.core.model.student.Student;
 import im.lich.gdms.core.model.teacher.Teacher;
+import im.lich.gdms.core.model.teacher.Thesis;
+
+import java.util.List;
 
 public interface TeacherService extends BaseService {
 	/**
@@ -54,4 +55,19 @@ public interface TeacherService extends BaseService {
 	 * @return List<Student>
 	 */
 	public List<Student> getTeachingStudents(String teacherLoginName);
+
+	/**
+	 * 获取教师课题列表
+	 * @param teacherLoginName 教师登录名、教工号
+	 * @return List<Thesis>
+	 */
+	public List<Thesis> getTeacherThesises(String teacherLoginName);
+
+	/**
+	 * 教师添加新课题
+	 * @param thesis
+	 * @param teacherLoginName
+	 * @return
+	 */
+	public Thesis saveTeacherThesis(Thesis thesis, String teacherLoginName);
 }

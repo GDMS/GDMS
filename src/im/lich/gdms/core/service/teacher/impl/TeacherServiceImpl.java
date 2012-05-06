@@ -3,11 +3,13 @@ package im.lich.gdms.core.service.teacher.impl;
 import im.lich.gdms.base.service.BaseServiceImpl;
 import im.lich.gdms.core.dao.student.StudentDao;
 import im.lich.gdms.core.dao.teacher.TeacherDao;
+import im.lich.gdms.core.dao.teacher.ThesisDao;
 import im.lich.gdms.core.model.student.Student;
 import im.lich.gdms.core.model.teacher.Teacher;
 import im.lich.gdms.core.model.teacher.Thesis;
 import im.lich.gdms.core.service.teacher.TeacherService;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -28,6 +30,9 @@ public class TeacherServiceImpl extends BaseServiceImpl implements TeacherServic
 
 	@Resource
 	private StudentDao studentDao;
+
+	@Resource
+	private ThesisDao thesisDao;
 
 	@Override
 	public List<Teacher> getTeachers() {
@@ -133,5 +138,37 @@ public class TeacherServiceImpl extends BaseServiceImpl implements TeacherServic
 		Assert.isTrue(thesises.size() == students.size(), "课题数、学生数不一致");
 
 		return students;
+	}
+
+	@Override
+	public List<Thesis> getTeacherThesises(String teacherLoginName) {
+		Assert.notNull(teacherLoginName);
+
+		Teacher teacher = teacherDao.findByLoginName(teacherLoginName);
+		List<Thesis> _thesises = Lists.newArrayList(teacher.getThesises());
+
+		for (Thesis t : _thesises) {
+			String majorRestrict = t.getMajorRestrict();
+			String[] ms = majorRestrict.split(",");
+			List<String> majors = Arrays.asList(ms);
+			t.setMajorRes(majors);
+		}
+
+		return _thesises;
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public Thesis saveTeacherThesis(Thesis thesis, String teacherLoginName) {
+		//处理专业限制字符串
+		List<String> majors = thesis.getMajorRes();
+		String majorRestrict = StringUtils.join(majors, ',');
+		thesis.setMajorRestrict(majorRestrict);
+
+		//设置课题所属教师
+		Teacher teacher = teacherDao.findByLoginName(teacherLoginName);
+		thesis.setTeacher(teacher);
+
+		return thesisDao.save(thesis);
 	}
 }

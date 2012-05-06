@@ -2,11 +2,15 @@ package im.lich.gdms.core.model.teacher;
 
 import im.lich.gdms.base.model.IdEntity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -22,7 +26,8 @@ public class Thesis extends IdEntity {
 	private String property = "";//性质
 	private String mode = "";//方式
 	private String assign = "";//分配方式
-	private String majorRestrict = "";
+	private String majorRestrict = "";//限制专业
+	private List<String> majorRes = new ArrayList<String>();//限制专业辅助变量，不计入数据库
 	private Teacher teacher;//开设课题的教师
 
 	public Thesis() {
@@ -96,6 +101,15 @@ public class Thesis extends IdEntity {
 
 	public void setMajorRestrict(String majorRestrict) {
 		this.majorRestrict = majorRestrict;
+	}
+
+	@Transient
+	public List<String> getMajorRes() {
+		return majorRes;
+	}
+
+	public void setMajorRes(List<String> majorRes) {
+		this.majorRes = majorRes;
 	}
 
 	@ManyToOne
