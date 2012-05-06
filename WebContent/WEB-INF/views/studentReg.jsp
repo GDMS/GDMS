@@ -112,7 +112,7 @@
 	<!-- Javascript -->
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$('#li-student_info').addClass('active');
+			$('#li-studentReg').addClass('active');
 			//校验两次密码
 			$('#rePassword').keyup(function() {
 				if ($('#rePassword').val() != $('#password').val())
