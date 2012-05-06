@@ -12,36 +12,42 @@
 	<div class="row">
 		<div class="span8 offset2">
 			<shiro:guest>
-				<h3>全体通知：</h3>
-				<c:forEach items="${allNewses}" var="news" varStatus="st">
-					<div class="alert alert-block alert-info">
-						<a class="close" data-dismiss="alert" href="#">×</a>
-						<h4 class="alert-heading">${news.title}</h4>
-						<p>${news.message}</p>
-					</div>
-				</c:forEach>
+				<c:if test="${allNewses!=null}">
+					<h3>全体通知：</h3>
+					<c:forEach items="${allNewses}" var="news" varStatus="st">
+						<div class="alert alert-block alert-info">
+							<a class="close" data-dismiss="alert" href="#">×</a>
+							<h4 class="alert-heading">${news.title}</h4>
+							<p>${news.message}</p>
+						</div>
+					</c:forEach>
+				</c:if>
 			</shiro:guest>
 
 			<shiro:hasRole name="ROLE_STUDENT">
-				<h3>学生通知：</h3>
-				<c:forEach items="${studentNewses}" var="news" varStatus="st">
-					<div class="alert alert-block alert-info">
-						<a class="close" data-dismiss="alert" href="#">×</a>
-						<h4 class="alert-heading">${news.title}</h4>
-						<p>${news.message}</p>
-					</div>
-				</c:forEach>
+				<c:if test="${studentNewses!=null}">
+					<h3>学生通知：</h3>
+					<c:forEach items="${studentNewses}" var="news" varStatus="st">
+						<div class="alert alert-block alert-info">
+							<a class="close" data-dismiss="alert" href="#">×</a>
+							<h4 class="alert-heading">${news.title}</h4>
+							<p>${news.message}</p>
+						</div>
+					</c:forEach>
+				</c:if>
 			</shiro:hasRole>
 
 			<shiro:hasRole name="ROLE_TEACHER">
-				<h3>教师通知：</h3>
-				<c:forEach items="${teacherNewses}" var="news" varStatus="st">
-					<div class="alert alert-block alert-info">
-						<a class="close" data-dismiss="alert" href="#">×</a>
-						<h4 class="alert-heading">${news.title}</h4>
-						<p>${news.message}</p>
-					</div>
-				</c:forEach>
+				<c:if test="${teacherNewses!=null}">
+					<h3>教师通知：</h3>
+					<c:forEach items="${teacherNewses}" var="news" varStatus="st">
+						<div class="alert alert-block alert-info">
+							<a class="close" data-dismiss="alert" href="#">×</a>
+							<h4 class="alert-heading">${news.title}</h4>
+							<p>${news.message}</p>
+						</div>
+					</c:forEach>
+				</c:if>
 			</shiro:hasRole>
 
 			<shiro:hasRole name="ROLE_ADMIN">
