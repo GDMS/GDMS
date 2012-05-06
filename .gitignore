@@ -1,3 +1,3 @@
 /build
 /resource/rebel.xml
-/WebContent/file
+/WebContent/file/*/
