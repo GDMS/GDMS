@@ -59,6 +59,12 @@ public class StudentServiceImpl extends BaseServiceImpl implements StudentServic
 	}
 
 	@Override
+	public Student regStudent(Student student) {
+		logger.debug("注册新学生：{}", student);
+		return studentDao.save(student);
+	}
+
+	@Override
 	public Student getStudentInfo(String loginName) {
 		return getStudent(loginName);
 	}

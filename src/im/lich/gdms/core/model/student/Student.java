@@ -25,7 +25,7 @@ public class Student extends IdEntity implements User {
 	private String password = "0";//密码
 	private String major = "";//专业
 	private String stuClass = "";//班级
-	private Long thesisId;//选中课题id
+	private Long thesisId = 0L;//选中课题id
 	private String assign = "";//分配状态
 	private String ktup = "";//开题报告
 	private String rwsup = "";//任务书

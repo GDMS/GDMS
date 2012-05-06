@@ -47,6 +47,9 @@
 				</shiro:hasRole>
 				-->
 				<!-- /主页链接 -->
+				<shiro:guest>
+					<li id="li-studentReg"><a href="${ctx}/studentReg">学生注册</a></li>
+				</shiro:guest>
 
 				<!-- 学生菜单 -->
 				<shiro:hasAnyRoles name="ROLE_STUDENT">

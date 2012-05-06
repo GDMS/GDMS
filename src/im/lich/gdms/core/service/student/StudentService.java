@@ -19,6 +19,13 @@ public interface StudentService extends BaseService {
 	public Student getStudent(String loginName);
 
 	/**
+	 * 注册新学生
+	 * @param student Student 学生
+	 * @return Student or null
+	 */
+	public Student regStudent(Student student);
+
+	/**
 	 * 根据学生登录名（学号）获取学生信息
 	 * @param loginName 登录名、学号
 	 * @return Student 学生
