@@ -4,13 +4,9 @@ import im.lich.gdms.base.web.BaseController;
 import im.lich.gdms.core.model.student.Student;
 import im.lich.gdms.core.model.teacher.Thesis;
 import im.lich.gdms.core.service.student.StudentService;
-import im.lich.gdms.core.service.teacher.DabianService;
-import im.lich.gdms.core.service.teacher.PingyueService;
-import im.lich.gdms.core.service.teacher.TeacherService;
 
 import javax.annotation.Resource;
 
-import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
