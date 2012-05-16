@@ -79,7 +79,7 @@
 	<!-- Javascript -->
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$('#li-admin_index').addClass('active');
+			$('#li-admin_people').addClass('active');
 			//实现点击表格条目，将内容复制到最后一行
 			$('tbody tr:not(:last)').click(function() {
 				var num = $('thead tr th').size() - 1;//减去最后操作一列

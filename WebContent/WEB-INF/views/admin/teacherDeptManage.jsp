@@ -41,7 +41,7 @@
 	<!-- Javascript -->
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$('#li-admin_index').addClass('active');
+			$('#li-admin_people').addClass('active');
 		});
 	</script>
 </body>

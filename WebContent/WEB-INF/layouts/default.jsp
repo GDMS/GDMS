@@ -55,12 +55,12 @@
 				<shiro:hasAnyRoles name="ROLE_STUDENT">
 					<li id="li-student_info"><a href="${ctx}/student/info">个人信息</a></li>
 
-					<li id="li-student_project" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">选课模块<b
+					<li id="li-student_thesis" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">选课模块<b
 							class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="${ctx}/student/projectChoose">选择课题</a></li>
-							<li><a href="${ctx}/student/projectManage">管理预选课题</a></li>
-							<li><a href="${ctx}/student/projectResult">查看课题分配结果</a></li>
+							<li><a href="${ctx}/student/thesisChoose">选择课题</a></li>
+							<li><a href="${ctx}/student/thesisManage">管理预选课题</a></li>
+							<li><a href="${ctx}/student/thesisResult">查看课题分配结果</a></li>
 						</ul></li>
 
 					<li id="li-student_file"><a href="${ctx}/student/fileManage">文件管理</a></li>
@@ -84,8 +84,8 @@
 						<ul class="dropdown-menu">
 							<!--<li><a href="${ctx}/teacher/projectAdd">注册新的课题</a></li>-->
 							<li><a href="${ctx}/teacher/thesisManage">管理您的课题信息</a></li>
-							<li><a href="${ctx}/teacher/projectAssign">管理您的课题分配信息</a></li>
-							<li><a href="${ctx}/teacher/projectPreview">查看学生预选情况</a></li>
+							<li><a href="${ctx}/teacher/thesisAssign">管理您的课题分配信息</a></li>
+							<li><a href="${ctx}/teacher/thesisPreview">查看学生预选情况</a></li>
 							<!--<li><a href="${ctx}/teacher/projectReassign">为学生重新分配课题</a></li>
 							<li><a href="${ctx}/teacher/projectChangeName">为学生更改课题名称</a></li>-->
 						</ul></li>
@@ -110,8 +110,8 @@
 
 				<!-- 管理员菜单 -->
 				<shiro:hasRole name="ROLE_ADMIN">
-					<li id="li-admin_info"><a href="${ctx}/admin/info">个人信息</a></li>
-					<li><a href="${ctx}/admin/newsManage">信息发布</a></li>
+					<!--<li id="li-admin_info"><a href="${ctx}/admin/info">个人信息</a></li>-->
+					<li id="li-admin_news"><a href="${ctx}/admin/newsManage">信息发布</a></li>
 					<li id="li-admin_people" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">人员、组织管理<b
 							class="caret"></b></a>
 						<ul class="dropdown-menu">
@@ -129,13 +129,13 @@
 							<li><a href="${ctx}/admin/commentTempleManage">评语模板管理</a></li>
 						</ul></li>
 
-					<li id="li-admin_subject" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">选课信息管理<b
+					<li id="li-admin_thesis" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">选课信息管理<b
 							class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="${ctx}/admin/subjectManage">课题信息管理</a></li>
-							<li><a href="${ctx}/admin/studentPreviewManage">学生预选信息管理</a></li>
-							<li><a href="${ctx}/admin/subAssignManage">学生课题分配信息管理</a></li>
-							<li><a href="${ctx}/admin/subAssignedManage">已分配信息管理</a></li>
+							<li><a href="${ctx}/admin/thesisManage">课题信息管理</a></li>
+							<li><a href="${ctx}/admin/thesisPreviewManage">学生预选信息管理</a></li>
+							<li><a href="${ctx}/admin/thesisAssignManage">学生课题分配信息管理</a></li>
+							<li><a href="${ctx}/admin/thesisAssignedManage">已分配信息管理</a></li>
 							<li><a href="${ctx}/admin/autoAssignOperate">自动分配操作</a></li>
 						</ul></li>
 

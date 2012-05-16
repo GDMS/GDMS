@@ -59,7 +59,7 @@
 	<!-- Javascript -->
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$('#li-student_score').addClass('active');
+			$('#li-teacher_score').addClass('active');
 		});
 	</script>
 </body>
