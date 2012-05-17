@@ -18,4 +18,17 @@ public interface ThesisService extends BaseService {
 	 * @return Thesis
 	 */
 	public Thesis getThesis(Long thesisId);
+
+	/**
+	 * 获取未分配课题
+	 * @return List<Thesis>
+	 */
+	public List<Thesis> getUnassignedThesises();
+
+	/**
+	 * 获取未分配和未选择的课题
+	 * @param studentLoginName
+	 * @return List<Thesis>
+	 */
+	public List<Thesis> getUnassignedAndUnchoosedThesises(String studentLoginName);
 }

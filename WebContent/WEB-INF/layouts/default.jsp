@@ -63,8 +63,7 @@
 					<li id="li-student_thesis" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">选课模块<b
 							class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="${ctx}/student/thesisChoose">选择课题</a></li>
-							<li><a href="${ctx}/student/thesisManage">管理预选课题</a></li>
+							<li><a href="${ctx}/student/thesisManage">选择、管理预选课题</a></li>
 							<li><a href="${ctx}/student/thesisResult">查看课题分配结果</a></li>
 						</ul></li>
 
