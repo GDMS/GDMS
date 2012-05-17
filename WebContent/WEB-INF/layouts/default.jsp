@@ -21,6 +21,11 @@
 <script type="text/javascript" src="${ctx}/static/jquery/jquery-1.7.2.js"></script>
 <script type="text/javascript" src="${ctx}/static/bootstrap/js/bootstrap.js"></script>
 
+<link href="${ctx}/static/datatables-1.9.1/css/jquery.dataTables.css" rel="stylesheet">
+<script type="text/javascript" src="${ctx}/static/datatables-1.9.1/js/jquery.dataTables.js"></script>
+<link href="${ctx}/static/datatables-1.9.1/css/DT_bootstrap.css" rel="stylesheet">
+<script type="text/javascript" src="${ctx}/static/datatables-1.9.1/js/DT_bootstrap.js"></script>
+
 <!-- Sitemesh头部 -->
 <sitemesh:head />
 </head>
