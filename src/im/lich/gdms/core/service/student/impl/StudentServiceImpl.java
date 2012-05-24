@@ -621,4 +621,17 @@ public class StudentServiceImpl extends BaseServiceImpl implements StudentServic
 
 		return _s;
 	}
+
+	@Override
+	public Thesis getFinalThesis(String loginName) {
+		Thesis t = new Thesis();
+		Student s = studentDao.findByLoginName(loginName);
+		Long thesisId = s.getThesisId();
+		if (thesisId > 0)
+			t = thesisDao.findOne(thesisId);
+		else
+			logger.debug("学生{}没有分配到课题");
+		// FIXME 未经过自己考虑
+		return t;
+	}
 }

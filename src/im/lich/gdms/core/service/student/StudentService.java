@@ -233,4 +233,11 @@ public interface StudentService extends BaseService {
 	 * @return
 	 */
 	public Student delThesisup(String loginName);
+
+	/**
+	 * 获取最终课题分配信息
+	 * @param loginName
+	 * @return Thesis
+	 */
+	public Thesis getFinalThesis(String loginName);
 }
