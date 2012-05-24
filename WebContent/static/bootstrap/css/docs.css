@@ -19,9 +19,17 @@ body {
 }
 */
 body {
-  background-color: #ffffff;
-  background-image: url(../img/grid-18px-masked.png);
+  background-color: #F5F8FE;
+  background-image: url(../img/background.gif);
   background-repeat: repeat-x;
+}
+
+#menu {
+	background-color: #F5F8FE;
+}
+
+.row {
+ background-color: #FAFAFA;
 }
 
 /* Tweak navbar brand link to be super sleek
