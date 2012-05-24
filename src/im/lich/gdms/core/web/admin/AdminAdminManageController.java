@@ -1,7 +1,7 @@
 package im.lich.gdms.core.web.admin;
 
 import im.lich.gdms.base.web.BaseController;
-import im.lich.gdms.core.model.admin.Administrator;
+import im.lich.gdms.core.model.admin.Admin;
 import im.lich.gdms.core.service.admin.AdminService;
 
 import java.util.List;
@@ -23,14 +23,14 @@ public class AdminAdminManageController extends BaseController {
 
 	@RequestMapping(value = { "/adminManage" })
 	public String showAdminManage(Model model) {
-		List<Administrator> admins = adminService.getAdministrators();
+		List<Admin> admins = adminService.getAdministrators();
 		model.addAttribute("admins", admins);
 
 		return "admin/adminManage";
 	}
 
 	@RequestMapping(value = { "/adminManage/add" }, method = RequestMethod.POST)
-	public String addOrUpdateAdminManage(Administrator admin, Model model) {
+	public String addOrUpdateAdminManage(Admin admin, Model model) {
 		logger.debug("获取新增的Administrator: {}", admin.toString());
 
 		boolean success = false;
@@ -39,7 +39,7 @@ public class AdminAdminManageController extends BaseController {
 		}
 		model.addAttribute("success", success);
 
-		List<Administrator> admins = adminService.getAdministrators();
+		List<Admin> admins = adminService.getAdministrators();
 		model.addAttribute("admins", admins);
 
 		return "admin/adminManage";
@@ -53,7 +53,7 @@ public class AdminAdminManageController extends BaseController {
 		}
 		model.addAttribute("success", success);
 
-		List<Administrator> admins = adminService.getAdministrators();
+		List<Admin> admins = adminService.getAdministrators();
 		model.addAttribute("admins", admins);
 
 		return "admin/adminManage";

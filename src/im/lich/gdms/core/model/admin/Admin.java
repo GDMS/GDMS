@@ -13,7 +13,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "admin")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Administrator extends IdEntity implements User {
+public class Admin extends IdEntity implements User {
 	private static final long serialVersionUID = 4217558191841990227L;
 
 	private String loginName;//管理员登录名
@@ -21,16 +21,16 @@ public class Administrator extends IdEntity implements User {
 	private String password = "0";//密码
 	private String enable = "true";//是否启用
 
-	public Administrator() {
+	public Admin() {
 		super();
 	}
 
-	public Administrator(String loginName) {
+	public Admin(String loginName) {
 		super();
 		this.loginName = loginName;
 	}
 
-	public Administrator(String loginName, String name, String password, String enable) {
+	public Admin(String loginName, String name, String password, String enable) {
 		super();
 		this.loginName = loginName;
 		this.name = name;
