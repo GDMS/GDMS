@@ -78,6 +78,13 @@ public interface TeacherService extends BaseService {
 	public List<Thesis> getTeacherUnassignedThesises(String teacherLoginName);
 
 	/**
+	 * 教师是否允许预选课题
+	 * @param teacherLoginName
+	 * @return
+	 */
+	public boolean isOverMaxAssign(String teacherLoginName);
+
+	/**
 	 * 教师添加新课题
 	 * @param thesis
 	 * @param teacherLoginName

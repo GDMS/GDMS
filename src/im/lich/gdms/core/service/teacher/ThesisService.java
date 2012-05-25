@@ -54,7 +54,7 @@ public interface ThesisService extends BaseService {
 	 * @param studentId
 	 * @return
 	 */
-	public Thesis unassignStudentThesis(Long studentId);
+	public Thesis unassignThesisByStudent(Long studentId);
 
 	/**
 	 * 取消课题分配

@@ -1,9 +1,11 @@
 package im.lich.gdms.core.service.teacher.impl;
 
 import im.lich.gdms.base.service.BaseServiceImpl;
+import im.lich.gdms.core.dao.admin.SysPropertyDao;
 import im.lich.gdms.core.dao.student.PreviewDao;
 import im.lich.gdms.core.dao.student.StudentDao;
 import im.lich.gdms.core.dao.teacher.ThesisDao;
+import im.lich.gdms.core.model.admin.SysProperty;
 import im.lich.gdms.core.model.student.Preview;
 import im.lich.gdms.core.model.student.Student;
 import im.lich.gdms.core.model.teacher.Thesis;
@@ -36,6 +38,9 @@ public class ThesisServiceImpl extends BaseServiceImpl implements ThesisService 
 	@Resource
 	private StudentDao studentDao;
 
+	@Resource
+	private SysPropertyDao sysPropertyDao;
+
 	@Override
 	public List<Thesis> getThesises() {
 		List<Thesis> thesises = Lists.newArrayList(thesisDao.findAll());
@@ -63,6 +68,8 @@ public class ThesisServiceImpl extends BaseServiceImpl implements ThesisService 
 
 		return t;
 	}
+
+	
 
 	@Override
 	public List<Thesis> getUnassignedThesises() {
@@ -126,7 +133,7 @@ public class ThesisServiceImpl extends BaseServiceImpl implements ThesisService 
 
 	@Override
 	@Transactional(readOnly = false)
-	public Thesis unassignStudentThesis(Long studentId) {
+	public Thesis unassignThesisByStudent(Long studentId) {
 		Student s = studentDao.findOne(studentId);
 		Long thesisId = s.getThesisId();
 		if (thesisId == 0)
@@ -145,6 +152,6 @@ public class ThesisServiceImpl extends BaseServiceImpl implements ThesisService 
 		Student s = studentDao.findByThesisId(thesisId);
 		Long studentId = s.getId();
 
-		return unassignStudentThesis(studentId);
+		return unassignThesisByStudent(studentId);
 	}
 }

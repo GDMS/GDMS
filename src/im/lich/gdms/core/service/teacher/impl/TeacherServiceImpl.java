@@ -1,10 +1,12 @@
 package im.lich.gdms.core.service.teacher.impl;
 
 import im.lich.gdms.base.service.BaseServiceImpl;
+import im.lich.gdms.core.dao.admin.SysPropertyDao;
 import im.lich.gdms.core.dao.student.PreviewDao;
 import im.lich.gdms.core.dao.student.StudentDao;
 import im.lich.gdms.core.dao.teacher.TeacherDao;
 import im.lich.gdms.core.dao.teacher.ThesisDao;
+import im.lich.gdms.core.model.admin.SysProperty;
 import im.lich.gdms.core.model.student.Preview;
 import im.lich.gdms.core.model.student.Student;
 import im.lich.gdms.core.model.teacher.Teacher;
@@ -12,6 +14,7 @@ import im.lich.gdms.core.model.teacher.Thesis;
 import im.lich.gdms.core.service.teacher.TeacherService;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -38,6 +41,9 @@ public class TeacherServiceImpl extends BaseServiceImpl implements TeacherServic
 
 	@Resource
 	private PreviewDao previewDao;
+
+	@Resource
+	private SysPropertyDao sysPropertyDao;
 
 	@Override
 	public List<Teacher> getTeachers() {
@@ -189,6 +195,23 @@ public class TeacherServiceImpl extends BaseServiceImpl implements TeacherServic
 		}
 
 		return thesises;
+	}
+
+	@Override
+	public boolean isOverMaxAssign(String teacherLoginName) {
+		int thesesNum = getTeacherThesises(teacherLoginName).size();
+		SysProperty sp = sysPropertyDao.findByPropKey("pct_max_assign");
+		int num = Math.round((float) (thesesNum * 0.3));
+		try {
+			float pct = Integer.parseInt(sp.getPropVal()) / 100f;
+			num = Math.round((float) (thesesNum * pct));
+		} catch (NullPointerException e) {
+			logger.debug("解析最大教师预选课题数量失败");
+		} catch (NumberFormatException e) {
+			logger.debug("解析最大教师预选课题数量失败");
+		}
+		int assignedNum = getAssignedStudentThesis(teacherLoginName).size();
+		return assignedNum >= num;
 	}
 
 	@Override
