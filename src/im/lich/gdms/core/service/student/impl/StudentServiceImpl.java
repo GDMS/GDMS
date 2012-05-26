@@ -12,6 +12,7 @@ import im.lich.gdms.core.model.teacher.PingyueRecord;
 import im.lich.gdms.core.model.teacher.Teacher;
 import im.lich.gdms.core.model.teacher.Thesis;
 import im.lich.gdms.core.service.student.StudentService;
+import im.lich.gdms.core.util.Message;
 
 import java.io.File;
 import java.io.IOException;
@@ -59,8 +60,13 @@ public class StudentServiceImpl extends BaseServiceImpl implements StudentServic
 	}
 
 	@Override
-	public Student regStudent(Student student) {
+	public Student regStudent(Student student, Message message) {
 		logger.debug("注册新学生：{}", student);
+		String loginName = student.getLoginName();
+		if (loginName == null || studentDao.findByLoginName(loginName) != null) {
+			message.setMessage("该用户已经注册");
+			return null;
+		}
 		return studentDao.save(student);
 	}
 

@@ -7,6 +7,7 @@ import im.lich.gdms.core.model.student.StudentMajor;
 import im.lich.gdms.core.service.student.StudentClassService;
 import im.lich.gdms.core.service.student.StudentMajorService;
 import im.lich.gdms.core.service.student.StudentService;
+import im.lich.gdms.core.util.Message;
 
 import java.util.List;
 
@@ -54,8 +55,9 @@ public class StudentRegController extends BaseController {
 		logger.debug("网页获取信息：{}", student);
 
 		//保存
+		Message message = new Message();
 		boolean success = false;
-		if (studentService.regStudent(student) != null) {
+		if (studentService.regStudent(student, message) != null) {
 			success = true;
 		}
 
@@ -63,7 +65,7 @@ public class StudentRegController extends BaseController {
 			model.addAttribute("successMessage", "注册学生成功，请登录");
 			return "login";
 		} else {
-			model.addAttribute("errorMessage", "注册学生失败，请重新尝试");
+			model.addAttribute("errorMessage", "注册学生失败，请重新尝试。" + message);
 			return showInfo(model);
 		}
 	}

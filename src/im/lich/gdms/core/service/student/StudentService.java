@@ -3,6 +3,7 @@ package im.lich.gdms.core.service.student;
 import im.lich.gdms.base.service.BaseService;
 import im.lich.gdms.core.model.student.Student;
 import im.lich.gdms.core.model.teacher.Thesis;
+import im.lich.gdms.core.util.Message;
 
 import java.util.Collection;
 import java.util.List;
@@ -23,7 +24,7 @@ public interface StudentService extends BaseService {
 	 * @param student Student 学生
 	 * @return Student or null
 	 */
-	public Student regStudent(Student student);
+	public Student regStudent(Student student, Message message);
 
 	/**
 	 * 根据学生登录名（学号）获取学生信息
