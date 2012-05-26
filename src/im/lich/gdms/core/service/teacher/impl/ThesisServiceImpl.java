@@ -74,8 +74,23 @@ public class ThesisServiceImpl extends BaseServiceImpl implements ThesisService 
 				it.remove();
 		}
 		logger.debug("获取未分配课题数量：{}", thesises.size());
+		logger.debug("课题：{}", StringUtils.join(thesises, ','));
 
 		return thesises;
+	}
+
+	@Override
+	public List<Student> getUnassignedThesisesStudents() {
+		List<Student> students = Lists.newArrayList(studentDao.findAll());
+		Iterator<Student> it = students.iterator();
+		while (it.hasNext()) {
+			Student s = it.next();
+			if (s.getThesisId() != 0L)
+				it.remove();
+		}
+		logger.debug("未分配学生数量：{}", students.size());
+
+		return students;
 	}
 
 	@Override
@@ -111,7 +126,7 @@ public class ThesisServiceImpl extends BaseServiceImpl implements ThesisService 
 	}
 
 	@Override
-	public List<Thesis> getAssignedThesis() {
+	public List<Thesis> getAssignedThesises() {
 		List<Thesis> theses = Lists.newArrayList(thesisDao.findAll());
 		Iterator<Thesis> it = theses.iterator();
 		while (it.hasNext()) {
@@ -124,8 +139,8 @@ public class ThesisServiceImpl extends BaseServiceImpl implements ThesisService 
 	}
 
 	@Override
-	public List<Student> getAssignedThesisStudent() {
-		List<Thesis> these = getAssignedThesis();
+	public List<Student> getAssignedThesisesStudents() {
+		List<Thesis> these = getAssignedThesises();
 
 		List<Student> students = Lists.newArrayList();
 		for (Thesis t : these) {
