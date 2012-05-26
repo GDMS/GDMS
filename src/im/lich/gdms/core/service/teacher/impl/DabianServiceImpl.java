@@ -10,6 +10,7 @@ import im.lich.gdms.core.model.teacher.Teacher;
 import im.lich.gdms.core.service.teacher.DabianService;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -40,13 +41,20 @@ public class DabianServiceImpl extends BaseServiceImpl implements DabianService 
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public List<Student> getStudents(String teacherLoginName) {
 		List<Student> _students = Lists.newArrayList();
 		Teacher _t = teacherDao.findByLoginName(teacherLoginName);
 		List<DabianRecord> _dbs = dabianRecordDao.findByTeacherId(_t.getId());
-		for (DabianRecord _db : _dbs) {
+		Iterator<DabianRecord> it = _dbs.iterator();
+		while (it.hasNext()) {
+			DabianRecord _db = it.next();
 			Student _s = studentDao.findOne(_db.getStudentId());
-			_students.add(_s);
+			if (_s.getThesisId() == 0L) {
+				it.remove();
+			} else {
+				_students.add(_s);
+			}
 		}
 
 		Assert.isTrue(_dbs.size() == _students.size());
