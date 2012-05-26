@@ -8,6 +8,7 @@ import im.lich.gdms.core.model.student.Preview;
 import im.lich.gdms.core.model.student.Student;
 import im.lich.gdms.core.model.teacher.Thesis;
 import im.lich.gdms.core.service.teacher.ThesisService;
+import im.lich.gdms.core.util.AssignStatus;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -99,5 +100,51 @@ public class ThesisServiceImpl extends BaseServiceImpl implements ThesisService 
 		logger.debug("获取未分配且未选择课题数量：{}", thesises.size());
 
 		return thesises;
+	}
+
+	@Override
+	public boolean isAssigned(String studentLoginName) {
+		Student s = studentDao.findByLoginName(studentLoginName);
+		if (s.getThesisId() != 0L)
+			return true;
+		return false;
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public Thesis assignThesis(Long thesisId, Long studentId, AssignStatus assignStatus) {
+		Student s = studentDao.findOne(studentId);
+		if (s.getThesisId() != 0)
+			return null;
+		s.setThesisId(thesisId);
+
+		Thesis t = thesisDao.findOne(thesisId);
+		t.setAssign(assignStatus.getValue());
+
+		return t;
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public Thesis unassignStudentThesis(Long studentId) {
+		Student s = studentDao.findOne(studentId);
+		Long thesisId = s.getThesisId();
+		if (thesisId == 0)
+			return null;
+		s.setThesisId(0L);
+
+		Thesis t = thesisDao.findOne(thesisId);
+		t.setAssign(AssignStatus.NULL.getValue());
+
+		return t;
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public Thesis unassignThesis(Long thesisId) {
+		Student s = studentDao.findByThesisId(thesisId);
+		Long studentId = s.getId();
+
+		return unassignStudentThesis(studentId);
 	}
 }

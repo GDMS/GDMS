@@ -71,6 +71,13 @@ public interface TeacherService extends BaseService {
 	public List<Thesis> getTeacherThesises(String teacherLoginName);
 
 	/**
+	 * 获取教师未分配课题列表
+	 * @param teacherLoginName 教师登录名、教工号
+	 * @return List<Thesis>
+	 */
+	public List<Thesis> getTeacherUnassignedThesises(String teacherLoginName);
+
+	/**
 	 * 教师添加新课题
 	 * @param thesis
 	 * @param teacherLoginName
@@ -92,4 +99,53 @@ public interface TeacherService extends BaseService {
 	 * @return
 	 */
 	public Thesis modTeacherThesis(Long thesisId, Thesis newThesis);
+
+	/**
+	 * 获取学生预选的课题
+	 * @param theses
+	 * @return
+	 */
+	public List<Thesis> getStudentsPreviewTheses(List<Thesis> theses);
+
+	/**
+	 * 获取学生预选的学生姓名
+	 * @param theses
+	 * @return
+	 */
+	public List<Student> getStudentsPreviewName(List<Thesis> theses);
+
+	/**
+	 * 获取学生预选的志愿顺序
+	 * @param theses
+	 * @return
+	 */
+	public List<Integer> getStudentsPreviewOrder(List<Thesis> theses);
+
+	/**
+	 * 获取学生预选时当前分配状态
+	 * @param theses
+	 * @return
+	 */
+	public List<String> getStudentsPreviewAssign(List<Thesis> theses);
+
+	/**
+	 * 获取已分配学生课题
+	 * @param loginName
+	 * @return
+	 */
+	public List<Thesis> getAssignedStudentThesis(String loginName);
+
+	/**
+	 * 获取已分配学生信息
+	 * @param loginName
+	 * @return
+	 */
+	public List<Student> getAssignedStudentInfo(String loginName);
+
+	/**
+	 * 获取未分配课题
+	 * @param loginName
+	 * @return
+	 */
+	public List<Thesis> getUnassignedThesises(String loginName);
 }

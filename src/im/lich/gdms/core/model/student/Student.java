@@ -26,7 +26,7 @@ public class Student extends IdEntity implements User {
 	private String major = "";//专业
 	private String stuClass = "";//班级
 	private Long thesisId = 0L;//选中课题id
-	private String assign = "";//分配状态
+	//private String assign = "";//分配状态
 	private String ktup = "";//开题报告
 	private String rwsup = "";//任务书
 	private String transup = "";//翻译
@@ -93,7 +93,7 @@ public class Student extends IdEntity implements User {
 		this.major = major;
 		this.stuClass = stuClass;
 		this.thesisId = thesisId;
-		this.assign = assign;
+		//this.assign = assign;
 		this.ktup = ktup;
 		this.rwsup = rwsup;
 		this.transup = transup;
@@ -217,14 +217,14 @@ public class Student extends IdEntity implements User {
 		this.thesisId = thesisId;
 	}
 
-	@Column(nullable = false)
-	public String getAssign() {
-		return assign;
-	}
+//	@Column(nullable = false)
+//	public String getAssign() {
+//		return assign;
+//	}
 
-	public void setAssign(String assign) {
-		this.assign = assign;
-	}
+	//	public void setAssign(String assign) {
+	//		this.assign = assign;
+	//	}
 
 	@Column(nullable = false)
 	public String getKtup() {

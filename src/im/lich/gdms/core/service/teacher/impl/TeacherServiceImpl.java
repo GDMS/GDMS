@@ -1,9 +1,11 @@
 package im.lich.gdms.core.service.teacher.impl;
 
 import im.lich.gdms.base.service.BaseServiceImpl;
+import im.lich.gdms.core.dao.student.PreviewDao;
 import im.lich.gdms.core.dao.student.StudentDao;
 import im.lich.gdms.core.dao.teacher.TeacherDao;
 import im.lich.gdms.core.dao.teacher.ThesisDao;
+import im.lich.gdms.core.model.student.Preview;
 import im.lich.gdms.core.model.student.Student;
 import im.lich.gdms.core.model.teacher.Teacher;
 import im.lich.gdms.core.model.teacher.Thesis;
@@ -33,6 +35,9 @@ public class TeacherServiceImpl extends BaseServiceImpl implements TeacherServic
 
 	@Resource
 	private ThesisDao thesisDao;
+
+	@Resource
+	private PreviewDao previewDao;
 
 	@Override
 	public List<Teacher> getTeachers() {
@@ -172,6 +177,21 @@ public class TeacherServiceImpl extends BaseServiceImpl implements TeacherServic
 	}
 
 	@Override
+	public List<Thesis> getTeacherUnassignedThesises(String teacherLoginName) {
+		Assert.notNull(teacherLoginName);
+
+		List<Thesis> thesises = getTeacherThesises(teacherLoginName);
+		Iterator<Thesis> it = thesises.iterator();
+		while (it.hasNext()) {
+			Thesis t = it.next();
+			if (StringUtils.isNotBlank(t.getAssign()))
+				it.remove();
+		}
+
+		return thesises;
+	}
+
+	@Override
 	@Transactional(readOnly = false)
 	public Thesis saveTeacherThesis(Thesis thesis, String teacherLoginName) {
 		//处理专业限制字符串
@@ -220,5 +240,121 @@ public class TeacherServiceImpl extends BaseServiceImpl implements TeacherServic
 		_t.setType(t.getType());
 
 		return thesisDao.save(_t);
+	}
+
+	@Override
+	public List<Thesis> getStudentsPreviewTheses(List<Thesis> theses) {
+		List<Thesis> thesises = Lists.newArrayList();
+		for (Thesis t : theses) {
+			Long thesisId = t.getId();
+			List<Preview> previews = previewDao.findByThesisId(thesisId);
+			for (Preview p : previews) {
+				Long tId = p.getThesisId();
+				Thesis _t = thesisDao.findOne(tId);
+				thesises.add(_t);
+			}
+		}
+
+		return thesises;
+	}
+
+	@Override
+	public List<Student> getStudentsPreviewName(List<Thesis> theses) {
+		List<Student> students = Lists.newArrayList();
+		for (Thesis t : theses) {
+			Long thesisId = t.getId();
+			List<Preview> previews = previewDao.findByThesisId(thesisId);
+			for (Preview p : previews) {
+				Long sId = p.getStudentId();
+				Student s = studentDao.findOne(sId);
+				students.add(s);
+			}
+		}
+
+		return students;
+	}
+
+	@Override
+	public List<Integer> getStudentsPreviewOrder(List<Thesis> theses) {
+		List<Integer> orders = Lists.newArrayList();
+		for (Thesis t : theses) {
+			Long thesisId = t.getId();
+			List<Preview> previews = previewDao.findByThesisId(thesisId);
+			for (Preview p : previews) {
+				Integer o = p.getSubjectOrder();
+				orders.add(o);
+			}
+		}
+
+		return orders;
+	}
+
+	@Override
+	public List<String> getStudentsPreviewAssign(List<Thesis> theses) {
+		List<String> assigns = Lists.newArrayList();
+		for (Thesis t : theses) {
+			Long thesisId = t.getId();
+			List<Preview> previews = previewDao.findByThesisId(thesisId);
+			for (Preview p : previews) {
+				Long sId = p.getStudentId();
+				Student s = studentDao.findOne(sId);
+				if (s.getThesisId() == 0L)
+					assigns.add("0");
+				else {
+					assigns.add("无法选择");
+				}
+
+			}
+		}
+
+		return assigns;
+	}
+
+	@Override
+	public List<Thesis> getAssignedStudentThesis(String loginName) {
+		Assert.notNull(loginName);
+
+		Teacher teacher = teacherDao.findByLoginName(loginName);
+		List<Thesis> thesises = Lists.newArrayList(teacher.getThesises());
+
+		Iterator<Thesis> it = thesises.iterator();
+		while (it.hasNext()) {
+			Thesis t = it.next();
+			if (StringUtils.isBlank(t.getAssign()))
+				it.remove();
+		}
+		return thesises;
+	}
+
+	@Override
+	public List<Student> getAssignedStudentInfo(String loginName) {
+		Assert.notNull(loginName);
+
+		List<Thesis> thesises = getAssignedStudentThesis(loginName);
+
+		List<Student> students = Lists.newArrayList();
+		for (Thesis t : thesises) {
+			Long thesisId = t.getId();
+			Student s = studentDao.findByThesisId(thesisId);
+			students.add(s);
+		}
+
+		return students;
+	}
+
+	@Override
+	public List<Thesis> getUnassignedThesises(String loginName) {
+		Assert.notNull(loginName);
+
+		Teacher teacher = teacherDao.findByLoginName(loginName);
+		List<Thesis> thesises = Lists.newArrayList(teacher.getThesises());
+
+		Iterator<Thesis> it = thesises.iterator();
+		while (it.hasNext()) {
+			Thesis t = it.next();
+			if (StringUtils.isNotBlank(t.getAssign()))
+				it.remove();
+		}
+		return thesises;
 	}
 }
