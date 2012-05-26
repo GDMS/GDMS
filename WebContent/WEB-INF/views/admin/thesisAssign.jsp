@@ -28,17 +28,16 @@
 	</div>
 	<!-- /row -->
 
-	<p>&nbsp;</p>
-	<h2 style="text-align: center;">查看学生课题预选情况</h2>
-
 	<div class="row">
 		<div class="span10 offset1">
+			<p>&nbsp;</p>
+			<h2 style="text-align: center;">查看课题分配情况</h2>
+
 			<table id="table" class="table table-bordered">
 				<thead>
 					<tr>
 						<th style="vertical-align: middle;">课题名称</th>
 						<th style="vertical-align: middle;">教师名称</th>
-						<th style="vertical-align: middle;">志愿顺序</th>
 						<th style="vertical-align: middle;">学生名称</th>
 						<th style="vertical-align: middle;" width="100px">操作</th>
 					</tr>
@@ -48,15 +47,38 @@
 						<tr>
 							<td>${thesis.name}</td>
 							<td>${thesis.teacher.name}</td>
-							<td>${orders[st.index]}</td>
 							<td>${students[st.index].name}</td>
-							<c:if test="${assigns[st.index]=='0'}">
-								<td><a href="${ctx}/admin/thesisPreview/assign/${thesis.id}/${students[st.index].id}"
-									class="btn btn-primary btn-mini">优先录取</a></td>
-							</c:if>
-							<c:if test="${assigns[st.index]!='0'}">
-								<td>${assigns[st.index]}</td>
-							</c:if>
+							<td><a href="${ctx}/teacher/thesisAssign/unassign/${thesis.id}" class="btn btn-primary btn-mini">取消分配</a></td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
+		<!-- /span8 offset2 -->
+	</div>
+	<!-- /row -->
+
+	<div class="row">
+		<div class="span10 offset1">
+			<p>&nbsp;</p>
+			<h3 style="text-align: center;">查看未分配课题</h3>
+
+			<table id="table2" class="table table-bordered">
+				<thead>
+					<tr>
+						<th style="vertical-align: middle;">课题名称</th>
+						<th style="vertical-align: middle;">教师名称</th>
+						<th style="vertical-align: middle;" width="100px">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${unassignedThesises}" var="thesis" varStatus="st">
+						<tr>
+							<td>${thesis.name}</td>
+							<td>${thesis.teacher.name}</td>
+							<td><c:if test="${!isOverMaxAssign}">
+									<a href="${ctx}/admin/thesisPreview" class="btn btn-primary btn-mini">分配此课题</a>
+								</c:if></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -70,16 +92,19 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('#li-admin_thesis').addClass('active');
-			var sDom = "<'row'<'span5'l><'span5'f>r>t<'row'<'span5'i><'span5'p>>";
-			var sPaginationType = "bootstrap";
-			var sUrl = "${ctx}/static/datatables-1.9.1/zh_CN.txt";
 			$('#table').dataTable({
-						"sDom" : sDom,
-						"sPaginationType" : sPaginationType,
+						"sDom" : "<'row'<'span5'l><'span5'f>r>t<'row'<'span5'i><'span5'p>>",
+						"sPaginationType" : "bootstrap",
 						"oLanguage" : {
-							"sUrl" : sUrl
-						},
-						"aaSorting" : [[0, "asc"], [1, "asc"]]
+							"sUrl" : "${ctx}/static/datatables-1.9.1/zh_CN.txt"
+						}
+					});
+			$('#table2').dataTable({
+						"sDom" : "<'row'<'span5'l><'span5'f>r>t<'row'<'span5'i><'span5'p>>",
+						"sPaginationType" : "bootstrap",
+						"oLanguage" : {
+							"sUrl" : "${ctx}/static/datatables-1.9.1/zh_CN.txt"
+						}
 					});
 		});
 	</script>

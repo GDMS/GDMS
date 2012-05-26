@@ -64,8 +64,6 @@ public class ThesisServiceImpl extends BaseServiceImpl implements ThesisService 
 		return t;
 	}
 
-	
-
 	@Override
 	public List<Thesis> getUnassignedThesises() {
 		List<Thesis> thesises = Lists.newArrayList(getThesises());
@@ -110,6 +108,33 @@ public class ThesisServiceImpl extends BaseServiceImpl implements ThesisService 
 		if (s.getThesisId() != 0L)
 			return true;
 		return false;
+	}
+
+	@Override
+	public List<Thesis> getAssignedThesis() {
+		List<Thesis> theses = Lists.newArrayList(thesisDao.findAll());
+		Iterator<Thesis> it = theses.iterator();
+		while (it.hasNext()) {
+			Thesis t = it.next();
+			if (StringUtils.isBlank(t.getAssign()))
+				it.remove();
+		}
+
+		return theses;
+	}
+
+	@Override
+	public List<Student> getAssignedThesisStudent() {
+		List<Thesis> these = getAssignedThesis();
+
+		List<Student> students = Lists.newArrayList();
+		for (Thesis t : these) {
+			Long thesisId = t.getId();
+			Student s = studentDao.findByThesisId(thesisId);
+			students.add(s);
+		}
+
+		return students;
 	}
 
 	@Override

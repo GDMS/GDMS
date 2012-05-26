@@ -137,40 +137,31 @@
 
 	<!-- Javascript -->
 	<script type="text/javascript">
-		$(document)
-				.ready(
-						function() {
-							$('#li-admin_thesis').addClass('active');
-							$(".collapse").collapse();
-							$("#majorResAll").click(
-									function() {
-										if ($(this).attr("checked")) {
-											$("input[name='majorRes']").each(
-													function() {
-														$(this).attr("checked",
-																true);
-													});
-										} else {
-											$("input[name='majorRes']").each(
-													function() {
-														$(this).attr("checked",
-																false);
-													});
-										}
+		$(document).ready(function() {
+			$('#li-admin_thesis').addClass('active');
+			$(".collapse").collapse();
+			$("#majorResAll").click(function() {
+						if ($(this).attr("checked")) {
+							$("input[name='majorRes']").each(function() {
+										$(this).attr("checked", true);
 									});
-							//显示tooltip
-							$("a[rel='tooltip']").tooltip();
-							//datatables
-							$('#table')
-									.dataTable(
-											{
-												"sDom" : "<'row'<'span5'l><'span5'f>r>t<'row'<'span5'i><'span5'p>>",
-												"sPaginationType" : "bootstrap",
-												"oLanguage" : {
-													"sUrl" : "${ctx}/static/datatables-1.9.1/zh_CN.txt"
-												}
-											});
-						});
+						} else {
+							$("input[name='majorRes']").each(function() {
+										$(this).attr("checked", false);
+									});
+						}
+					});
+			// 显示tooltip
+			$("a[rel='tooltip']").tooltip();
+			// datatables
+			$('#table').dataTable({
+						"sDom" : "<'row'<'span5'l><'span5'f>r>t<'row'<'span5'i><'span5'p>>",
+						"sPaginationType" : "bootstrap",
+						"oLanguage" : {
+							"sUrl" : "${ctx}/static/datatables-1.9.1/zh_CN.txt"
+						}
+					});
+		});
 	</script>
 </body>
 </html>

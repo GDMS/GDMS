@@ -1,6 +1,7 @@
 package im.lich.gdms.core.service.teacher;
 
 import im.lich.gdms.base.service.BaseService;
+import im.lich.gdms.core.model.student.Student;
 import im.lich.gdms.core.model.teacher.Thesis;
 import im.lich.gdms.core.util.AssignStatus;
 
@@ -39,6 +40,18 @@ public interface ThesisService extends BaseService {
 	 * @return
 	 */
 	public boolean isAssigned(String studentLoginName);
+
+	/**
+	 * 获取已分配课题
+	 * @return
+	 */
+	public List<Thesis> getAssignedThesis();
+
+	/**
+	 * 获取已分配课题学生
+	 * @return
+	 */
+	public List<Student> getAssignedThesisStudent();
 
 	/**
 	 * 分配课题
