@@ -259,6 +259,9 @@ public class TeacherServiceImpl extends BaseServiceImpl implements TeacherServic
 				dabianRecordDao.delete(db);
 		}
 
+		List<Preview> previews = previewDao.findByThesisId(thesisId);
+		previewDao.deleteInBatch(previews);
+
 		Thesis thesis = thesisDao.findOne(thesisId);
 		thesisDao.delete(thesis);
 		return thesis;

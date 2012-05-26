@@ -139,7 +139,7 @@
 								class="caret"></b></a>
 							<ul class="dropdown-menu">
 								<li><a href="${ctx}/admin/thesisManage">课题信息管理</a></li>
-								<li><a href="${ctx}/admin/thesisPreviewManage">学生预选信息管理</a></li>
+								<li><a href="${ctx}/admin/thesisPreview">学生预选信息管理</a></li>
 								<li><a href="${ctx}/admin/thesisAssignManage">学生课题分配信息管理</a></li>
 								<li><a href="${ctx}/admin/thesisAssignedManage">已分配信息管理</a></li>
 								<li><a href="${ctx}/admin/autoAssignOperate">自动分配操作</a></li>
