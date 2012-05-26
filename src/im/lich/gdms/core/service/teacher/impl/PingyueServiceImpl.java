@@ -10,6 +10,7 @@ import im.lich.gdms.core.model.teacher.Teacher;
 import im.lich.gdms.core.service.teacher.PingyueService;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -40,13 +41,20 @@ public class PingyueServiceImpl extends BaseServiceImpl implements PingyueServic
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public List<Student> getStudents(String teacherLoginName) {
 		List<Student> _students = Lists.newArrayList();
 		Teacher _t = teacherDao.findByLoginName(teacherLoginName);
 		List<PingyueRecord> _pys = pingyueRecordDao.findByTeacherId(_t.getId());
-		for (PingyueRecord _py : _pys) {
+		Iterator<PingyueRecord> it = _pys.iterator();
+		while (it.hasNext()) {
+			PingyueRecord _py = it.next();
 			Student _s = studentDao.findOne(_py.getStudentId());
-			_students.add(_s);
+			if (_s.getThesisId() == 0L) {
+				it.remove();
+			} else {
+				_students.add(_s);
+			}
 		}
 
 		Assert.isTrue(_pys.size() == _students.size());
