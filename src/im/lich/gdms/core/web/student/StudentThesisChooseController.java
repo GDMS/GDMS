@@ -28,6 +28,12 @@ public class StudentThesisChooseController extends BaseController {
 	@RequestMapping(value = { "" })
 	public String show(Model model) {
 		String studentLoginName = SecurityUtils.getSubject().getPrincipal().toString();
+
+		if (thesisService.isAssigned(studentLoginName)) {
+			model.addAttribute("warnMessage", "课题已经分配，无法使用课题预选功能");
+			return "redirect:/message";
+		}
+
 		List<Thesis> thesises = thesisService.getUnassignedAndUnchoosedThesises(studentLoginName);
 		model.addAttribute("thesises", thesises);
 
