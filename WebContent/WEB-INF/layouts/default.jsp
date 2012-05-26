@@ -33,7 +33,7 @@
 	<div class="container">
 		<div id="header" class="jumbotron masthead" style="margin-top: 20px; margin-bottom: 10px;">
 			<h1>毕业设计管理系统</h1>
-			<p>Graduate Design Manage System</p>
+			<p>Graduation Design Management System</p>
 		</div>
 
 		<div id="menu" class="row">
