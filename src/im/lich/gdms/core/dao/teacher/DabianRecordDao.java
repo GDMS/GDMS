@@ -9,5 +9,5 @@ public interface DabianRecordDao extends BaseDao<DabianRecord, Long> {
 
 	public List<DabianRecord> findByTeacherId(Long teacherId);
 
-	public DabianRecord findByStudentId(Long studnetId);
+	public DabianRecord findByStudentId(Long studentId);
 }

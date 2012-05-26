@@ -4,11 +4,15 @@ import im.lich.gdms.base.service.BaseServiceImpl;
 import im.lich.gdms.core.dao.admin.SysPropertyDao;
 import im.lich.gdms.core.dao.student.PreviewDao;
 import im.lich.gdms.core.dao.student.StudentDao;
+import im.lich.gdms.core.dao.teacher.DabianRecordDao;
+import im.lich.gdms.core.dao.teacher.PingyueRecordDao;
 import im.lich.gdms.core.dao.teacher.TeacherDao;
 import im.lich.gdms.core.dao.teacher.ThesisDao;
 import im.lich.gdms.core.model.admin.SysProperty;
 import im.lich.gdms.core.model.student.Preview;
 import im.lich.gdms.core.model.student.Student;
+import im.lich.gdms.core.model.teacher.DabianRecord;
+import im.lich.gdms.core.model.teacher.PingyueRecord;
 import im.lich.gdms.core.model.teacher.Teacher;
 import im.lich.gdms.core.model.teacher.Thesis;
 import im.lich.gdms.core.service.teacher.TeacherService;
@@ -41,6 +45,12 @@ public class TeacherServiceImpl extends BaseServiceImpl implements TeacherServic
 
 	@Resource
 	private PreviewDao previewDao;
+
+	@Resource
+	private PingyueRecordDao pingyueRecordDao;
+
+	@Resource
+	private DabianRecordDao dabianRecordDao;
 
 	@Resource
 	private SysPropertyDao sysPropertyDao;
@@ -217,6 +227,8 @@ public class TeacherServiceImpl extends BaseServiceImpl implements TeacherServic
 	@Override
 	@Transactional(readOnly = false)
 	public Thesis saveTeacherThesis(Thesis thesis, String teacherLoginName) {
+		if (teacherDao.findByLoginName(teacherLoginName) == null)
+			return null;
 		//处理专业限制字符串
 		List<String> majors = thesis.getMajorRes();
 		String majorRestrict = StringUtils.join(majors, ',');
@@ -235,9 +247,17 @@ public class TeacherServiceImpl extends BaseServiceImpl implements TeacherServic
 	public Thesis delTeacherThesis(Long thesisId) {
 		//删除学生指向的课题
 		Student student = studentDao.findByThesisId(thesisId);
-		student.setThesisId(0L);
+		if (student != null) {
+			student.setThesisId(0L);
 
-		//TODO 完成从dabianRecord和pingyueRecord中同步删除
+			Long studentId = student.getId();
+			PingyueRecord py = pingyueRecordDao.findByStudentId(studentId);
+			if (py != null)
+				pingyueRecordDao.delete(py);
+			DabianRecord db = dabianRecordDao.findByStudentId(studentId);
+			if (db != null)
+				dabianRecordDao.delete(db);
+		}
 
 		Thesis thesis = thesisDao.findOne(thesisId);
 		thesisDao.delete(thesis);

@@ -9,6 +9,6 @@ public interface PingyueRecordDao extends BaseDao<PingyueRecord, Long> {
 
 	public List<PingyueRecord> findByTeacherId(Long teacherId);
 
-	public PingyueRecord findByStudentId(Long studnetId);
+	public PingyueRecord findByStudentId(Long studentId);
 
 }
