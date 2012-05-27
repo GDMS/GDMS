@@ -159,6 +159,12 @@ public interface StudentService extends BaseService {
 	 * @return List<Student>
 	 */
 	public List<Student> getStudents();
+	
+	/**
+	 * 获取已经分配课题的学生列表
+	 * @return List<Student>
+	 */
+	public List<Student> getStudentsWithThesisAssigned();
 
 	/**
 	 * 添加或更新学生信息

@@ -17,6 +17,7 @@ import im.lich.gdms.core.util.Message;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -429,6 +430,19 @@ public class StudentServiceImpl extends BaseServiceImpl implements StudentServic
 		List<Student> students = Lists.newArrayList(studentDao.findAll());
 
 		logger.debug("获取Student数量：{}", students.size());
+		return students;
+	}
+
+	@Override
+	public List<Student> getStudentsWithThesisAssigned() {
+		List<Student> students = getStudents();
+		Iterator<Student> it = students.iterator();
+		while (it.hasNext()) {
+			Student s = it.next();
+			if (s.getThesisId() == 0L)
+				it.remove();
+		}
+
 		return students;
 	}
 

@@ -150,7 +150,7 @@
 							<ul class="dropdown-menu">
 								<li><a href="${ctx}/admin/dbOperate">数据库操作</a></li>
 								<li><a href="${ctx}/admin/viewSelect">查看视图</a></li>
-								<li><a href="${ctx}/admin/printManage!adminuse">打印管理</a></li>
+								<li><a href="${ctx}/admin/printManage">打印管理</a></li>
 								<li><a href="${ctx}/admin/adminPropertyQuery">后台属性管理</a></li>
 							</ul></li>
 					</shiro:hasRole>
