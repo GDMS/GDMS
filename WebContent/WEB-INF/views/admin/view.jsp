@@ -31,7 +31,7 @@
 	<div class="row">
 		<div class="span10 offset1">
 			<p>&nbsp;</p>
-			<h2 style="text-align: center;">查看课题分配情况</h2>
+			<h2 style="text-align: center;">查看低于1.7绩点的学生课题分配情况</h2>
 
 			<table id="table" class="table table-bordered">
 				<thead>
@@ -58,48 +58,11 @@
 	</div>
 	<!-- /row -->
 
-	<div class="row">
-		<div class="span10 offset1">
-			<p>&nbsp;</p>
-			<h3 style="text-align: center;">查看未分配课题</h3>
-
-			<table id="table2" class="table table-bordered">
-				<thead>
-					<tr>
-						<th style="vertical-align: middle;">课题名称</th>
-						<th style="vertical-align: middle;">教师名称</th>
-						<th style="vertical-align: middle;" width="100px">操作</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach items="${unassignedThesises}" var="thesis" varStatus="st">
-						<tr>
-							<td>${thesis.name}</td>
-							<td>${thesis.teacher.name}</td>
-							<td><c:if test="${!isOverMaxAssign}">
-									<a href="${ctx}/admin/thesisPreview" class="btn btn-primary btn-mini">分配此课题</a>
-								</c:if></td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-		</div>
-		<!-- /span8 offset2 -->
-	</div>
-	<!-- /row -->
-
 	<!-- Javascript -->
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$('#li-admin_thesis').addClass('active');
+			$('#li-admin_system').addClass('active');
 			$('#table').dataTable({
-						"sDom" : "<'row'<'span5'l><'span5'f>r>t<'row'<'span5'i><'span5'p>>",
-						"sPaginationType" : "bootstrap",
-						"oLanguage" : {
-							"sUrl" : "${ctx}/static/datatables-1.9.1/zh_CN.txt"
-						}
-					});
-			$('#table2').dataTable({
 						"sDom" : "<'row'<'span5'l><'span5'f>r>t<'row'<'span5'i><'span5'p>>",
 						"sPaginationType" : "bootstrap",
 						"oLanguage" : {
