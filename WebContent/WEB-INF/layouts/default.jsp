@@ -142,7 +142,7 @@
 								<li><a href="${ctx}/admin/thesisPreview">学生预选信息管理</a></li>
 								<li><a href="${ctx}/admin/thesisAssign">课题分配信息管理</a></li>
 								<li><a href="${ctx}/admin/studentAssign">学生分配信息管理</a></li>
-								<li><a href="${ctx}/admin/autoAssignOperate">自动分配操作</a></li>
+								<li><a href="${ctx}/admin/autoAssign">自动分配操作</a></li>
 							</ul></li>
 
 						<li id="li-admin_system" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">系统管理<b

@@ -2,6 +2,7 @@ package im.lich.gdms.core.service.admin;
 
 import im.lich.gdms.base.service.BaseService;
 import im.lich.gdms.core.model.admin.Admin;
+import im.lich.gdms.core.util.Message;
 
 import java.util.List;
 
@@ -33,4 +34,11 @@ public interface AdminService extends BaseService {
 	 * @return News
 	 */
 	public Admin delAdministrator(Long administratorId);
+
+	/**
+	 * 进行自动分配
+	 * @param message
+	 * @return boolean
+	 */
+	public boolean autoAssign(Message message);
 }
